@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		50122DC05EA6BE8B2C84D3E2 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C244774540907ADC2E89DBF /* libPods.a */; };
+		9F0671E61A2716AA0077F66B /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F0671E51A2716AA0077F66B /* Utilities.m */; };
 		CE3E23431A233CDF00008D27 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3E23421A233CDF00008D27 /* main.m */; };
 		CE3E23461A233CDF00008D27 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3E23451A233CDF00008D27 /* AppDelegate.m */; };
 		CE3E234F1A233CDF00008D27 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE3E234D1A233CDF00008D27 /* Main.storyboard */; };
@@ -44,6 +45,8 @@
 		7C244774540907ADC2E89DBF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F0671D71A26CAC80077F66B /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		9F0671D81A26CB7F0077F66B /* 9HugMoment-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "9HugMoment-Prefix.pch"; sourceTree = "<group>"; };
+		9F0671E41A2716AA0077F66B /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
+		9F0671E51A2716AA0077F66B /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		BB3A3466C572B500BEC3D793 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		CE3E233D1A233CDF00008D27 /* 9HugMoment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 9HugMoment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE3E23411A233CDF00008D27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -99,6 +102,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9F0671E31A2716AA0077F66B /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				9F0671E41A2716AA0077F66B /* Utilities.h */,
+				9F0671E51A2716AA0077F66B /* Utilities.m */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		B2DF2177E94B99CDF181F68C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -176,6 +188,7 @@
 		CECCB7811A2344D300C1220C /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				9F0671E31A2716AA0077F66B /* Utilities */,
 				CECCB7821A2344D300C1220C /* Models */,
 				CECCB7831A2344D300C1220C /* Screens */,
 				CECCB7841A2344D300C1220C /* Services */,
@@ -384,6 +397,7 @@
 				CECCB7971A23472E00C1220C /* CaptureVideoViewController.m in Sources */,
 				CE3E23461A233CDF00008D27 /* AppDelegate.m in Sources */,
 				CECCB79D1A23476B00C1220C /* RecentMomentsViewController.m in Sources */,
+				9F0671E61A2716AA0077F66B /* Utilities.m in Sources */,
 				CE3E23431A233CDF00008D27 /* main.m in Sources */,
 				CECCB7941A23472600C1220C /* MixVideoViewController.m in Sources */,
 				CECCB78B1A23460800C1220C /* FBConnectViewController.m in Sources */,
@@ -529,10 +543,12 @@
 			baseConfigurationReference = 09E7E7659CA4BCEEA9396327 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Tran Vu Viet Anh (BU79S2D2W2)";
 				GCC_PREFIX_HEADER = "9HugMoment/9HugMoment-Prefix.pch";
 				INFOPLIST_FILE = 9HugMoment/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "c2cebeee-961f-46e9-8310-836e454acdb3";
 			};
 			name = Debug;
 		};
@@ -541,10 +557,12 @@
 			baseConfigurationReference = BB3A3466C572B500BEC3D793 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Tran Vu Viet Anh (BU79S2D2W2)";
 				GCC_PREFIX_HEADER = "9HugMoment/9HugMoment-Prefix.pch";
 				INFOPLIST_FILE = 9HugMoment/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "c2cebeee-961f-46e9-8310-836e454acdb3";
 			};
 			name = Release;
 		};
