@@ -19,43 +19,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    [self initNavigationView];
     [self createUI];
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button addTarget:self action:@selector(facebookButton:) forControlEvents:UIControlEventTouchUpInside];
-    [button setBackgroundImage:[UIImage imageNamed:@"facebook"] forState:UIControlStateNormal];
-    button.frame = CGRectMake(2 ,2,28,28);
-    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-    
-    UIButton *button2 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button2 addTarget:self action:@selector(twitterButton:) forControlEvents:UIControlEventTouchUpInside];
-    [button2 setBackgroundImage:[UIImage imageNamed:@"twitter"] forState:UIControlStateNormal];
-    button2.frame = CGRectMake(2 ,2,28,28);
-    UIBarButtonItem *barButton2 = [[UIBarButtonItem alloc] initWithCustomView:button2];
-    
-    UIButton *button3 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button3 addTarget:self action:@selector(googleplusButton:) forControlEvents:UIControlEventTouchUpInside];
-    [button3 setBackgroundImage:[UIImage imageNamed:@"google_plus"] forState:UIControlStateNormal];
-    button3.frame = CGRectMake(2 ,2,28,28);
-    UIBarButtonItem *barButton3 = [[UIBarButtonItem alloc] initWithCustomView:button3];
-    
-    self.navigationItem.rightBarButtonItems = @[barButton3,barButton2,barButton];
-    
-    NSString *titleButton = @"New Moment";
-    UIButton* buttonBack2 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [buttonBack2 setFrame:CGRectMake(0 ,2,90,20)];
-    [buttonBack2 setTitle:titleButton forState:UIControlStateNormal];
-    buttonBack2.titleLabel.font = [UIFont boldSystemFontOfSize:13];
-    [buttonBack2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    UIBarButtonItem *btnback2 = [[UIBarButtonItem alloc]initWithCustomView:buttonBack2];
-    
-    UIButton* buttonBack = [UIButton buttonWithType:UIButtonTypeCustom];
-    [buttonBack setFrame:CGRectMake(2 ,2,30,30)];
-    [buttonBack addTarget:self action:@selector(backButtonInCapture:) forControlEvents:UIControlEventTouchUpInside];
-    [buttonBack setImage:[UIImage imageNamed:@"back_icon_grey"] forState:UIControlStateNormal];
-    UIBarButtonItem *btnback = [[UIBarButtonItem alloc]initWithCustomView:buttonBack];
-    
-    self.navigationItem.leftBarButtonItems = @[btnback, btnback2];
+    [self.navigationCustomView addSubview:navigationView];
     
     // preview and AV layer
     _previewView.backgroundColor = [UIColor blackColor];
@@ -79,8 +45,11 @@
     [super viewWillAppear:animated];
     _imgIndex = 0;
     _imvFrame.image = nil;
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
     _imvCapture.userInteractionEnabled = YES;
+    navigationView.titleNvgLabel.text = @"New Moment";
+//    self.doneCaptureButton.enabled = NO;
+    self.touchMixVideoButton.enabled = NO;
 //    [APP_DELEGATE.tabbar hideMe];
     _count = 12;
     _timeLabel.text = [NSString stringWithFormat:@"00:%ld",(long)_count];
@@ -104,6 +73,29 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+#pragma mark - Navigation Custom View
+
+- (void)initNavigationView {
+    navigationView = [[NavigationView alloc]initWithFrame:CGRectZero];
+    navigationView.delegate = self;
+}
+
+- (void)backNvgAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)facebookNvgAction {
+    
+}
+
+- (void)twitterNvgAction {
+    
+}
+
+- (void)ggPlusNvgAction {
+    
 }
 
 #pragma mark - Control
@@ -293,7 +285,8 @@
         frameCursorImageView.origin.x = 320;
     }
     if (frameCursorImageView.origin.x>PointX) {
-        _doneCaptureButton.enabled = YES;
+//        _doneCaptureButton.enabled = YES;
+        self.touchMixVideoButton.enabled = YES;
 //        [_doneCaptureButton setBackgroundImage:[UIImage imageNamed:@"btn_ok_big_manual_code"] forState:UIControlStateNormal];
     }
     [_cursorImageView setFrame:frameCursorImageView];
@@ -457,7 +450,8 @@
 }
 
 - (void)_resetCapture{
-    _doneCaptureButton.enabled = NO;
+//    _doneCaptureButton.enabled = NO;
+    self.touchMixVideoButton.enabled = NO;
 //    [_doneCaptureButton setBackgroundImage:[UIImage imageNamed:@"btn_ok_big_manual_disable.png"] forState:UIControlStateNormal];
     if ([PBJVision sharedInstance].isRecording) {
         [[PBJVision sharedInstance] cancelVideoCapture];

@@ -12,10 +12,10 @@
 
 #import "PBJVision.h"
 #import "PBJVisionUtilities.h"
-
+#import "NavigationView.h"
 #import <GLKit/GLKit.h>
 
-@interface CaptureVideoViewController : UIViewController<PBJVisionDelegate,UIAlertViewDelegate>{
+@interface CaptureVideoViewController : UIViewController<PBJVisionDelegate,UIAlertViewDelegate,NavigationCustomViewDelegate>{
     NSArray * changeFrameButtons;
     int _currentFrame;
     BOOL _isRecording;
@@ -26,6 +26,7 @@
     UIImageView *_cursorImageView;
     UIView *_viewCurrentProgress;
     NSMutableArray *_arrayViewSpeacators;
+    NavigationView *navigationView;
 }
 
 - (void)showAlertResumVideo;
@@ -37,6 +38,8 @@
 @property(nonatomic,strong) NSTimer* timerCursor;
 @property(nonatomic,strong) NSString* capturePath;
 
+@property (weak, nonatomic) IBOutlet UIView *navigationCustomView;
+@property (weak, nonatomic) IBOutlet UIButton *touchMixVideoButton;
 @property (weak, nonatomic) IBOutlet UIScrollView *selectFrameScrollView;
 @property (weak, nonatomic) IBOutlet UIView *previewView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
@@ -48,5 +51,6 @@
 @property (weak, nonatomic) IBOutlet UIView *recordPercent;
 @property (weak, nonatomic) IBOutlet UIImageView *imvAnimationFrame;
 @property (weak, nonatomic) IBOutlet UILabel *lblTutorial;
+@property (weak, nonatomic) IBOutlet UIButton *touchDoneCapture;
 
 @end
