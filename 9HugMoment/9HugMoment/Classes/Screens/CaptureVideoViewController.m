@@ -112,20 +112,20 @@
     NSLog(@"%s,%d,%@",__PRETTY_FUNCTION__,_imgIndex,[frameNames objectAtIndex:_imgIndex]);
     int direction = (yesOrNo)?1.0:-1.0;
     _imvAnimationFrame.hidden = NO;
-    [_imvAnimationFrame setFrame:CGRectMake(direction*320.0, 0.0, 320.0, 320.0)];
+    [_imvAnimationFrame setFrame:CGRectMake(direction*320.0, 44, 320.0, 320.0)];
     _imvAnimationFrame.image = [UIImage imageNamed:[frameNames objectAtIndex:_imgIndex]];
     [UIView animateWithDuration:0.33f
                           delay:0.0f
                         options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction
                      animations:^{
-                         [_imvFrame setFrame:CGRectMake(direction*-320, 0.0, 320, 320)];
-                         [_imvAnimationFrame setFrame:CGRectMake(0.0, 0.0, 320.0, 320.0)];
+                         [_imvFrame setFrame:CGRectMake(direction*-320, 44, 320, 320)];
+                         [_imvAnimationFrame setFrame:CGRectMake(0.0, 44, 320.0, 320.0)];
                          
                      }
                      completion:^(BOOL finished){
                          dispatch_async(dispatch_get_main_queue(), ^{
                              _imvFrame.image = _imvAnimationFrame.image;
-                             [_imvFrame setFrame:CGRectMake(0, 0.0, 320, 320)];
+                             [_imvFrame setFrame:CGRectMake(0, 44, 320, 320)];
                              _imvAnimationFrame.hidden = YES;
                          });
                      }];
