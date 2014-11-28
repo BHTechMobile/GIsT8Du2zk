@@ -15,6 +15,13 @@
 		9F9F98291A28266B0089018B /* UIAlertView+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F98281A28266B0089018B /* UIAlertView+Helpers.m */; };
 		9F9F982D1A2829F40089018B /* MixEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F982C1A2829F40089018B /* MixEngine.m */; };
 		9F9F98301A282A640089018B /* NSString+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F982F1A282A640089018B /* NSString+Helpers.m */; };
+		9F9F98411A286D640089018B /* AudioRangerSelectorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F98391A286D640089018B /* AudioRangerSelectorView.m */; };
+		9F9F98421A286D640089018B /* AudioRangerSelectorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F9F983A1A286D640089018B /* AudioRangerSelectorView.xib */; };
+		9F9F98431A286D640089018B /* PlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F983C1A286D640089018B /* PlayerView.m */; };
+		9F9F98441A286D640089018B /* PlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F9F983D1A286D640089018B /* PlayerView.xib */; };
+		9F9F98451A286D640089018B /* VolumeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F983F1A286D640089018B /* VolumeView.m */; };
+		9F9F98461A286D640089018B /* VolumeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F9F98401A286D640089018B /* VolumeView.xib */; };
+		9F9F98491A286E180089018B /* UIView+AutoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F98481A286E180089018B /* UIView+AutoLayout.m */; };
 		9FB03B291A27905C00370885 /* NavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FB03B281A27905C00370885 /* NavigationView.m */; };
 		9FB03B2B1A27909400370885 /* NavigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FB03B2A1A27909400370885 /* NavigationView.xib */; };
 		CE3E23431A233CDF00008D27 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3E23421A233CDF00008D27 /* main.m */; };
@@ -66,6 +73,17 @@
 		9F9F982C1A2829F40089018B /* MixEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixEngine.m; sourceTree = "<group>"; };
 		9F9F982E1A282A640089018B /* NSString+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Helpers.h"; sourceTree = "<group>"; };
 		9F9F982F1A282A640089018B /* NSString+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Helpers.m"; sourceTree = "<group>"; };
+		9F9F98381A286D640089018B /* AudioRangerSelectorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioRangerSelectorView.h; sourceTree = "<group>"; };
+		9F9F98391A286D640089018B /* AudioRangerSelectorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioRangerSelectorView.m; sourceTree = "<group>"; };
+		9F9F983A1A286D640089018B /* AudioRangerSelectorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AudioRangerSelectorView.xib; sourceTree = "<group>"; };
+		9F9F983B1A286D640089018B /* PlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerView.h; sourceTree = "<group>"; };
+		9F9F983C1A286D640089018B /* PlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerView.m; sourceTree = "<group>"; };
+		9F9F983D1A286D640089018B /* PlayerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerView.xib; sourceTree = "<group>"; };
+		9F9F983E1A286D640089018B /* VolumeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VolumeView.h; sourceTree = "<group>"; };
+		9F9F983F1A286D640089018B /* VolumeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VolumeView.m; sourceTree = "<group>"; };
+		9F9F98401A286D640089018B /* VolumeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VolumeView.xib; sourceTree = "<group>"; };
+		9F9F98471A286E180089018B /* UIView+AutoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+AutoLayout.h"; sourceTree = "<group>"; };
+		9F9F98481A286E180089018B /* UIView+AutoLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+AutoLayout.m"; sourceTree = "<group>"; };
 		9FB03B271A27905C00370885 /* NavigationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationView.h; sourceTree = "<group>"; };
 		9FB03B281A27905C00370885 /* NavigationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationView.m; sourceTree = "<group>"; };
 		9FB03B2A1A27909400370885 /* NavigationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavigationView.xib; sourceTree = "<group>"; };
@@ -154,6 +172,8 @@
 		9F9F98231A2825DB0089018B /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				9F9F98471A286E180089018B /* UIView+AutoLayout.h */,
+				9F9F98481A286E180089018B /* UIView+AutoLayout.m */,
 				9F9F982E1A282A640089018B /* NSString+Helpers.h */,
 				9F9F982F1A282A640089018B /* NSString+Helpers.m */,
 				9F9F98271A28266B0089018B /* UIAlertView+Helpers.h */,
@@ -173,9 +193,26 @@
 			path = MyStructure;
 			sourceTree = "<group>";
 		};
+		9F9F98371A286D640089018B /* Custom View */ = {
+			isa = PBXGroup;
+			children = (
+				9F9F98381A286D640089018B /* AudioRangerSelectorView.h */,
+				9F9F98391A286D640089018B /* AudioRangerSelectorView.m */,
+				9F9F983A1A286D640089018B /* AudioRangerSelectorView.xib */,
+				9F9F983B1A286D640089018B /* PlayerView.h */,
+				9F9F983C1A286D640089018B /* PlayerView.m */,
+				9F9F983D1A286D640089018B /* PlayerView.xib */,
+				9F9F983E1A286D640089018B /* VolumeView.h */,
+				9F9F983F1A286D640089018B /* VolumeView.m */,
+				9F9F98401A286D640089018B /* VolumeView.xib */,
+			);
+			path = "Custom View";
+			sourceTree = "<group>";
+		};
 		9FB03B201A27902F00370885 /* Third Parties */ = {
 			isa = PBXGroup;
 			children = (
+				9F9F98371A286D640089018B /* Custom View */,
 				9F9F982A1A2829F40089018B /* MyStructure */,
 				9FB03B211A27902F00370885 /* Navigation View */,
 			);
@@ -412,13 +449,16 @@
 			files = (
 				CE3E234F1A233CDF00008D27 /* Main.storyboard in Resources */,
 				CECCB7881A2344FC00C1220C /* Trending.storyboard in Resources */,
+				9F9F98461A286D640089018B /* VolumeView.xib in Resources */,
 				CE3E23541A233CE000008D27 /* LaunchScreen.xib in Resources */,
 				CECCB7AD1A23482600C1220C /* MyMoments.storyboard in Resources */,
 				9F9F98221A2820200089018B /* VideoFilterActionView.xib in Resources */,
 				CE3E23511A233CE000008D27 /* Images.xcassets in Resources */,
 				CECCB7AB1A23481D00C1220C /* FromFriends.storyboard in Resources */,
 				CECCB7A91A23481400C1220C /* Recent.storyboard in Resources */,
+				9F9F98421A286D640089018B /* AudioRangerSelectorView.xib in Resources */,
 				9FB03B2B1A27909400370885 /* NavigationView.xib in Resources */,
+				9F9F98441A286D640089018B /* PlayerView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,13 +510,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				CECCB7A01A23477D00C1220C /* FriendMomentsViewController.m in Sources */,
+				9F9F98431A286D640089018B /* PlayerView.m in Sources */,
 				CECCB78E1A23470900C1220C /* MomentsViewController.m in Sources */,
 				CECCB7A61A2347B200C1220C /* MixAudioViewController.m in Sources */,
 				CECCB7971A23472E00C1220C /* CaptureVideoViewController.m in Sources */,
 				CE3E23461A233CDF00008D27 /* AppDelegate.m in Sources */,
 				CECCB79D1A23476B00C1220C /* RecentMomentsViewController.m in Sources */,
 				9F0671E61A2716AA0077F66B /* Utilities.m in Sources */,
+				9F9F98451A286D640089018B /* VolumeView.m in Sources */,
 				9F9F98211A2820200089018B /* VideoFilterActionView.m in Sources */,
+				9F9F98491A286E180089018B /* UIView+AutoLayout.m in Sources */,
 				CE3E23431A233CDF00008D27 /* main.m in Sources */,
 				9FB03B291A27905C00370885 /* NavigationView.m in Sources */,
 				9F9F98261A2825DB0089018B /* UIView+Utils.m in Sources */,
@@ -485,6 +528,7 @@
 				CECCB78B1A23460800C1220C /* FBConnectViewController.m in Sources */,
 				CECCB7A31A23478C00C1220C /* MyMomentsViewController.m in Sources */,
 				CECCB79A1A23474A00C1220C /* MomentDetailViewController.m in Sources */,
+				9F9F98411A286D640089018B /* AudioRangerSelectorView.m in Sources */,
 				9F9F98291A28266B0089018B /* UIAlertView+Helpers.m in Sources */,
 				9F9F98301A282A640089018B /* NSString+Helpers.m in Sources */,
 			);
