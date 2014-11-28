@@ -11,9 +11,7 @@
 - (id)initWithFrame:(CGRect)frame
 {
     self = [[[NSBundle mainBundle] loadNibNamed:[[self class] description] owner:self options:nil] objectAtIndex:0];
-    CGFloat widthProfileView = [[UIScreen mainScreen] bounds].size.width;
-    CGRect profileViewFrame = CGRectMake(0, 0, widthProfileView, NAVIGATION_BAR_CUSTOM_DEFAULT_HEIGHT);
-    self.frame = profileViewFrame;
+    
     [self initStyle];
     return self;
 }

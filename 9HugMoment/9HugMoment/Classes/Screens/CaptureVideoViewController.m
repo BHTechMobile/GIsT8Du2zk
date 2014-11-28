@@ -22,7 +22,6 @@
     [self initNavigationView];
     [self createUI];
     [self.navigationCustomView addSubview:navigationView];
-    
     // preview and AV layer
     _previewView.backgroundColor = [UIColor blackColor];
     CGRect previewFrame = CGRectMake(0, 60.0f, CGRectGetWidth(self.view.frame), CGRectGetWidth(self.view.frame));
@@ -80,6 +79,8 @@
 - (void)initNavigationView {
     navigationView = [[NavigationView alloc]initWithFrame:CGRectZero];
     navigationView.delegate = self;
+    CGRect navigationViewFrame = CGRectMake(0, 0, self.navigationCustomView.frame.size.width, self.navigationCustomView.frame.size.height);
+    navigationView.frame = navigationViewFrame;
 }
 
 - (void)backNvgAction {
