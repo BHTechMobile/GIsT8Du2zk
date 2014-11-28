@@ -13,7 +13,9 @@
 
 @end
 
-@implementation CaptureVideoViewController
+@implementation CaptureVideoViewController{
+    MixVideoViewController *mixVideoViewController;
+}
 
 #pragma mark - Head Controls
 
@@ -159,7 +161,7 @@
                            [Utilities squareButtonWithSize:48 background:[UIImage imageNamed:[frameNames objectAtIndex:7]] text:nil target:self selector:@selector(changeFrame:) tag:7 isTypeFrame:YES]
                            ];
     
-//    _selectFrameScrollView.contentSize = CGSizeMake(changeFrameButtons.count*66, _selectFrameScrollView.size.height);
+    _selectFrameScrollView.contentSize = CGSizeMake(changeFrameButtons.count*66, _selectFrameScrollView.size.height);
     _selectFrameScrollView.scrollEnabled = YES;
     for (int i = 0;i<changeFrameButtons.count;i++) {
         
@@ -169,7 +171,7 @@
             button.layer.borderColor = [UIColor colorWithRed:69/255.0 green:187/255.0 blue:255/255.0 alpha:1.0].CGColor;
             
         }
-//        button.center = CGPointMake(4+button.size.width/2 + i*(button.size.width+8), _selectFrameScrollView.size.height/2);
+        button.center = CGPointMake(4+button.size.width/2 + i*(button.size.width+8), _selectFrameScrollView.size.height/2);
         [_selectFrameScrollView addSubview:button];
     }
 }
@@ -399,14 +401,29 @@
 
 -(void)showMixScreen{
     [[PBJVision sharedInstance] stopPreview];
-//    MixVideoViewController *mixVC = [[MixVideoViewController alloc] initWithNibName:nil bundle:nil];
-//    mixVC.capturePath = [NSURL fileURLWithPath:_capturePath];
+    MixVideoViewController *mixVC = [[MixVideoViewController alloc] initWithNibName:nil bundle:nil];
+    mixVC.capturePath = [NSURL fileURLWithPath:_capturePath];
 //    [self.navigationController pushViewController:mixVC animated:YES];
-//    mixVC.imgFrame = _imvFrame.image;
-//    mixVC.indexFrame = _imgIndex;
-//    mixVC.mKey = _mKey;
-//    mixVC.duration = (_startCount*1.0)/100.0f;
+    mixVC.imgFrame = _imvFrame.image;
+    mixVC.indexFrame = _imgIndex;
+    mixVC.mKey = _mKey;
+    mixVC.duration = (_startCount*1.0)/100.0f;
+    
+    [self performSegueWithIdentifier:@"pushMixVideoViewController" sender:nil];
 }
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"pushMixVideoViewController"]) {
+        mixVideoViewController = [segue destinationViewController];
+        mixVideoViewController.capturePath = [NSURL fileURLWithPath:_capturePath];
+        //    [self.navigationController pushViewController:mixVC animated:YES];
+        mixVideoViewController.imgFrame = _imvFrame.image;
+        mixVideoViewController.indexFrame = _imgIndex;
+        mixVideoViewController.mKey = _mKey;
+        mixVideoViewController.duration = (_startCount*1.0)/100.0f;
+    }
+}
+
 
 #pragma mark - Swipt Button
 

@@ -16,9 +16,25 @@
 #import <MBProgressHUD.h>
 #import <QuartzCore/QuartzCore.h>
 #import <UIKit/UIKit.h>
+#import <GPUImage.h>
+
+#import <AVFoundation/AVFoundation.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+#import <MediaPlayer/MediaPlayer.h>
+#import <AudioToolbox/AudioToolbox.h>
 
 #define APP_DELEGATE ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 #define APP_SCREEN_HEIGHT [[UIScreen mainScreen] applicationFrame].size.height
+
+/*Categories*/
+#import "UIView+Utils.h"
+#import "UIAlertView+Helpers.h"
+#import "MixEngine.h"
+#import "NSString+Helpers.h"
+
+/*MixVideoViewController*/
+
+#define BG_COLOR_PROCESS_MIX_VIDEO [UIColor colorWithRed:224.0/255.0 green:100.0/255.0 blue:176.0/255.0 alpha:1.0]
 
 /*CaptureVideoViewController*/
 
