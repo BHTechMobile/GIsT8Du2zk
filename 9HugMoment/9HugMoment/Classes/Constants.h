@@ -39,6 +39,18 @@
 #define APP_DELEGATE ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 #define APP_SCREEN_HEIGHT [[UIScreen mainScreen] applicationFrame].size.height
 
+#define IS_IPHONE (([[[UIDevice currentDevice] model] rangeOfString:@"iPhone"].location ==  NSNotFound)?FALSE:TRUE)
+#define IS_HEIGHT_GTE_480 (([[UIScreen mainScreen ] bounds].size.height < 568)?TRUE:FALSE)
+#define IS_IPHONE_4 (IS_IPHONE && IS_HEIGHT_GTE_480)
+//320
+#define IS_HEIGHT_GTE_568 (([[UIScreen mainScreen ] bounds].size.height >= 500)?TRUE:FALSE)
+#define IS_IPHONE_5 (IS_IPHONE && IS_HEIGHT_GTE_568)
+//375
+#define IS_HEIGHT_GTE_667 (([[UIScreen mainScreen ] bounds].size.height >= 600)?TRUE:FALSE)
+#define IS_IPHONE_6 (IS_IPHONE && IS_HEIGHT_GTE_667)
+//414
+#define IS_HEIGHT_GTE_736 (([[UIScreen mainScreen ] bounds].size.height >= 700)?TRUE:FALSE)
+#define IS_IPHONE_6_PLUS (IS_IPHONE && IS_HEIGHT_GTE_736)
 /*Categories*/
 #import "UIView+Utils.h"
 #import "UIAlertView+Helpers.h"

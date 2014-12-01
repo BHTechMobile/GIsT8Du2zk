@@ -29,13 +29,15 @@
     [self playVideoWithFilter:@"GPUImageFilter"];
     [self createUI];
     imageChoose = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 60, 60)];
-    imageChoose.image = [UIImage imageNamed:@"GPUImageChangeClick"];
+    imageChoose.image = [UIImage imageNamed:@"play-icon"];
+    [self hightConstraint];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     _navigationView.titleNvgLabel.text = @"Mixing Video";
     NSLog(@"_MKEYYYYYY %@",_mKey);
+    [self hightConstraint];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,6 +51,20 @@
         // Custom initialization
     }
     return self;
+}
+
+#pragma mark - NSLayoutConstraint
+
+- (void)hightConstraint{
+    if (IS_IPHONE_4) {
+        _hightImageViewOffsetConstraint.constant = 280;
+    }else if (IS_IPHONE_5){
+        _hightImageViewOffsetConstraint.constant = 320;
+    }else if (IS_IPHONE_6){
+        _hightImageViewOffsetConstraint.constant = 375;
+    }else if (IS_IPHONE_6_PLUS){
+        _hightImageViewOffsetConstraint.constant = 414;
+    }
 }
 
 #pragma mark - Navigation Custom View

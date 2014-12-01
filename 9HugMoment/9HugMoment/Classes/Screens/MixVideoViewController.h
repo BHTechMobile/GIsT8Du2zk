@@ -23,6 +23,8 @@
     NavigationView *_navigationView;
 }
 
+@property (retain, nonatomic) IBOutlet NSLayoutConstraint *hightImageViewOffsetConstraint;
+
 - (IBAction)publicVideoButtonAction:(id)sender;
 @property (nonatomic, strong) NSString *tokenAuto;
 @property (nonatomic, strong) NSString *mKey;
