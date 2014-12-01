@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FacebookSDK/FacebookSDK.h>
+#import <FacebookSDK/FBSession.h>
+#import "UserData.h"
 
-@interface FBConnectViewController : UIViewController
+@interface FBConnectViewController : UIViewController<FBLoginViewDelegate,UITextFieldDelegate,UIAlertViewDelegate>
+- (IBAction)touchLoginFaceBook:(id)sender;
+@property (weak, nonatomic) IBOutlet UIImageView *imageChange;
 
 @end
