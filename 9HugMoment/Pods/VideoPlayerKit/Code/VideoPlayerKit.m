@@ -130,18 +130,30 @@ NSString * const kTrackEventVideoComplete = @"Video Complete";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
     _currentVideoInfo = [[NSDictionary alloc] init];
     
     [_videoPlayerView.playPauseButton addTarget:self action:@selector(playPauseHandler) forControlEvents:UIControlEventTouchUpInside];
     
     [_videoPlayerView.fullScreenButton addTarget:self action:@selector(fullScreenButtonHandler) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.videoPlayerView.shareButton addTarget:self action:@selector(shareButtonHandler) forControlEvents:UIControlEventTouchUpInside];
+    [_videoPlayerView.shareButton addTarget:self action:@selector(shareButtonHandler) forControlEvents:UIControlEventTouchUpInside];
     
     [_videoPlayerView.videoScrubber addTarget:self action:@selector(scrubbingDidBegin) forControlEvents:UIControlEventTouchDown];
     [_videoPlayerView.videoScrubber addTarget:self action:@selector(scrubberIsScrolling) forControlEvents:UIControlEventValueChanged];
     [_videoPlayerView.videoScrubber addTarget:self action:@selector(scrubbingDidEnd) forControlEvents:(UIControlEventTouchUpInside | UIControlEventTouchCancel)];
+    
+    _videoPlayerView.playPauseButton.hidden = YES;
+    _videoPlayerView.fullScreenButton.hidden = YES;
+    _videoPlayerView.shareButton.hidden = YES;
+    _videoPlayerView.videoScrubber.hidden = YES;
+    _videoPlayerView.playerControlBar.hidden = YES;
+    
+    self.allowPortraitFullscreen = NO;
+    self.showStaticEndTime = NO;
+    self.fullScreenModeToggled = NO;
+    
+    [self removeObserversFromVideoPlayerItem];
+    [self removePlayerTimeObservers];
     
     UITapGestureRecognizer *playerTouchedGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(videoTapHandler)];
     playerTouchedGesture.delegate = self;
@@ -169,6 +181,19 @@ NSString * const kTrackEventVideoComplete = @"Video Complete";
     } else {
         [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
     }
+    
+    _videoPlayerView.playPauseButton.hidden = YES;
+    _videoPlayerView.fullScreenButton.hidden = YES;
+    _videoPlayerView.shareButton.hidden = YES;
+    _videoPlayerView.videoScrubber.hidden = YES;
+    _videoPlayerView.playerControlBar.hidden = YES;
+    
+    [self removeObserversFromVideoPlayerItem];
+    [self removePlayerTimeObservers];
+    
+    self.allowPortraitFullscreen = NO;
+    self.showStaticEndTime = NO;
+    self.fullScreenModeToggled = NO;
 }
 
 - (void)presentShareOptions

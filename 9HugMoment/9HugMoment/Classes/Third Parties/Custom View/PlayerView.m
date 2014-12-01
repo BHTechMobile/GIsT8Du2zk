@@ -25,6 +25,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        _videoPlayerKit.allowPortraitFullscreen = NO;
+        _videoPlayerKit.showStaticEndTime = NO;
     }
     return self;
 }
@@ -38,12 +40,13 @@
 {
     
     [self createVideoPlayer];
- 
-    
+
 }
 
 -(void)createVideoPlayer
 {
+    _videoPlayerKit.allowPortraitFullscreen = NO;
+    _videoPlayerKit.showStaticEndTime = NO;
     if (!_videoPlayerKit) {
         _videoPlayerKit = [VideoPlayerKit videoPlayerWithContainingViewController:nil optionalTopView:nil hideTopViewWithControls:YES];
         _videoPlayerKit.view.backgroundColor = [UIColor blackColor];
@@ -60,9 +63,13 @@
 
 -(void)preparePlayWithUrl:(NSURL*)url
 {
-    _videoUrl = url;
+    _videoPlayerKit.allowPortraitFullscreen = NO;
+    _videoPlayerKit.showStaticEndTime = NO;
     
-    [self createUI];
+    _videoUrl = url;
+
+//    [self createUI];
+    [self createVideoPlayer];
     
     [_videoPlayerKit playVideoWithTitle:@""
                                     URL:_videoUrl
@@ -71,7 +78,7 @@
                             isStreaming:NO
                        playInFullScreen:NO];
     
-//    _playImageView.hidden = YES;
+    //    _playImageView.hidden = YES;
     
 }
 
