@@ -31,6 +31,8 @@
 
 - (void)showAlertResumVideo;
 
+@property(nonatomic,strong) NSString *userToken;
+
 @property(nonatomic,strong) NSString *mKey;
 @property(nonatomic,assign) NSInteger count;
 @property(nonatomic,assign) NSInteger duration;

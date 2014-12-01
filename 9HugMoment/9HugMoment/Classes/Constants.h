@@ -10,6 +10,13 @@
 #define _HugMoment_Constants_h
 
 /*All Page*/
+
+#define UPLOAD_VIDEO @"http://ws.9hug.com/api/message/update"
+
+#import <AFNetworking.h>
+
+#import "BaseServices.h"
+
 #import "Utilities.h"
 #import "AppDelegate.h"
 #import "NavigationView.h"
@@ -22,6 +29,12 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import <AudioToolbox/AudioToolbox.h>
+#import "UIView+AutoLayout.h"
+
+#import "UIView+Utils.h"
+#import "UIAlertView+Helpers.h"
+#import "UIView+AutoLayout.h"
+#import "NSString+Helpers.h"
 
 #define APP_DELEGATE ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 #define APP_SCREEN_HEIGHT [[UIScreen mainScreen] applicationFrame].size.height

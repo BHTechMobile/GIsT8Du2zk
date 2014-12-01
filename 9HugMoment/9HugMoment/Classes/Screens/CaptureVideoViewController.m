@@ -15,6 +15,7 @@
 
 @implementation CaptureVideoViewController{
     MixVideoViewController *mixVideoViewController;
+    NSArray *_qrcode;
 }
 
 #pragma mark - Head Controls
@@ -60,6 +61,8 @@
     unlink([_capturePath UTF8String]);
     [self createProcessView];
     [self touchResetCapturedButton:nil];
+//    [self getToken];
+    [self getQrcode];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -74,6 +77,28 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+#pragma mark - GET service
+
+-(void)getToken{
+//    [BaseServices createToken:@"admin" withPassword:@"admin" success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        _userToken = [responseObject objectForKey:@"token"];
+//        NSLog(@"user token %@",[responseObject objectForKey:@"token"]);
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        NSLog(@"error");
+//    }];
+}
+
+-(void)getQrcode{
+    [BaseServices createQRCode:@"19f153ddff9126d7048325931d0d332e" withType:@"1" success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //        _mKey = [[responseObject firstObject] valueForKey:@"key"];
+        _qrcode = responseObject;
+        _mKey = [[_qrcode firstObject] valueForKey:@"key"];
+        NSLog(@"_key %@",_mKey);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"error %@",error);
+    }];
 }
 
 #pragma mark - Navigation Custom View

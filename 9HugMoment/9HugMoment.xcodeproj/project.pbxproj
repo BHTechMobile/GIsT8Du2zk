@@ -22,6 +22,7 @@
 		9F9F98451A286D640089018B /* VolumeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F983F1A286D640089018B /* VolumeView.m */; };
 		9F9F98461A286D640089018B /* VolumeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F9F98401A286D640089018B /* VolumeView.xib */; };
 		9F9F98491A286E180089018B /* UIView+AutoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F98481A286E180089018B /* UIView+AutoLayout.m */; };
+		9FADF12F1A2C5226007FFCFF /* BaseServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FADF12E1A2C5226007FFCFF /* BaseServices.m */; };
 		9FB03B291A27905C00370885 /* NavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FB03B281A27905C00370885 /* NavigationView.m */; };
 		9FB03B2B1A27909400370885 /* NavigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FB03B2A1A27909400370885 /* NavigationView.xib */; };
 		CE3E23431A233CDF00008D27 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3E23421A233CDF00008D27 /* main.m */; };
@@ -84,6 +85,8 @@
 		9F9F98401A286D640089018B /* VolumeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VolumeView.xib; sourceTree = "<group>"; };
 		9F9F98471A286E180089018B /* UIView+AutoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+AutoLayout.h"; sourceTree = "<group>"; };
 		9F9F98481A286E180089018B /* UIView+AutoLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+AutoLayout.m"; sourceTree = "<group>"; };
+		9FADF12D1A2C5226007FFCFF /* BaseServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseServices.h; sourceTree = "<group>"; };
+		9FADF12E1A2C5226007FFCFF /* BaseServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseServices.m; sourceTree = "<group>"; };
 		9FB03B271A27905C00370885 /* NavigationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationView.h; sourceTree = "<group>"; };
 		9FB03B281A27905C00370885 /* NavigationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationView.m; sourceTree = "<group>"; };
 		9FB03B2A1A27909400370885 /* NavigationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavigationView.xib; sourceTree = "<group>"; };
@@ -209,6 +212,15 @@
 			path = "Custom View";
 			sourceTree = "<group>";
 		};
+		9FADF12C1A2C5226007FFCFF /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				9FADF12D1A2C5226007FFCFF /* BaseServices.h */,
+				9FADF12E1A2C5226007FFCFF /* BaseServices.m */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		9FB03B201A27902F00370885 /* Third Parties */ = {
 			isa = PBXGroup;
 			children = (
@@ -306,6 +318,7 @@
 		CECCB7811A2344D300C1220C /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				9FADF12C1A2C5226007FFCFF /* Services */,
 				9F9F98231A2825DB0089018B /* Categories */,
 				9FB03B201A27902F00370885 /* Third Parties */,
 				9F0671E81A2738110077F66B /* UIs */,
@@ -517,6 +530,7 @@
 				CE3E23461A233CDF00008D27 /* AppDelegate.m in Sources */,
 				CECCB79D1A23476B00C1220C /* RecentMomentsViewController.m in Sources */,
 				9F0671E61A2716AA0077F66B /* Utilities.m in Sources */,
+				9FADF12F1A2C5226007FFCFF /* BaseServices.m in Sources */,
 				9F9F98451A286D640089018B /* VolumeView.m in Sources */,
 				9F9F98211A2820200089018B /* VideoFilterActionView.m in Sources */,
 				9F9F98491A286E180089018B /* UIView+AutoLayout.m in Sources */,

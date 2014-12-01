@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "NavigationView.h"
-@interface MixVideoViewController : UIViewController<MPMediaPickerControllerDelegate,UIAlertViewDelegate,AVAudioPlayerDelegate,GPUImageMovieDelegate,NavigationCustomViewDelegate>{
+#import "MixAudioViewController.h"
+
+@interface MixVideoViewController : UIViewController<MPMediaPickerControllerDelegate,UIAlertViewDelegate,AVAudioPlayerDelegate,GPUImageMovieDelegate,NavigationCustomViewDelegate,MixAudioViewControllerDelegate>{
     NSArray * changeFrameButtons;
+    NSArray *qrCode;
     GPUImageMovie *movieFile;
     GPUImageMovie *filterMovie;
     GPUImageOutput<GPUImageInput> *filter;
@@ -21,6 +24,7 @@
 }
 
 - (IBAction)publicVideoButtonAction:(id)sender;
+@property (nonatomic, strong) NSString *tokenAuto;
 @property (nonatomic, strong) NSString *mKey;
 @property (nonatomic, strong) NSURL *capturePath;
 @property (nonatomic, strong) UIImage* imgFrame;

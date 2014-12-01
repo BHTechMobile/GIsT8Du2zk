@@ -8,6 +8,7 @@
 
 #import "MixVideoViewController.h"
 #import "VideoFilterActionView.h"
+#import "MixAudioViewController.h"
 
 @interface MixVideoViewController ()
 
@@ -16,6 +17,7 @@
 @implementation MixVideoViewController{
     UIButton *buttonBack;
     UIImageView *imageChoose;
+    MixAudioViewController *mixAudioViewController;
 }
 
 #pragma mark - Header Control
@@ -33,6 +35,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     _navigationView.titleNvgLabel.text = @"Mixing Video";
+    NSLog(@"_MKEYYYYYY %@",_mKey);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -146,16 +149,6 @@
 
 -(void)createUI{
     _imvFrame.image = _imgFrame;
-//    _enterMessageView = [EnterMessageView fromNib];
-//    _enterMessageView.delegate = self;
-//    _enterMessageView.center = _playerView.center;
-//    [self.view addSubview:_enterMessageView];
-//    _enterMessageView.hidden = YES;
-//    _scheduleView = [ScheduleView fromNib];
-//    _scheduleView.frame = CGRectMake(0, self.view.size.height-_scheduleView.frame.size.height, 320, _scheduleView.frame.size.height);
-//    _scheduleView.alpha = 0.0;
-//    [self.view addSubview:_scheduleView];
-//    _scheduleView.hidden = YES;
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button addTarget:self action:@selector(sendButtonTapped:) forControlEvents:UIControlEventTouchUpInside]; //adding action
@@ -394,42 +387,66 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 
 
--(void)audioSetupViewControllerDidCancel
+-(void)mixAudioViewControllerDidCancel
 {
-    [self.navigationController dismissViewControllerAnimated:NO completion:nil];
+//    [self.navigationController dismissViewControllerAnimated:NO completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
-//-(void)audioSetupViewController:(AudioSetupViewController *)setupViewController didMixVideoUrl:(NSURL *)mixUrl
-//{
-//    _exportUrl = mixUrl;
-//    //    _mixed = YES;
+-(void)mixAudioViewController:(MixAudioViewController *)setupViewController didMixVideoUrl:(NSURL *)mixUrl
+{
+    _exportUrl = mixUrl;
+    //    _mixed = YES;
+    [self.navigationController popViewControllerAnimated:YES];
 //    [self.navigationController dismissViewControllerAnimated:NO completion:^{
 //        //        [_videoPlayer playWithUrl:_exportUrl];
 //    }];
-//}
-
-- (void)showAudioSetup{
-    
-//    AudioSetupViewController * audioVC =  [[AudioSetupViewController alloc] initWithNibName:nil bundle:nil];
-//    audioVC.capturePath = _capturePath;
-//    audioVC.audioItem = _audioItem;
-//    audioVC.delegate = self;
-//    UIViewController *sourceViewController = self;
-//    UIViewController *destinationController = audioVC;
-//    sourceViewController.navigationController.modalPresentationStyle = UIModalPresentationCurrentContext;
-//    destinationController.view.alpha = 0.0;
-//    [sourceViewController.navigationController presentViewController:destinationController animated:NO completion:nil];
-//    [UIView beginAnimations: nil context: nil];
-//    destinationController.view.alpha = 1.0;
-//    [UIView commitAnimations];
 }
+
+#pragma mark - Mix Audio Setup
+
+- (void)mixAudioSetup{
+    MixAudioViewController * audioVC =  [[MixAudioViewController alloc] initWithNibName:nil bundle:nil];
+    audioVC.capturePath = _capturePath;
+    audioVC.audioItem = _audioItem;
+    audioVC.delegate = self;
+    UIViewController *sourceViewController = self;
+    UIViewController *destinationController = audioVC;
+    sourceViewController.navigationController.modalPresentationStyle = UIModalPresentationCurrentContext;
+    destinationController.view.alpha = 0.0;
+//    [sourceViewController.navigationController presentViewController:destinationController animated:NO completion:nil];
+    [UIView beginAnimations: nil context: nil];
+    destinationController.view.alpha = 1.0;
+    [UIView commitAnimations];
+
+    [self performSegueWithIdentifier:@"pushMixAudioViewController" sender:nil];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"pushMixAudioViewController"]) {
+        mixAudioViewController = [segue destinationViewController];
+        mixAudioViewController.capturePath = _capturePath;
+        mixAudioViewController.audioItem = _audioItem;
+        mixAudioViewController.delegate = self;
+        
+        UIViewController *sourceViewController = self;
+        UIViewController *destinationController = mixAudioViewController;
+        sourceViewController.navigationController.modalPresentationStyle = UIModalPresentationCurrentContext;
+        destinationController.view.alpha = 0.0;
+        [UIView beginAnimations: nil context: nil];
+        destinationController.view.alpha = 1.0;
+        [UIView commitAnimations];
+        
+    }
+}
+
 
 - (IBAction)musicButtonTapped:(id)sender {
     if (_isPlaying) {
         [self clickedPlayButton:nil];
     }
     if (_audioItem) {
-        [self showAudioSetup];
+        [self mixAudioSetup];
         
     }
     else{
@@ -438,11 +455,7 @@
         
         picker.delegate						= self;
         picker.allowsPickingMultipleItems	= NO;
-        //        picker.prompt						= NSLocalizedString (@"Add song", "Prompt in media item picker");
         picker.navigationController.navigationBarHidden = YES;
-        
-        //    [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleDefault animated: YES];
-        
         [self presentViewController:picker animated:YES completion:nil];
     }
 }
@@ -462,81 +475,17 @@
     _mixed = NO;
     
     [self dismissViewControllerAnimated:YES completion:^{
-        [self showAudioSetup];
+        [self mixAudioSetup];
         
     }];
 }
 
-// Invoked when the user taps the Done button in the media item picker having chosen zero
-//		media items to play
 - (void) mediaPickerDidCancel: (MPMediaPickerController *) mediaPicker {
-    
     [self dismissViewControllerAnimated:YES completion:nil];
-    
-    //	[[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleDefault animated: YES];
-    
 }
 
 
 #pragma mark - buttons clicked
-
-- (IBAction)addMessageButtonTapped:(UIButton *)sender {
-//    _messageButton.selected = YES;
-//    _enterMessageView.hidden = NO;
-//    [_enterMessageView.textView setText:@""];
-//    _topPosition.constant = 40.0f;
-//    [_enterMessageView showUpKeyboard];
-//    [self.view setNeedsUpdateConstraints];
-//    
-//    [UIView animateWithDuration:0.5f animations:^{
-//        [self.view layoutIfNeeded];
-//        
-//    }];
-}
-
-//-(void)enterMessageDidCancel
-//{
-//    
-//    if (![_message isEqualToString:@""]&&_message!=nil) {
-//        _messageButton.selected = YES;
-//    }
-//    else{
-//        _messageButton.selected = NO;
-//    }
-//    _enterMessageView.hidden = YES;
-//    
-//    _topPosition.constant = -_enterMessageView.height;
-//    [self.view setNeedsUpdateConstraints];
-//    
-//    [UIView animateWithDuration:0.5f animations:^{
-//        [self.view layoutIfNeeded];
-//    }];
-//}
-
-//-(void)enterMessage:(EnterMessageView *)enterMessageController DidEnterMessage:(NSString *)message
-//{
-//    if (![message isEqualToString:@""]&&message!=nil) {
-//        _messageButton.selected = YES;
-//    }
-//    else{
-//        _messageButton.selected = NO;
-//    }
-//    _enterMessageView.hidden = YES;
-//    _message = message;
-//    [self enterMessageDidCancel];
-//}
-
-//- (IBAction)notificationButtonTapped:(UIButton *)sender {
-//    sender.selected = !sender.selected;
-//}
-//- (IBAction)tagButtonTapped:(UIButton *)sender{
-//    sender.selected = !sender.selected;
-//}
-//
-//- (IBAction)calenderButtonTapped:(UIButton *)sender {
-//    _scheduleView.hidden = NO;
-//    [_scheduleView showWithAnimation];
-//}
 
 - (IBAction)sendButtonTapped:(UIButton *)sender {
     [self mixVideo];
@@ -550,7 +499,7 @@
 -(void)processMixingWithStatus:(AVAssetExportSessionStatus)status outputURLString:(NSString*)output{
     dispatch_async(dispatch_get_main_queue(), ^{
         [MBProgressHUD hideHUDForView:self.view animated:NO];
-//        [MBProgressHUD showHUDAddedTo:self.view animated:NO :@"Sending..."];
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     });
     
     switch (status){
@@ -589,7 +538,7 @@
     
     dispatch_async(dispatch_get_main_queue(), ^{
         _imvPlay.hidden = YES;
-//        [MBProgressHUD showHUDAddedTo:self.view animated:YES :@"Mixing..."];
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     });
     if ([[[filter class] description] isEqualToString:@"GPUImageFilter"]) {
         [MixEngine mixImage:_imgFrame videoUrl:_exportUrl?_exportUrl:_capturePath completionHandler:^(NSString *output, AVAssetExportSessionStatus status) {
@@ -609,8 +558,6 @@
             filterMovie = nil;
             
         }
-        
-        
         movieFile = [[GPUImageMovie alloc] initWithURL:(_exportUrl)?_exportUrl:_capturePath];
         movieFile.playAtActualSpeed = YES;
         movieFile.shouldRepeat = NO;
@@ -660,8 +607,6 @@
                 [self processMixingWithStatus:status outputURLString:output];
             }];
         });
-        
-        
     }
     else{
         _videoFilterScrollView.userInteractionEnabled = NO;
@@ -709,29 +654,28 @@
     }
 }
 
+#pragma mark - Base Services
+
 -(void)upload{
-//    [BaseServices updateMessage:_message?_message:@""
-//                            key:_mKey
-//                          frame:@"1"
-//                           path:_exportUrl
-//                   notification:_notificationButton.selected
-//                      scheduled:[NSString stringWithFormat:@"%f",[[_scheduleView getSelectedDate] timeIntervalSince1970]]
-//                        sussess:^(AFHTTPRequestOperation *operation, id responseObject) {
-//                            NSDictionary* dict = (NSDictionary*)responseObject;
-//                            [HMessage createByDictionary:dict];
-//                            [[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfWithCompletion:nil];
-//                            dispatch_async(dispatch_get_main_queue(), ^{
-//                                [MBProgressHUD hideHUDForView:self.view animated:YES];
-//                                [UIAlertView showMessage:@"Message sent"];
-//                                [self.navigationController popToRootViewControllerAnimated:YES];
-//                            });
-//                            
-//                        } failure:^(NSString *bodyString, NSError *error) {
-//                            dispatch_async(dispatch_get_main_queue(), ^{
-//                                [MBProgressHUD hideHUDForView:self.view animated:YES];
-//                            });
-//                            _mixed = NO;
-//                        }];
+    [BaseServices updateMessage:_message?_message:@""
+                            key:_mKey
+                          frame:@"1"
+                           path:_exportUrl
+                   notification:_notificationButton.selected
+                        sussess:^(AFHTTPRequestOperation *operation, id responseObject) {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                [UIAlertView showMessage:@"Upload video success"];
+                                [self.navigationController popToRootViewControllerAnimated:YES];
+                            });
+                            
+                        } failure:^(NSString *bodyString, NSError *error) {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                            });
+                            _mixed = NO;
+                        }];
+//_mKey
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -767,5 +711,6 @@
 
 
 - (IBAction)publicVideoButtonAction:(id)sender {
+    [self mixVideo];
 }
 @end
