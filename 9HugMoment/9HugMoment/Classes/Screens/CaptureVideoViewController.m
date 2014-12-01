@@ -400,23 +400,20 @@
 #pragma mark - Navigation
 
 -(void)showMixScreen{
-    [[PBJVision sharedInstance] stopPreview];
-    MixVideoViewController *mixVC = [[MixVideoViewController alloc] initWithNibName:nil bundle:nil];
-    mixVC.capturePath = [NSURL fileURLWithPath:_capturePath];
-//    [self.navigationController pushViewController:mixVC animated:YES];
-    mixVC.imgFrame = _imvFrame.image;
-    mixVC.indexFrame = _imgIndex;
-    mixVC.mKey = _mKey;
-    mixVC.duration = (_startCount*1.0)/100.0f;
-    
     [self performSegueWithIdentifier:@"pushMixVideoViewController" sender:nil];
+    [[PBJVision sharedInstance] stopPreview];
+//    MixVideoViewController *mixVC = [[MixVideoViewController alloc] init];
+    mixVideoViewController.capturePath = [NSURL fileURLWithPath:_capturePath];
+    mixVideoViewController.imgFrame = _imvFrame.image;
+    mixVideoViewController.indexFrame = _imgIndex;
+    mixVideoViewController.mKey = _mKey;
+    mixVideoViewController.duration = (_startCount*1.0)/100.0f;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"pushMixVideoViewController"]) {
         mixVideoViewController = [segue destinationViewController];
         mixVideoViewController.capturePath = [NSURL fileURLWithPath:_capturePath];
-        //    [self.navigationController pushViewController:mixVC animated:YES];
         mixVideoViewController.imgFrame = _imvFrame.image;
         mixVideoViewController.indexFrame = _imgIndex;
         mixVideoViewController.mKey = _mKey;
@@ -492,7 +489,8 @@
     vision.outputFormat = PBJOutputFormatSquare;
     vision.videoRenderingEnabled = YES;
     vision.audioCaptureEnabled = YES;
-    //    vision.additionalCompressionProperties = @{AVVideoProfileLevelKey : AVVideoProfileLevelH264Baseline30}; // AVVideoProfileLevelKey requires specific captureSessionPreset
+    //    vision.additionalCompressionProperties = @{AVVideoProfileLevelKey : AVVideoProfileLevelH264Baseline30};
+    // AVVideoProfileLevelKey requires specific captureSessionPreset
 }
 
 #pragma mark - PBJVisionDelegate
