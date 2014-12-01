@@ -13,7 +13,10 @@
 
 @end
 
-@implementation CaptureVideoViewController
+@implementation CaptureVideoViewController{
+    MixVideoViewController *mixVideoViewController;
+    NSArray *_qrcode;
+}
 
 #pragma mark - Head Controls
 
@@ -58,6 +61,8 @@
     unlink([_capturePath UTF8String]);
     [self createProcessView];
     [self touchResetCapturedButton:nil];
+//    [self getToken];
+    [self getQrcode];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -72,6 +77,28 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+#pragma mark - GET service
+
+-(void)getToken{
+//    [BaseServices createToken:@"admin" withPassword:@"admin" success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        _userToken = [responseObject objectForKey:@"token"];
+//        NSLog(@"user token %@",[responseObject objectForKey:@"token"]);
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        NSLog(@"error");
+//    }];
+}
+
+-(void)getQrcode{
+    [BaseServices createQRCode:@"19f153ddff9126d7048325931d0d332e" withType:@"1" success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //        _mKey = [[responseObject firstObject] valueForKey:@"key"];
+        _qrcode = responseObject;
+        _mKey = [[_qrcode firstObject] valueForKey:@"key"];
+        NSLog(@"_key %@",_mKey);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"error %@",error);
+    }];
 }
 
 #pragma mark - Navigation Custom View
@@ -159,7 +186,7 @@
                            [Utilities squareButtonWithSize:48 background:[UIImage imageNamed:[frameNames objectAtIndex:7]] text:nil target:self selector:@selector(changeFrame:) tag:7 isTypeFrame:YES]
                            ];
     
-//    _selectFrameScrollView.contentSize = CGSizeMake(changeFrameButtons.count*66, _selectFrameScrollView.size.height);
+    _selectFrameScrollView.contentSize = CGSizeMake(changeFrameButtons.count*66, _selectFrameScrollView.size.height);
     _selectFrameScrollView.scrollEnabled = YES;
     for (int i = 0;i<changeFrameButtons.count;i++) {
         
@@ -169,7 +196,7 @@
             button.layer.borderColor = [UIColor colorWithRed:69/255.0 green:187/255.0 blue:255/255.0 alpha:1.0].CGColor;
             
         }
-//        button.center = CGPointMake(4+button.size.width/2 + i*(button.size.width+8), _selectFrameScrollView.size.height/2);
+        button.center = CGPointMake(4+button.size.width/2 + i*(button.size.width+8), _selectFrameScrollView.size.height/2);
         [_selectFrameScrollView addSubview:button];
     }
 }
@@ -398,15 +425,27 @@
 #pragma mark - Navigation
 
 -(void)showMixScreen{
+    [self performSegueWithIdentifier:@"pushMixVideoViewController" sender:nil];
     [[PBJVision sharedInstance] stopPreview];
-//    MixVideoViewController *mixVC = [[MixVideoViewController alloc] initWithNibName:nil bundle:nil];
-//    mixVC.capturePath = [NSURL fileURLWithPath:_capturePath];
-//    [self.navigationController pushViewController:mixVC animated:YES];
-//    mixVC.imgFrame = _imvFrame.image;
-//    mixVC.indexFrame = _imgIndex;
-//    mixVC.mKey = _mKey;
-//    mixVC.duration = (_startCount*1.0)/100.0f;
+//    MixVideoViewController *mixVC = [[MixVideoViewController alloc] init];
+    mixVideoViewController.capturePath = [NSURL fileURLWithPath:_capturePath];
+    mixVideoViewController.imgFrame = _imvFrame.image;
+    mixVideoViewController.indexFrame = _imgIndex;
+    mixVideoViewController.mKey = _mKey;
+    mixVideoViewController.duration = (_startCount*1.0)/100.0f;
 }
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"pushMixVideoViewController"]) {
+        mixVideoViewController = [segue destinationViewController];
+        mixVideoViewController.capturePath = [NSURL fileURLWithPath:_capturePath];
+        mixVideoViewController.imgFrame = _imvFrame.image;
+        mixVideoViewController.indexFrame = _imgIndex;
+        mixVideoViewController.mKey = _mKey;
+        mixVideoViewController.duration = (_startCount*1.0)/100.0f;
+    }
+}
+
 
 #pragma mark - Swipt Button
 
@@ -475,7 +514,8 @@
     vision.outputFormat = PBJOutputFormatSquare;
     vision.videoRenderingEnabled = YES;
     vision.audioCaptureEnabled = YES;
-    //    vision.additionalCompressionProperties = @{AVVideoProfileLevelKey : AVVideoProfileLevelH264Baseline30}; // AVVideoProfileLevelKey requires specific captureSessionPreset
+    //    vision.additionalCompressionProperties = @{AVVideoProfileLevelKey : AVVideoProfileLevelH264Baseline30};
+    // AVVideoProfileLevelKey requires specific captureSessionPreset
 }
 
 #pragma mark - PBJVisionDelegate
