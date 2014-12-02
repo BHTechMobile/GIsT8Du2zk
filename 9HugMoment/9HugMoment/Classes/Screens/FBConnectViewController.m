@@ -14,7 +14,6 @@
 #import <MBProgressHUD.h>
 
 @interface FBConnectViewController ()
-
 @property (nonatomic, strong) FacebookManager *_facebookManager;
 @end
 
@@ -26,14 +25,12 @@
 {
     self = [[[NSBundle mainBundle] loadNibNamed:[[self class] description] owner:nil options:nil] objectAtIndex:0];
     if (self) {
-        // Custom initialization
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     _facebookManager = [FacebookManager sharedManager];
     [_facebookManager awakeFBSession];
     if ([_facebookManager isFBSessionOpen]) {
@@ -44,6 +41,17 @@
         UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
         NSLog(@"image %@",image);
     }
+    
+//    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+//    if (!appDelegate.session.isOpen) {
+//        appDelegate.session = [[FBSession alloc] init];
+//        if (appDelegate.session.state == FBSessionStateCreatedTokenLoaded) {
+//            [appDelegate.session openWithCompletionHandler:^(FBSession *session,
+//                                                             FBSessionState status,
+//                                                             NSError *error) {
+//            }];
+//        }
+//    }
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -53,53 +61,71 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Button Login Facebook
 
+- (IBAction)dismissViewControllerAction:(id)sender {
+     [self dismissViewControllerAnimated:YES completion: nil];
+}
+
 - (IBAction)touchLoginFaceBook:(id)sender {
-    if ([_facebookManager isFBSessionOpen] ) {
+    NSLog(@"fb session 33 login %d",APP_DELEGATE.session.isOpen);
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    if (appDelegate.session.isOpen) {
         [Utilities showAlertViewWithTitle:@"" andMessage:@"Are you sure you want to logout?" andDelegate:self];
-    }else{
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        [_facebookManager loginWithCompletion:^(BOOL success, NSDictionary *userInfo)
-         {
-             
-             [[NSUserDefaults standardUserDefaults]setObject:userInfo forKey:objectLogin];
-             [self Loginid:userInfo];
-             [self handleLogin:userInfo];
-             
-         }];
     }
+    else if (appDelegate.session.state != FBSessionStateCreated) {
+        appDelegate.session = [[FBSession alloc] init];
+    }
+    [appDelegate.session openWithCompletionHandler:^(FBSession *session,
+                                                     FBSessionState status,
+                                                     NSError *error) {
+    }];
+    
+//    {
+//        if (APP_DELEGATE.session.state != FBSessionStateCreated) {
+//            APP_DELEGATE.session = [[FBSession alloc]initWithPermissions:@[@"email",@"user_birthday",@"user_birthday",@"user_birthday",]];
+//        }
+//        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//        [APP_DELEGATE.session openWithCompletionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+////            [[NSUserDefaults standardUserDefaults]setObject:userInfo forKey:objectLogin];
+////            [self Loginid:userInfo];
+////            [self handleLogin:userInfo];
+//        }];
+//    }
+//    NSLog(@"fb session 44 login %d",APP_DELEGATE.session.isOpen);
+        
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex==1) {
         [_facebookManager logout];
-        
         [[NSUserDefaults standardUserDefaults]setObject:nil forKey:objectLogin];
         [[UserData currentAccount] clearCached];
-        
     }
 }
 
 #pragma mark - Method Login/Logout
 
 -(void)Loginid:(NSDictionary *)user{
-    //change icon
-    
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large",[user objectForKey:@"id"]]];
     UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
-    
+    NSLog(@"image %@",image);
     if (user) {
-        
         [[UserData currentAccount] setStrFacebookToken:[[[_facebookManager getActiveFBSession] accessTokenData] accessToken]];
         [[UserData currentAccount] setStrFacebookId:[user valueForKey:@"id"]];
         [[UserData currentAccount] setStrFullName:[user valueForKey:@"name"]];
-        NSDictionary *dicParam = @{@"code":[user valueForKey:@"id"],@"fullname":[user valueForKey:@"name"],@"facebookid":[user valueForKey:@"id"],@"facebook_token":[[[_facebookManager getActiveFBSession] accessTokenData] accessToken],@"nickname":[user valueForKey:@"name"],@"mobile":@"",@"email":[user valueForKey:@"email"],@"password":@""};
+        NSDictionary *dicParam = @{@"code":[user valueForKey:@"id"],
+                                   @"fullname":[user valueForKey:@"name"],
+                                   @"facebookid":[user valueForKey:@"id"],
+                                   @"facebook_token":[[[_facebookManager getActiveFBSession] accessTokenData] accessToken],
+                                   @"nickname":[user valueForKey:@"name"],
+                                   @"mobile":@"",
+                                   @"email":[user valueForKey:@"email"],
+                                   @"password":@""};
         
         [BaseServices createUserWithParam:dicParam success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"response = %@",responseObject);
@@ -114,23 +140,22 @@
     }
 }
 
-- (void)handleLogin :(NSDictionary *)user{
-}
+//-(void)Loginoutfb:(UIBarButtonItem *)sender{
+//    if ([_facebookManager isFBSessionOpen] ) {
+//        [Utilities showAlertViewWithTitle:@"" andMessage:@"Are you sure you want to logout?" andDelegate:self];
+//    }else{
+//        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//        [_facebookManager loginWithCompletion:^(BOOL success, NSDictionary *userInfo)
+//         {
+//             [[NSUserDefaults standardUserDefaults]setObject:userInfo forKey:objectLogin];
+//             [self Loginid:userInfo];
+//             [self handleLogin:userInfo];
+//         }];
+//    }
+//    
+//}
 
--(void)Loginoutfb:(UIBarButtonItem *)sender{
-    if ([_facebookManager isFBSessionOpen] ) {
-        [Utilities showAlertViewWithTitle:@"" andMessage:@"Are you sure you want to logout?" andDelegate:self];
-    }else{
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        [_facebookManager loginWithCompletion:^(BOOL success, NSDictionary *userInfo)
-         {
-             
-             [[NSUserDefaults standardUserDefaults]setObject:userInfo forKey:objectLogin];
-             [self Loginid:userInfo];
-             [self handleLogin:userInfo];
-         }];
-    }
-    
+- (void)handleLogin :(NSDictionary *)user{
 }
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToScale:(CGFloat)scale

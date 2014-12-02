@@ -196,12 +196,9 @@ static NSString *_kFacebookRequestResults = @"_kFacebookRequestResults";
         appdel.session = [[FBSession alloc] initWithPermissions:@[@"email",@"user_birthday",@"user_birthday",@"user_birthday",]];
          [FBSession setActiveSession:appdel.session];
                 if (appdel.session.state == FBSessionStateCreatedTokenLoaded) {
-         [appdel.session openWithBehavior:FBSessionLoginBehaviorForcingWebView completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+         [appdel.session openWithBehavior:FBSessionLoginBehaviorUseSystemAccountIfPresent completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
              [self sessionStateChanged:session state:status error:error];
          }];
-                    //            [appdel.session openWithCompletionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
-//                //
-//            }];
         }
     }
 }

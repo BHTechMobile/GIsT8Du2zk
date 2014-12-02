@@ -40,6 +40,7 @@
     swipeRightGest.direction = UISwipeGestureRecognizerDirectionRight;
     _imvFrame.gestureRecognizers = @[swipeLeftGest,swipeRightGest];
     _imvFrame.userInteractionEnabled = YES;
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -61,7 +62,6 @@
     unlink([_capturePath UTF8String]);
     [self createProcessView];
     [self touchResetCapturedButton:nil];
-//    [self getToken];
     [self getQrcode];
 }
 
@@ -80,15 +80,6 @@
 }
 
 #pragma mark - GET service
-
--(void)getToken{
-//    [BaseServices createToken:@"admin" withPassword:@"admin" success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        _userToken = [responseObject objectForKey:@"token"];
-//        NSLog(@"user token %@",[responseObject objectForKey:@"token"]);
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"error");
-//    }];
-}
 
 -(void)getQrcode{
     [BaseServices createQRCode:@"19f153ddff9126d7048325931d0d332e" withType:@"1" success:^(AFHTTPRequestOperation *operation, id responseObject) {

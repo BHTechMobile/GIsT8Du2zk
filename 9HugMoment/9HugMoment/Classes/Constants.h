@@ -54,6 +54,10 @@
 /*FBConnectViewController*/
 
 #define objectLogin @"objectlogin"
+#import <FacebookSDK/FacebookSDK.h>
+#import <FacebookSDK/FBSession.h>
+#import "UserData.h"
+#import "FacebookManager.h"
 
 /*Categories*/
 #import "UIView+Utils.h"

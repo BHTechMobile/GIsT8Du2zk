@@ -10,4 +10,7 @@
 
 @interface MomentsViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIButton *addCaptureVideoButton;
+- (IBAction)addCaptureVideoButtonAction:(id)sender;
+- (void)showLoginFB;
 @end

@@ -12,7 +12,9 @@
 #import "UserData.h"
 
 @interface FBConnectViewController : UIViewController<FBLoginViewDelegate,UITextFieldDelegate,UIAlertViewDelegate>
+- (IBAction)dismissViewControllerAction:(id)sender;
 - (IBAction)touchLoginFaceBook:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *dismissViewController;
 @property (weak, nonatomic) IBOutlet UIImageView *imageChange;
 
 @end

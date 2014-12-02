@@ -7,7 +7,8 @@
 //
 
 #import "AppDelegate.h"
-
+#import "FacebookManager.h"
+#import <FacebookSDK/FacebookSDK.h>
 @interface AppDelegate ()
 
 @end
@@ -17,6 +18,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    NSLog(@"fb session %d",_session.state);
     return YES;
 }
 
@@ -36,6 +38,10 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [FBAppEvents activateApp];
+    [FBAppCall handleDidBecomeActiveWithSession:self.session];
+//    [[FacebookManager sharedManager] awakeFBSession];
+//    NSLog(@"fb session3 %d",_session.state);
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

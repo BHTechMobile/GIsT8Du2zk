@@ -14,24 +14,21 @@
             <objects>
                 <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
-                    <connections>
-                        <segue destination="b9h-En-yfP" kind="relationship" relationship="viewControllers" id="P1E-Kz-1px"/>
-                    </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-7" y="-92"/>
         </scene>
-        <!--Connect View Controller-->
+        <!--View Controller-->
         <scene sceneID="enB-BD-qzi">
             <objects>
-                <viewController id="b9h-En-yfP" customClass="FBConnectViewController" sceneMemberID="viewController">
+                <viewController id="b9h-En-yfP" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="euU-28-AEQ"/>
                         <viewControllerLayoutGuide type="bottom" id="owG-Mx-Gmf"/>

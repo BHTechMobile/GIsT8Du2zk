@@ -6,8 +6,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#define appDelegate (AppDelegate*)[[UIApplication sharedApplication] delegate]
-
 @interface Utilities : NSObject
 
 //+ (void) hideTabBar:(UITabBarController *) tabbarcontroller;
