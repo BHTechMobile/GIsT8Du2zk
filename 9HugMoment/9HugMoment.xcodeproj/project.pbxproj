@@ -25,6 +25,8 @@
 		9FADF12F1A2C5226007FFCFF /* BaseServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FADF12E1A2C5226007FFCFF /* BaseServices.m */; };
 		9FB03B291A27905C00370885 /* NavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FB03B281A27905C00370885 /* NavigationView.m */; };
 		9FB03B2B1A27909400370885 /* NavigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FB03B2A1A27909400370885 /* NavigationView.xib */; };
+		9FFFDDC21A2CD10E0081ADC9 /* FacebookManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFFDDBF1A2CD10E0081ADC9 /* FacebookManager.m */; };
+		9FFFDDC31A2CD10E0081ADC9 /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFFDDC11A2CD10E0081ADC9 /* UserData.m */; };
 		CE3E23431A233CDF00008D27 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3E23421A233CDF00008D27 /* main.m */; };
 		CE3E23461A233CDF00008D27 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3E23451A233CDF00008D27 /* AppDelegate.m */; };
 		CE3E234F1A233CDF00008D27 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE3E234D1A233CDF00008D27 /* Main.storyboard */; };
@@ -90,6 +92,10 @@
 		9FB03B271A27905C00370885 /* NavigationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationView.h; sourceTree = "<group>"; };
 		9FB03B281A27905C00370885 /* NavigationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationView.m; sourceTree = "<group>"; };
 		9FB03B2A1A27909400370885 /* NavigationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavigationView.xib; sourceTree = "<group>"; };
+		9FFFDDBE1A2CD10E0081ADC9 /* FacebookManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookManager.h; sourceTree = "<group>"; };
+		9FFFDDBF1A2CD10E0081ADC9 /* FacebookManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookManager.m; sourceTree = "<group>"; };
+		9FFFDDC01A2CD10E0081ADC9 /* UserData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserData.h; sourceTree = "<group>"; };
+		9FFFDDC11A2CD10E0081ADC9 /* UserData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserData.m; sourceTree = "<group>"; };
 		BB3A3466C572B500BEC3D793 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		CE3E233D1A233CDF00008D27 /* 9HugMoment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 9HugMoment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE3E23411A233CDF00008D27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -148,6 +154,10 @@
 		9F0671E31A2716AA0077F66B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				9FFFDDBE1A2CD10E0081ADC9 /* FacebookManager.h */,
+				9FFFDDBF1A2CD10E0081ADC9 /* FacebookManager.m */,
+				9FFFDDC01A2CD10E0081ADC9 /* UserData.h */,
+				9FFFDDC11A2CD10E0081ADC9 /* UserData.m */,
 				9F0671E41A2716AA0077F66B /* Utilities.h */,
 				9F0671E51A2716AA0077F66B /* Utilities.m */,
 			);
@@ -325,7 +335,6 @@
 				9F0671E31A2716AA0077F66B /* Utilities */,
 				CECCB7821A2344D300C1220C /* Models */,
 				CECCB7831A2344D300C1220C /* Screens */,
-				CECCB7841A2344D300C1220C /* Services */,
 				9F0671D71A26CAC80077F66B /* Constants.h */,
 			);
 			path = Classes;
@@ -361,13 +370,6 @@
 				CECCB7A21A23478C00C1220C /* MyMomentsViewController.m */,
 			);
 			path = Screens;
-			sourceTree = "<group>";
-		};
-		CECCB7841A2344D300C1220C /* Services */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Services;
 			sourceTree = "<group>";
 		};
 		E7660F4C4E32C4269FA4AF84 /* Frameworks */ = {
@@ -429,6 +431,7 @@
 				TargetAttributes = {
 					CE3E233C1A233CDF00008D27 = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = N2AZ5MXD3Y;
 					};
 					CE3E23581A233CE000008D27 = {
 						CreatedOnToolsVersion = 6.1;
@@ -523,7 +526,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				CECCB7A01A23477D00C1220C /* FriendMomentsViewController.m in Sources */,
+				9FFFDDC21A2CD10E0081ADC9 /* FacebookManager.m in Sources */,
 				9F9F98431A286D640089018B /* PlayerView.m in Sources */,
+				9FFFDDC31A2CD10E0081ADC9 /* UserData.m in Sources */,
 				CECCB78E1A23470900C1220C /* MomentsViewController.m in Sources */,
 				CECCB7A61A2347B200C1220C /* MixAudioViewController.m in Sources */,
 				CECCB7971A23472E00C1220C /* CaptureVideoViewController.m in Sources */,
@@ -686,6 +691,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Tran Vu Viet Anh (BU79S2D2W2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Tran Vu Viet Anh (BU79S2D2W2)";
 				GCC_PREFIX_HEADER = "9HugMoment/9HugMoment-Prefix.pch";
 				INFOPLIST_FILE = 9HugMoment/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
@@ -701,6 +707,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Tran Vu Viet Anh (BU79S2D2W2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Tran Vu Viet Anh (BU79S2D2W2)";
 				GCC_PREFIX_HEADER = "9HugMoment/9HugMoment-Prefix.pch";
 				INFOPLIST_FILE = 9HugMoment/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;

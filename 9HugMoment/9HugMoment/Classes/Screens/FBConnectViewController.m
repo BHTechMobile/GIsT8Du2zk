@@ -12,14 +12,16 @@
 #import "Utilities.h"
 #import "BaseServices.h"
 #import <MBProgressHUD.h>
+
 @interface FBConnectViewController ()
+
 @property (nonatomic, strong) FacebookManager *_facebookManager;
 @end
 
 @implementation FBConnectViewController
+
 @synthesize _facebookManager;
 
-#define objectLogin @"objectlogin"
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [[[NSBundle mainBundle] loadNibNamed:[[self class] description] owner:nil options:nil] objectAtIndex:0];
@@ -40,8 +42,13 @@
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large",
                                            [dicUser objectForKey:@"id"]]];
         UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
-        
+        NSLog(@"image %@",image);
     }
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,7 +56,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+#pragma mark - Button Login Facebook
 
 - (IBAction)touchLoginFaceBook:(id)sender {
     if ([_facebookManager isFBSessionOpen] ) {
@@ -77,9 +84,10 @@
     }
 }
 
+#pragma mark - Method Login/Logout
+
 -(void)Loginid:(NSDictionary *)user{
     //change icon
-    
     
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     
@@ -107,9 +115,8 @@
 }
 
 - (void)handleLogin :(NSDictionary *)user{
-    
-    
 }
+
 -(void)Loginoutfb:(UIBarButtonItem *)sender{
     if ([_facebookManager isFBSessionOpen] ) {
         [Utilities showAlertViewWithTitle:@"" andMessage:@"Are you sure you want to logout?" andDelegate:self];
@@ -136,5 +143,6 @@
     UIGraphicsEndImageContext();
     return newImage;
 }
+
 @end
 

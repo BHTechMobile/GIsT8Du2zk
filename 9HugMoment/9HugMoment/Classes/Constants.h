@@ -51,6 +51,10 @@
 //414
 #define IS_HEIGHT_GTE_736 (([[UIScreen mainScreen ] bounds].size.height >= 700)?TRUE:FALSE)
 #define IS_IPHONE_6_PLUS (IS_IPHONE && IS_HEIGHT_GTE_736)
+/*FBConnectViewController*/
+
+#define objectLogin @"objectlogin"
+
 /*Categories*/
 #import "UIView+Utils.h"
 #import "UIAlertView+Helpers.h"
