@@ -265,17 +265,9 @@ static NSString *_kFacebookRequestResults = @"_kFacebookRequestResults";
          {
              FBRequest *_fbRequest = [FBRequest requestForMe];
              [_fbRequest setSession:session];
-             //FBRequest *_fbRequest   = [[FBRequest alloc] initWithSession:session graphPath:@"me"];
              [_fbRequest startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error)
              {
-                                  /*
-                 if (!error) {
-                     NSLog(@"accesstoken %@",[NSString stringWithFormat:@"%@",session.accessTokenData]);
-                     NSLog(@"user id %@",result.id);
-                     NSLog(@"Email %@",[result objectForKey:@"email"]);
-                     NSLog(@"User Name %@",result.username);
-                 }
-                                   */
+     
                  NSDictionary *_userInfo = nil;
                  if( [result isKindOfClass:[NSDictionary class]] )
                  {
@@ -284,7 +276,6 @@ static NSString *_kFacebookRequestResults = @"_kFacebookRequestResults";
                      [self _saveUserInfo:_userInfo];
                      if( [_userInfo count] > 0 )
                      {
-                         //存入 Facebook User ID
                          [self _saveUserId:[_userInfo objectForKey:@"id"]];
                          //Name
                          [self _saveUserName:[_userInfo objectForKey:@"name"]];

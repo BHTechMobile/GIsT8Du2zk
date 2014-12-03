@@ -23,19 +23,26 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _facebookManager = [FacebookManager sharedManager];
-    [_facebookManager awakeFBSession];
-    if ([_facebookManager isFBSessionOpen]) {
-//        NSDictionary *dicUser = [[NSUserDefaults standardUserDefaults] objectForKey:objectLogin];
-//        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large",
-//                                           [dicUser objectForKey:@"id"]]];
-//        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
-//        NSLog(@"image %@",image);
-        NSLog(@"You are login!");
-    }else{
-        NSLog(@"You are don't login");
-        [self showLoginFB];
+    
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    if (!appDelegate.session.isOpen) {
+        appDelegate.session = [[FBSession alloc] init];
+        if (appDelegate.session.state == FBSessionStateCreatedTokenLoaded) {
+            [appDelegate.session openWithCompletionHandler:^(FBSession *session,
+                                                             FBSessionState status,
+                                                             NSError *error) {
+                NSLog(@"You are login = %d",appDelegate.session.isOpen);
+            }];
+        }else{
+            NSLog(@"You are don't login %d",appDelegate.session.isOpen);
+            [self showLoginFB];
+        }
     }
+////        NSDictionary *dicUser = [[NSUserDefaults standardUserDefaults] objectForKey:objectLogin];
+////        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large",
+////                                           [dicUser objectForKey:@"id"]]];
+////        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+////        NSLog(@"image %@",image);
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -55,7 +62,6 @@
 
 - (void)showLoginFB {
     fbConnectViewController = (FBConnectViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"trending"];
-    //menu is only an example
     fbConnectViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [self presentViewController:fbConnectViewController animated:YES completion:nil];
 }

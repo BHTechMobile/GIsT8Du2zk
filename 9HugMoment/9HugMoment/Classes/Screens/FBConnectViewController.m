@@ -31,27 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _facebookManager = [FacebookManager sharedManager];
-    [_facebookManager awakeFBSession];
-    if ([_facebookManager isFBSessionOpen]) {
-        NSDictionary *dicUser = [[NSUserDefaults standardUserDefaults] objectForKey:objectLogin];
-        
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large",
-                                           [dicUser objectForKey:@"id"]]];
-        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
-        NSLog(@"image %@",image);
-    }
-    
-//    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-//    if (!appDelegate.session.isOpen) {
-//        appDelegate.session = [[FBSession alloc] init];
-//        if (appDelegate.session.state == FBSessionStateCreatedTokenLoaded) {
-//            [appDelegate.session openWithCompletionHandler:^(FBSession *session,
-//                                                             FBSessionState status,
-//                                                             NSError *error) {
-//            }];
-//        }
-//    }
+    [self checkSession];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -66,43 +46,72 @@
 #pragma mark - Button Login Facebook
 
 - (IBAction)dismissViewControllerAction:(id)sender {
-     [self dismissViewControllerAnimated:YES completion: nil];
+    [self dismissViewControllerAnimated:YES completion: nil];
 }
 
-- (IBAction)touchLoginFaceBook:(id)sender {
-    NSLog(@"fb session 33 login %d",APP_DELEGATE.session.isOpen);
+- (IBAction)touchLoginFaceBook:(id)sender{
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     if (appDelegate.session.isOpen) {
         [Utilities showAlertViewWithTitle:@"" andMessage:@"Are you sure you want to logout?" andDelegate:self];
+    } else {
+        if (appDelegate.session.state != FBSessionStateCreated) {
+            appDelegate.session = [[FBSession alloc] init];
+        }
+        [appDelegate.session openWithCompletionHandler:^(FBSession *session,
+                                                         FBSessionState status,
+                                                         NSError *error) {
+            [self login];
+        }];
     }
-    else if (appDelegate.session.state != FBSessionStateCreated) {
+}
+
+- (void)checkSession{
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    if (!appDelegate.session.isOpen) {
         appDelegate.session = [[FBSession alloc] init];
+        if (appDelegate.session.state == FBSessionStateCreatedTokenLoaded) {
+            [appDelegate.session openWithCompletionHandler:^(FBSession *session,
+                                                             FBSessionState status,
+                                                             NSError *error) {
+                NSLog(@"appDelegate.session.isOpen = %d",appDelegate.session.isOpen);
+            }];
+        }
     }
-    [appDelegate.session openWithCompletionHandler:^(FBSession *session,
-                                                     FBSessionState status,
-                                                     NSError *error) {
-    }];
+}
+
+- (void)getAvatarFB{
+    NSDictionary *dicUser = [[NSUserDefaults standardUserDefaults] objectForKey:objectLogin];
     
-//    {
-//        if (APP_DELEGATE.session.state != FBSessionStateCreated) {
-//            APP_DELEGATE.session = [[FBSession alloc]initWithPermissions:@[@"email",@"user_birthday",@"user_birthday",@"user_birthday",]];
-//        }
-//        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//        [APP_DELEGATE.session openWithCompletionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
-////            [[NSUserDefaults standardUserDefaults]setObject:userInfo forKey:objectLogin];
-////            [self Loginid:userInfo];
-////            [self handleLogin:userInfo];
-//        }];
-//    }
-//    NSLog(@"fb session 44 login %d",APP_DELEGATE.session.isOpen);
-        
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large",
+                                       [dicUser objectForKey:@"id"]]];
+    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+    NSLog(@"image %@",image);
+}
+
+- (void)login{
+    FBRequest *_fbRequest = [FBRequest requestForMe];
+    [_fbRequest setSession:APP_DELEGATE.session];
+    [_fbRequest startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error)
+     {
+         NSDictionary *_userInfo = nil;
+         if( [result isKindOfClass:[NSDictionary class]] )
+         {
+             _userInfo = (NSDictionary *)result;
+             NSLog(@"_userFB = %@",_userInfo);
+             [self getAvatarFB];
+         }
+     }];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex==1) {
-        [_facebookManager logout];
-        [[NSUserDefaults standardUserDefaults]setObject:nil forKey:objectLogin];
-        [[UserData currentAccount] clearCached];
+//        [_facebookManager logout];
+//        [[NSUserDefaults standardUserDefaults]setObject:nil forKey:objectLogin];
+//        [[UserData currentAccount] clearCached];
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+        if (appDelegate.session.isOpen) {
+            [appDelegate.session closeAndClearTokenInformation];
+        }
     }
 }
 
@@ -139,21 +148,6 @@
         [[UserData currentAccount] clearCached];
     }
 }
-
-//-(void)Loginoutfb:(UIBarButtonItem *)sender{
-//    if ([_facebookManager isFBSessionOpen] ) {
-//        [Utilities showAlertViewWithTitle:@"" andMessage:@"Are you sure you want to logout?" andDelegate:self];
-//    }else{
-//        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//        [_facebookManager loginWithCompletion:^(BOOL success, NSDictionary *userInfo)
-//         {
-//             [[NSUserDefaults standardUserDefaults]setObject:userInfo forKey:objectLogin];
-//             [self Loginid:userInfo];
-//             [self handleLogin:userInfo];
-//         }];
-//    }
-//    
-//}
 
 - (void)handleLogin :(NSDictionary *)user{
 }
