@@ -62,6 +62,46 @@
     
 }
 
+#pragma mark - Create Account 
+
++ (void)createAccount9Hug:(NSDictionary *)dicParam success:(SuccessBlock)success failure:(FailureBlock)failure{
+    [[BaseServices sharedManager].requestSerializer setTimeoutInterval:30];
+    [[BaseServices sharedManager] POST:@"client/create" parameters:dicParam
+             constructingBodyWithBlock:^(id<AFMultipartFormData> formData){
+                 
+             } success:^(AFHTTPRequestOperation *operation, id responseObject){
+                 if (success) {
+                     success(operation,[[self class] dictionaryFromData:operation.responseData error:nil]);
+                 }
+                 
+             } failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                 if (failure) {
+                     failure(nil,error);
+                 }
+                 
+             }];
+}
+
+#pragma mark - Login Client
+
++ (void)loginClient9Hug:(NSDictionary *)dicParam success:(SuccessBlock)success failure:(FailureBlock)failure{
+    [[BaseServices sharedManager].requestSerializer setTimeoutInterval:30];
+    [[BaseServices sharedManager] POST:@"client/login" parameters:dicParam
+             constructingBodyWithBlock:^(id<AFMultipartFormData> formData){
+                 
+             } success:^(AFHTTPRequestOperation *operation, id responseObject){
+                 if (success) {
+                     success(operation,[[self class] dictionaryFromData:operation.responseData error:nil]);
+                 }
+                 
+             } failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                 if (failure) {
+                     failure(nil,error);
+                 }
+                 
+             }];
+}
+
 #pragma mark - Login/Logout Services
 
 + (void)createUserWithParam:(NSDictionary *)dicParam success:(SuccessBlock)success failure:(FailureBlock)failure{
