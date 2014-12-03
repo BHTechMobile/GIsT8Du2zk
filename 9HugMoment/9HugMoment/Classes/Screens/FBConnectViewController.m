@@ -45,10 +45,6 @@
 
 #pragma mark - Button Login Facebook
 
-- (IBAction)dismissViewControllerAction:(id)sender {
-    [self dismissViewControllerAnimated:YES completion: nil];
-}
-
 - (IBAction)touchLoginFaceBook:(id)sender{
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     if (appDelegate.session.isOpen) {
@@ -63,6 +59,8 @@
             [self login];
         }];
     }
+    
+    [self dismissViewControllerAnimated:YES completion: nil];
 }
 
 - (void)checkSession{
@@ -85,7 +83,7 @@
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large",
                                        [dicUser objectForKey:@"id"]]];
     UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
-    NSLog(@"image %@",image);
+    NSLog(@"image 2 %@",image);
 }
 
 - (void)login{
@@ -98,7 +96,9 @@
          {
              _userInfo = (NSDictionary *)result;
              NSLog(@"_userFB = %@",_userInfo);
+             [[NSUserDefaults standardUserDefaults]setObject:_userInfo forKey:objectLogin];
              [self getAvatarFB];
+             [self Loginid:_userInfo];
          }
      }];
 }
@@ -119,29 +119,34 @@
 
 -(void)Loginid:(NSDictionary *)user{
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-    
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large",[user objectForKey:@"id"]]];
     UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
-    NSLog(@"image %@",image);
+    NSLog(@"image 1 %@",image);
     if (user) {
-        [[UserData currentAccount] setStrFacebookToken:[[[_facebookManager getActiveFBSession] accessTokenData] accessToken]];
+        
+//        [[UserData currentAccount] setStrFacebookToken:[[[_facebookManager getActiveFBSession] accessTokenData] accessToken]];
+//        [[UserData currentAccount] setStrFacebookToken:[[[FBSession activeSession] accessTokenData] accessToken]];
+        [[UserData currentAccount] setStrFacebookToken:appDelegate.session.accessTokenData.accessToken];
         [[UserData currentAccount] setStrFacebookId:[user valueForKey:@"id"]];
         [[UserData currentAccount] setStrFullName:[user valueForKey:@"name"]];
+//        NSDictionary *dicParam = @{@"code":[user valueForKey:@"id"],
+//                                   @"fullname":[user valueForKey:@"name"],
+//                                   @"facebookid":[user valueForKey:@"id"]
+//                                   };
+        
         NSDictionary *dicParam = @{@"code":[user valueForKey:@"id"],
                                    @"fullname":[user valueForKey:@"name"],
-                                   @"facebookid":[user valueForKey:@"id"],
-                                   @"facebook_token":[[[_facebookManager getActiveFBSession] accessTokenData] accessToken],
-                                   @"nickname":[user valueForKey:@"name"],
-                                   @"mobile":@"",
-                                   @"email":[user valueForKey:@"email"],
-                                   @"password":@""};
+                                   @"facebookid":[user valueForKey:@"id"] ,
+                                   @"facebook_token":appDelegate.session.accessTokenData.accessToken,
+                                   @"nickname":[user valueForKey:@"name"]
+                                   };
         
         [BaseServices createUserWithParam:dicParam success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"response = %@",responseObject);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"error = %@",error);
         }];
-        
         NSLog(@"Login sucessfuly!");
         
     }else{

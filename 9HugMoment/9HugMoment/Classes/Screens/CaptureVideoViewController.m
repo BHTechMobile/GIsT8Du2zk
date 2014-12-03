@@ -62,6 +62,7 @@
     unlink([_capturePath UTF8String]);
     [self createProcessView];
     [self touchResetCapturedButton:nil];
+    NSLog(@"_fbToken %@",_fbToken);
     [self getQrcode];
 }
 
@@ -82,7 +83,7 @@
 #pragma mark - GET service
 
 -(void)getQrcode{
-    [BaseServices createQRCode:@"19f153ddff9126d7048325931d0d332e" withType:@"1" success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [BaseServices createQRCode:_fbToken withType:@"1" success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //        _mKey = [[responseObject firstObject] valueForKey:@"key"];
         _qrcode = responseObject;
         _mKey = [[_qrcode firstObject] valueForKey:@"key"];

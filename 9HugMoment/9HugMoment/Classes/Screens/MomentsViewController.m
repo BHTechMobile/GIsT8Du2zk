@@ -17,6 +17,7 @@
 @implementation MomentsViewController{
     CaptureVideoViewController *captureVideoViewController;
     FBConnectViewController *fbConnectViewController;
+    NSString *facebookToken;
 }
 @synthesize _facebookManager;
 #pragma mark - Header Controll
@@ -33,21 +34,20 @@
                                                              NSError *error) {
                 NSLog(@"You are login = %d",appDelegate.session.isOpen);
             }];
+            
         }else{
             NSLog(@"You are don't login %d",appDelegate.session.isOpen);
             [self showLoginFB];
         }
     }
-////        NSDictionary *dicUser = [[NSUserDefaults standardUserDefaults] objectForKey:objectLogin];
-////        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large",
-////                                           [dicUser objectForKey:@"id"]]];
-////        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
-////        NSLog(@"image %@",image);
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+//    facebookToken = appDelegate.session.accessTokenData.accessToken;
+    NSLog(@" facebookToken = %@",appDelegate.session.accessTokenData.accessToken);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -68,7 +68,10 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"pushCaptureVideoViewController"]) {
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
         captureVideoViewController = [segue destinationViewController];
+        captureVideoViewController.fbToken = appDelegate.session.accessTokenData.accessToken;
+        NSLog(@"facebookToken %@",facebookToken);
     }
 }
 
