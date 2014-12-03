@@ -16,7 +16,7 @@
 @property (nonatomic,retain) NSString *strPassword;
 @property (nonatomic,retain) NSString *strId;
 
-
+@property (nonatomic,retain) NSString *strUserToken;
 
 +(UserData*)currentAccount;
 

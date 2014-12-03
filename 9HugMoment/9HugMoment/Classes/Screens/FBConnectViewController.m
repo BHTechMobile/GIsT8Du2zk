@@ -59,9 +59,43 @@
             [self login];
         }];
     }
-    
-    [self dismissViewControllerAnimated:YES completion: nil];
+//    [self dismissViewControllerAnimated:YES completion: nil];
 }
+
+#pragma mark - Check/Creat account 9Hug
+
+- (void)checkLogin9hug{
+    NSDictionary *_dictLogin =@{@"email":[[UserData currentAccount] strFacebookId],
+                                @"password":SYSTEM_PASSWORD
+                                };
+    NSLog(@"_dictLogin %@",_dictLogin);
+    [BaseServices loginClient9Hug:_dictLogin success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"response object login %@",responseObject);
+        if ([[responseObject objectForKey:@"status" ] isEqualToString:@"1"]) {
+            [[UserData currentAccount] setStrUserToken:[responseObject valueForKey:@"token"]];
+            NSLog(@"USER TOKEN = %@",[responseObject valueForKey:@"token"]);
+            NSLog(@"da login dc");
+            [self dismissViewControllerAnimated:YES completion: nil];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"errorrrr %@",error);
+        [self createAccount9hug];
+    }];
+}
+
+- (void)createAccount9hug{
+    NSDictionary *_dictCreate= @{@"fullname":[[UserData currentAccount] strFullName],
+                                 @"email":[[UserData currentAccount] strFacebookId],
+                                 @"password":SYSTEM_PASSWORD
+                                 };
+    [BaseServices createAccount9Hug:_dictCreate success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"response object create %@",responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"error %@",error);
+    }];
+    [self checkLogin9hug];
+}
+#pragma mark - Check session facebook
 
 - (void)checkSession{
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
@@ -76,6 +110,8 @@
         }
     }
 }
+
+#pragma mark - Check status login facebook
 
 - (void)getAvatarFB{
     NSDictionary *dicUser = [[NSUserDefaults standardUserDefaults] objectForKey:objectLogin];
@@ -97,10 +133,13 @@
              _userInfo = (NSDictionary *)result;
              NSLog(@"_userFB = %@",_userInfo);
              [[NSUserDefaults standardUserDefaults]setObject:_userInfo forKey:objectLogin];
+             NSLog(@"_userFB after = %@",_userInfo);
              [self getAvatarFB];
-             [self Loginid:_userInfo];
+             [self loginid:_userInfo];
+             [self checkLogin9hug];
          }
      }];
+    
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -111,29 +150,24 @@
         AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
         if (appDelegate.session.isOpen) {
             [appDelegate.session closeAndClearTokenInformation];
+            [[NSUserDefaults standardUserDefaults]setObject:nil forKey:objectLogin];
+            [[UserData currentAccount] clearCached];
         }
     }
 }
 
 #pragma mark - Method Login/Logout
 
--(void)Loginid:(NSDictionary *)user{
+-(void)loginid:(NSDictionary *)user{
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large",[user objectForKey:@"id"]]];
     UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
     NSLog(@"image 1 %@",image);
     if (user) {
-        
-//        [[UserData currentAccount] setStrFacebookToken:[[[_facebookManager getActiveFBSession] accessTokenData] accessToken]];
-//        [[UserData currentAccount] setStrFacebookToken:[[[FBSession activeSession] accessTokenData] accessToken]];
         [[UserData currentAccount] setStrFacebookToken:appDelegate.session.accessTokenData.accessToken];
         [[UserData currentAccount] setStrFacebookId:[user valueForKey:@"id"]];
         [[UserData currentAccount] setStrFullName:[user valueForKey:@"name"]];
-//        NSDictionary *dicParam = @{@"code":[user valueForKey:@"id"],
-//                                   @"fullname":[user valueForKey:@"name"],
-//                                   @"facebookid":[user valueForKey:@"id"]
-//                                   };
         
         NSDictionary *dicParam = @{@"code":[user valueForKey:@"id"],
                                    @"fullname":[user valueForKey:@"name"],
@@ -152,6 +186,7 @@
     }else{
         [[UserData currentAccount] clearCached];
     }
+    [self checkLogin9hug];
 }
 
 - (void)handleLogin :(NSDictionary *)user{

@@ -11,7 +11,9 @@
 
 /*All Page*/
 
+#define SYSTEM_PASSWORD @"Gfix0hVBUCNPf9wyKGiQ"
 #define UPLOAD_VIDEO @"http://ws.9hug.com/api/message/update"
+#define URL_GET_FOLLOW_ENDPOINT @"http://ws.9hug.com/api/client/login"
 
 #import <AFNetworking.h>
 

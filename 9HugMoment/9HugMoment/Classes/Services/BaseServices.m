@@ -80,6 +80,28 @@
                  }
                  
              }];
+    
+}
+
++ (void)getUserInfo:(NSString*)key sussess:(SuccessBlock)success failure:(MessageBlock)failure{
+    NSDictionary* parameters = @{@"key":key};
+    [[BaseServices sharedManager].requestSerializer setTimeoutInterval:30];
+    [BaseServices requestByMethod:@"GET" widthPath:@"user/get" withParameters:parameters
+                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (success) {
+            success(operation,responseObject);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSString* bodyString = [operation responseString];
+        
+        if (failure) {
+            failure(bodyString,error);
+        }
+        
+    }];
+    
+    
 }
 
 #pragma mark - Login Client

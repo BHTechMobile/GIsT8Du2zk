@@ -68,10 +68,10 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"pushCaptureVideoViewController"]) {
-        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+//        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
         captureVideoViewController = [segue destinationViewController];
-        captureVideoViewController.fbToken = appDelegate.session.accessTokenData.accessToken;
-        NSLog(@"facebookToken %@",facebookToken);
+        captureVideoViewController.userToken = [[UserData currentAccount] strUserToken];
+        NSLog(@"userTokennnnnn in Moments %@",[[UserData currentAccount] strUserToken]);
     }
 }
 
