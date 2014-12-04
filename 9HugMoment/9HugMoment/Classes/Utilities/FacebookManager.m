@@ -196,12 +196,9 @@ static NSString *_kFacebookRequestResults = @"_kFacebookRequestResults";
         appdel.session = [[FBSession alloc] initWithPermissions:@[@"email",@"user_birthday",@"user_birthday",@"user_birthday",]];
          [FBSession setActiveSession:appdel.session];
                 if (appdel.session.state == FBSessionStateCreatedTokenLoaded) {
-         [appdel.session openWithBehavior:FBSessionLoginBehaviorForcingWebView completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+         [appdel.session openWithBehavior:FBSessionLoginBehaviorUseSystemAccountIfPresent completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
              [self sessionStateChanged:session state:status error:error];
          }];
-                    //            [appdel.session openWithCompletionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
-//                //
-//            }];
         }
     }
 }
@@ -268,17 +265,9 @@ static NSString *_kFacebookRequestResults = @"_kFacebookRequestResults";
          {
              FBRequest *_fbRequest = [FBRequest requestForMe];
              [_fbRequest setSession:session];
-             //FBRequest *_fbRequest   = [[FBRequest alloc] initWithSession:session graphPath:@"me"];
              [_fbRequest startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error)
              {
-                                  /*
-                 if (!error) {
-                     NSLog(@"accesstoken %@",[NSString stringWithFormat:@"%@",session.accessTokenData]);
-                     NSLog(@"user id %@",result.id);
-                     NSLog(@"Email %@",[result objectForKey:@"email"]);
-                     NSLog(@"User Name %@",result.username);
-                 }
-                                   */
+     
                  NSDictionary *_userInfo = nil;
                  if( [result isKindOfClass:[NSDictionary class]] )
                  {
@@ -287,7 +276,6 @@ static NSString *_kFacebookRequestResults = @"_kFacebookRequestResults";
                      [self _saveUserInfo:_userInfo];
                      if( [_userInfo count] > 0 )
                      {
-                         //存入 Facebook User ID
                          [self _saveUserId:[_userInfo objectForKey:@"id"]];
                          //Name
                          [self _saveUserName:[_userInfo objectForKey:@"name"]];

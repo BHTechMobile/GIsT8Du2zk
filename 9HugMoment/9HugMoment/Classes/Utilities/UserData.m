@@ -18,6 +18,7 @@
 #define USERID @"USERID"
 #define USERCREATEDATE @"USERCREATED"
 
+#define USERCTOKEN @"USERCTOKEN"
 
 +(UserData*)currentAccount{
     static UserData *_sharedInstance = nil;
@@ -26,6 +27,15 @@
         _sharedInstance = [[UserData alloc] init];
     });
     return _sharedInstance;
+}
+
+- (void)setStrUserToken:(NSString *)strUserToken{
+    [[NSUserDefaults standardUserDefaults] setValue:strUserToken forKey:USERCTOKEN];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSString *)strUserToken{
+    return [[NSUserDefaults standardUserDefaults] valueForKey:USERCTOKEN];
 }
 
 - (void)setStrFacebookId:(NSString *)strFacebookId{
@@ -110,6 +120,7 @@
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:USERFACEBOOKTOKEN];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:USERFACEBOOKID];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:USERID];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:USERCTOKEN];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 @end

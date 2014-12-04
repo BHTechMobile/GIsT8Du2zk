@@ -9,9 +9,6 @@
 #import "MBProgressHUD.h"
 //#import "ProgressHUD.h"
 
-#define appDelegate (AppDelegate*)[[UIApplication sharedApplication] delegate]
-#define BG_COLOR_PROCESS [UIColor colorWithRed:187.0/255.0 green:187.0/255.0 blue:187.0/255.0 alpha:1.0]
-
 @implementation Utilities
 //+ (void) hideTabBar:(UITabBarController *) tabbarcontroller {
 //

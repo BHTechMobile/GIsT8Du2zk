@@ -25,7 +25,7 @@
     [self initNavigationView];
     [self createUI];
     [self.navigationCustomView addSubview:navigationView];
-    // preview and AV layer
+    
     _previewView.backgroundColor = [UIColor blackColor];
     CGRect previewFrame = CGRectMake(0, 60.0f, CGRectGetWidth(self.view.frame), CGRectGetWidth(self.view.frame));
     _previewView.frame = previewFrame;
@@ -40,6 +40,7 @@
     swipeRightGest.direction = UISwipeGestureRecognizerDirectionRight;
     _imvFrame.gestureRecognizers = @[swipeLeftGest,swipeRightGest];
     _imvFrame.userInteractionEnabled = YES;
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -50,18 +51,15 @@
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     _imvCapture.userInteractionEnabled = YES;
     navigationView.titleNvgLabel.text = @"New Moment";
-//    self.doneCaptureButton.enabled = NO;
     self.touchMixVideoButton.enabled = NO;
-//    [APP_DELEGATE.tabbar hideMe];
     _count = 12;
     _timeLabel.text = [NSString stringWithFormat:@"00:%ld",(long)_count];
-//        _recordPercent.progress = 0.0f;
     [[PBJVision sharedInstance] startPreview];
     [self _resetCapture];
     unlink([_capturePath UTF8String]);
     [self createProcessView];
     [self touchResetCapturedButton:nil];
-//    [self getToken];
+    NSLog(@"_userToken in CaptureVideo %@",_userToken);
     [self getQrcode];
 }
 
@@ -72,7 +70,6 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    //create cursor imageview
 }
 
 - (void)didReceiveMemoryWarning {
@@ -81,18 +78,8 @@
 
 #pragma mark - GET service
 
--(void)getToken{
-//    [BaseServices createToken:@"admin" withPassword:@"admin" success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        _userToken = [responseObject objectForKey:@"token"];
-//        NSLog(@"user token %@",[responseObject objectForKey:@"token"]);
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"error");
-//    }];
-}
-
 -(void)getQrcode{
-    [BaseServices createQRCode:@"19f153ddff9126d7048325931d0d332e" withType:@"1" success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //        _mKey = [[responseObject firstObject] valueForKey:@"key"];
+    [BaseServices createQRCode:_userToken withType:@"1" success:^(AFHTTPRequestOperation *operation, id responseObject) {
         _qrcode = responseObject;
         _mKey = [[_qrcode firstObject] valueForKey:@"key"];
         NSLog(@"_key %@",_mKey);
@@ -308,14 +295,12 @@
     [_cursorImageView setHidden:NO];
     _startCount ++;
     CGRect frameCursorImageView = [_cursorImageView frame];
-    frameCursorImageView.origin.x =1.0*_startCount*320/(_count*100) ;
-    if (frameCursorImageView.origin.x>320) {
-        frameCursorImageView.origin.x = 320;
+    frameCursorImageView.origin.x =1.0*_startCount*CGRectGetWidth(self.view.frame)/(_count*100) ;
+    if (frameCursorImageView.origin.x>CGRectGetWidth(self.view.frame)) {
+        frameCursorImageView.origin.x = CGRectGetWidth(self.view.frame);
     }
     if (frameCursorImageView.origin.x>PointX) {
-//        _doneCaptureButton.enabled = YES;
         self.touchMixVideoButton.enabled = YES;
-//        [_doneCaptureButton setBackgroundImage:[UIImage imageNamed:@"btn_ok_big_manual_code"] forState:UIControlStateNormal];
     }
     [_cursorImageView setFrame:frameCursorImageView];
     [_viewCurrentProgress setFrame:CGRectMake(0, 0, frameCursorImageView.origin.x, CGRectGetHeight(_recordPercent.frame))];
@@ -427,7 +412,6 @@
 -(void)showMixScreen{
     [self performSegueWithIdentifier:@"pushMixVideoViewController" sender:nil];
     [[PBJVision sharedInstance] stopPreview];
-//    MixVideoViewController *mixVC = [[MixVideoViewController alloc] init];
     mixVideoViewController.capturePath = [NSURL fileURLWithPath:_capturePath];
     mixVideoViewController.imgFrame = _imvFrame.image;
     mixVideoViewController.indexFrame = _imgIndex;
@@ -490,9 +474,7 @@
 }
 
 - (void)_resetCapture{
-//    _doneCaptureButton.enabled = NO;
     self.touchMixVideoButton.enabled = NO;
-//    [_doneCaptureButton setBackgroundImage:[UIImage imageNamed:@"btn_ok_big_manual_disable.png"] forState:UIControlStateNormal];
     if ([PBJVision sharedInstance].isRecording) {
         [[PBJVision sharedInstance] cancelVideoCapture];
     }
@@ -514,8 +496,6 @@
     vision.outputFormat = PBJOutputFormatSquare;
     vision.videoRenderingEnabled = YES;
     vision.audioCaptureEnabled = YES;
-    //    vision.additionalCompressionProperties = @{AVVideoProfileLevelKey : AVVideoProfileLevelH264Baseline30};
-    // AVVideoProfileLevelKey requires specific captureSessionPreset
 }
 
 #pragma mark - PBJVisionDelegate
@@ -617,7 +597,6 @@
 
 - (void)vision:(PBJVision *)vision capturedPhoto:(NSDictionary *)photoDict error:(NSError *)error{
     NSLog(@"%s",__PRETTY_FUNCTION__);
-    // photo captured, PBJVisionPhotoJPEGKey
 }
 
 // video capture

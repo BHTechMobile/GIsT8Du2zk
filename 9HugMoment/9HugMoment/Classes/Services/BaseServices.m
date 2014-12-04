@@ -62,6 +62,68 @@
     
 }
 
+#pragma mark - Create Account
+
++ (void)createAccount9Hug:(NSDictionary *)dicParam success:(SuccessBlock)success failure:(FailureBlock)failure{
+    [[BaseServices sharedManager].requestSerializer setTimeoutInterval:30];
+    [[BaseServices sharedManager] POST:@"client/create" parameters:dicParam
+             constructingBodyWithBlock:^(id<AFMultipartFormData> formData){
+                 
+             } success:^(AFHTTPRequestOperation *operation, id responseObject){
+                 if (success) {
+                     success(operation,[[self class] dictionaryFromData:operation.responseData error:nil]);
+                 }
+                 
+             } failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                 if (failure) {
+                     failure(nil,error);
+                 }
+                 
+             }];
+    
+}
+
++ (void)getUserInfo:(NSString*)key sussess:(SuccessBlock)success failure:(MessageBlock)failure{
+    NSDictionary* parameters = @{@"key":key};
+    [[BaseServices sharedManager].requestSerializer setTimeoutInterval:30];
+    [BaseServices requestByMethod:@"GET" widthPath:@"user/get" withParameters:parameters
+                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                              if (success) {
+                                  success(operation,responseObject);
+                              }
+                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                              
+                              NSString* bodyString = [operation responseString];
+                              
+                              if (failure) {
+                                  failure(bodyString,error);
+                              }
+                              
+                          }];
+    
+    
+}
+
+#pragma mark - Login Client
+
++ (void)loginClient9Hug:(NSDictionary *)dicParam success:(SuccessBlock)success failure:(FailureBlock)failure{
+    [[BaseServices sharedManager].requestSerializer setTimeoutInterval:30];
+    [[BaseServices sharedManager] POST:@"client/login" parameters:dicParam
+             constructingBodyWithBlock:^(id<AFMultipartFormData> formData){
+                 
+             } success:^(AFHTTPRequestOperation *operation, id responseObject){
+                 if (success) {
+                     success(operation,[[self class] dictionaryFromData:operation.responseData error:nil]);
+                 }
+                 
+             } failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                 if (failure) {
+                     failure(nil,error);
+                 }
+                 
+             }];
+}
+
 #pragma mark - Login/Logout Services
 
 + (void)createUserWithParam:(NSDictionary *)dicParam success:(SuccessBlock)success failure:(FailureBlock)failure{
@@ -80,6 +142,23 @@
                  }
                  
              }];
+}
+
++(void)loginWithCode:(NSString*)code fullName:(NSString*)fullName fbID:(NSString*)fbid fbToken:(NSString*)fbToken nickname:(NSString*)nickname mobile:(NSString*)mobile email:(NSString*)email password:(NSString*)password success:(SuccessBlock)success failure:(FailureBlock)failure{
+    
+    NSDictionary * params  = @{@"code":code,
+                               @"fullname":fullName,
+                               @"facebookid":fbid,
+                               @"facebook_token":fbToken,
+                               @"nickname":nickname,
+                               @"mobile":mobile,
+                               @"email":email,
+                               @"password":password
+                               };
+    NSLog(@"params %@",params);
+    //AFHTTPRequestOperation* operator =
+    
+    
 }
 
 #pragma mark - Login
@@ -130,6 +209,30 @@
 
 #pragma mark - Message Services
 
++ (void)getMessageByKey:(NSString*)key sussess:(SuccessBlock)success failure:(MessageBlock)failure{
+    NSDictionary* parameters = @{@"key":key};
+    //@"token":@"9813bd3a1c9056f8b1449659299205f5"};
+    [[BaseServices sharedManager].requestSerializer setTimeoutInterval:30];
+    
+    [BaseServices requestByMethod:@"GET" widthPath:@"message/get" withParameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        if (success) {
+            success(operation,responseObject);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSString* bodyString = [operation responseString];
+        
+        if (failure) {
+            failure(bodyString,error);
+        }
+        
+    }];
+    
+    
+}
+
 + (void)updateMessage:(NSString*)message
                   key:(NSString*)key
                 frame:(NSString*)frame
@@ -139,11 +242,11 @@
               failure:(MessageBlock)failure
 {
     NSDictionary* dict;
-        dict = @{@"key":key,
-                 @"text":message,
-                 @"frameid":frame,
-                 @"notification":@(notiF)
-                 };
+    dict = @{@"key":key,
+             @"text":message,
+             @"frameid":frame,
+             @"notification":@(notiF)
+             };
     
     [[BaseServices sharedManager].requestSerializer setTimeoutInterval:300];
     

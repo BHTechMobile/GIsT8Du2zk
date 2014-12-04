@@ -11,7 +11,9 @@
 
 /*All Page*/
 
+#define SYSTEM_PASSWORD @"Gfix0hVBUCNPf9wyKGiQ"
 #define UPLOAD_VIDEO @"http://ws.9hug.com/api/message/update"
+#define URL_GET_FOLLOW_ENDPOINT @"http://ws.9hug.com/api/client/login"
 
 #import <AFNetworking.h>
 
@@ -36,6 +38,9 @@
 #import "UIView+AutoLayout.h"
 #import "NSString+Helpers.h"
 
+#define PUSH_CAPTURE_VIDEOVIEWCONTROLLER @"pushCaptureVideoViewController"
+#define PRESENT_TRENDING @"trending"
+
 #define APP_DELEGATE ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 #define APP_SCREEN_HEIGHT [[UIScreen mainScreen] applicationFrame].size.height
 
@@ -51,6 +56,14 @@
 //414
 #define IS_HEIGHT_GTE_736 (([[UIScreen mainScreen ] bounds].size.height >= 700)?TRUE:FALSE)
 #define IS_IPHONE_6_PLUS (IS_IPHONE && IS_HEIGHT_GTE_736)
+/*FBConnectViewController*/
+
+#define objectLogin @"objectlogin"
+#import <FacebookSDK/FacebookSDK.h>
+#import <FacebookSDK/FBSession.h>
+#import "UserData.h"
+#import "FacebookManager.h"
+
 /*Categories*/
 #import "UIView+Utils.h"
 #import "UIAlertView+Helpers.h"

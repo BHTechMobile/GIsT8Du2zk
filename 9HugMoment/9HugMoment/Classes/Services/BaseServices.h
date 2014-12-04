@@ -18,6 +18,10 @@ typedef void (^DownloadResponseBlock)(float progress);
 
 +(AFHTTPRequestOperationManager*)sharedManager;
 
++ (void)createAccount9Hug:(NSDictionary *)dicParam success:(SuccessBlock)success failure:(FailureBlock)failure;
++ (void)loginClient9Hug:(NSDictionary *)dicParam success:(SuccessBlock)success failure:(FailureBlock)failure;
++ (void)getUserInfo:(NSString*)key sussess:(SuccessBlock)success failure:(MessageBlock)failure;
+
 +(void)loginWithCode:(NSString*)code fullName:(NSString*)fullName fbID:(NSString*)fbid fbToken:(NSString*)fbToken nickname:(NSString*)nickname mobile:(NSString*)mobile email:(NSString*)email password:(NSString*)password success:(SuccessBlock)success failure:(FailureBlock)failure;
 
 +(void)requestByMethod:(NSString*)method widthPath:(NSString*)path withParameters:(NSDictionary*)dict success:(SuccessBlock)success failure:(FailureBlock)failure;
