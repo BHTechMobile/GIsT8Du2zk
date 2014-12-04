@@ -25,7 +25,7 @@
     [self initNavigationView];
     [self createUI];
     [self.navigationCustomView addSubview:navigationView];
-    // preview and AV layer
+    
     _previewView.backgroundColor = [UIColor blackColor];
     CGRect previewFrame = CGRectMake(0, 60.0f, CGRectGetWidth(self.view.frame), CGRectGetWidth(self.view.frame));
     _previewView.frame = previewFrame;
@@ -51,12 +51,9 @@
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     _imvCapture.userInteractionEnabled = YES;
     navigationView.titleNvgLabel.text = @"New Moment";
-//    self.doneCaptureButton.enabled = NO;
     self.touchMixVideoButton.enabled = NO;
-//    [APP_DELEGATE.tabbar hideMe];
     _count = 12;
     _timeLabel.text = [NSString stringWithFormat:@"00:%ld",(long)_count];
-//        _recordPercent.progress = 0.0f;
     [[PBJVision sharedInstance] startPreview];
     [self _resetCapture];
     unlink([_capturePath UTF8String]);
@@ -73,7 +70,6 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    //create cursor imageview
 }
 
 - (void)didReceiveMemoryWarning {
@@ -299,14 +295,12 @@
     [_cursorImageView setHidden:NO];
     _startCount ++;
     CGRect frameCursorImageView = [_cursorImageView frame];
-    frameCursorImageView.origin.x =1.0*_startCount*320/(_count*100) ;
-    if (frameCursorImageView.origin.x>320) {
-        frameCursorImageView.origin.x = 320;
+    frameCursorImageView.origin.x =1.0*_startCount*CGRectGetWidth(self.view.frame)/(_count*100) ;
+    if (frameCursorImageView.origin.x>CGRectGetWidth(self.view.frame)) {
+        frameCursorImageView.origin.x = CGRectGetWidth(self.view.frame);
     }
     if (frameCursorImageView.origin.x>PointX) {
-//        _doneCaptureButton.enabled = YES;
         self.touchMixVideoButton.enabled = YES;
-//        [_doneCaptureButton setBackgroundImage:[UIImage imageNamed:@"btn_ok_big_manual_code"] forState:UIControlStateNormal];
     }
     [_cursorImageView setFrame:frameCursorImageView];
     [_viewCurrentProgress setFrame:CGRectMake(0, 0, frameCursorImageView.origin.x, CGRectGetHeight(_recordPercent.frame))];
@@ -418,7 +412,6 @@
 -(void)showMixScreen{
     [self performSegueWithIdentifier:@"pushMixVideoViewController" sender:nil];
     [[PBJVision sharedInstance] stopPreview];
-//    MixVideoViewController *mixVC = [[MixVideoViewController alloc] init];
     mixVideoViewController.capturePath = [NSURL fileURLWithPath:_capturePath];
     mixVideoViewController.imgFrame = _imvFrame.image;
     mixVideoViewController.indexFrame = _imgIndex;
@@ -481,9 +474,7 @@
 }
 
 - (void)_resetCapture{
-//    _doneCaptureButton.enabled = NO;
     self.touchMixVideoButton.enabled = NO;
-//    [_doneCaptureButton setBackgroundImage:[UIImage imageNamed:@"btn_ok_big_manual_disable.png"] forState:UIControlStateNormal];
     if ([PBJVision sharedInstance].isRecording) {
         [[PBJVision sharedInstance] cancelVideoCapture];
     }
@@ -505,8 +496,6 @@
     vision.outputFormat = PBJOutputFormatSquare;
     vision.videoRenderingEnabled = YES;
     vision.audioCaptureEnabled = YES;
-    //    vision.additionalCompressionProperties = @{AVVideoProfileLevelKey : AVVideoProfileLevelH264Baseline30};
-    // AVVideoProfileLevelKey requires specific captureSessionPreset
 }
 
 #pragma mark - PBJVisionDelegate
@@ -608,7 +597,6 @@
 
 - (void)vision:(PBJVision *)vision capturedPhoto:(NSDictionary *)photoDict error:(NSError *)error{
     NSLog(@"%s",__PRETTY_FUNCTION__);
-    // photo captured, PBJVisionPhotoJPEGKey
 }
 
 // video capture

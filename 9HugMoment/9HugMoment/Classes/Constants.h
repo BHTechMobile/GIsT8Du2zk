@@ -38,6 +38,9 @@
 #import "UIView+AutoLayout.h"
 #import "NSString+Helpers.h"
 
+#define PUSH_CAPTURE_VIDEOVIEWCONTROLLER @"pushCaptureVideoViewController"
+#define PRESENT_TRENDING @"trending"
+
 #define APP_DELEGATE ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 #define APP_SCREEN_HEIGHT [[UIScreen mainScreen] applicationFrame].size.height
 

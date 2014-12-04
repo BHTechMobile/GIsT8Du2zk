@@ -62,7 +62,7 @@
     
 }
 
-#pragma mark - Create Account 
+#pragma mark - Create Account
 
 + (void)createAccount9Hug:(NSDictionary *)dicParam success:(SuccessBlock)success failure:(FailureBlock)failure{
     [[BaseServices sharedManager].requestSerializer setTimeoutInterval:30];
@@ -88,18 +88,18 @@
     [[BaseServices sharedManager].requestSerializer setTimeoutInterval:30];
     [BaseServices requestByMethod:@"GET" widthPath:@"user/get" withParameters:parameters
                           success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (success) {
-            success(operation,responseObject);
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        NSString* bodyString = [operation responseString];
-        
-        if (failure) {
-            failure(bodyString,error);
-        }
-        
-    }];
+                              if (success) {
+                                  success(operation,responseObject);
+                              }
+                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                              
+                              NSString* bodyString = [operation responseString];
+                              
+                              if (failure) {
+                                  failure(bodyString,error);
+                              }
+                              
+                          }];
     
     
 }
@@ -242,11 +242,11 @@
               failure:(MessageBlock)failure
 {
     NSDictionary* dict;
-        dict = @{@"key":key,
-                 @"text":message,
-                 @"frameid":frame,
-                 @"notification":@(notiF)
-                 };
+    dict = @{@"key":key,
+             @"text":message,
+             @"frameid":frame,
+             @"notification":@(notiF)
+             };
     
     [[BaseServices sharedManager].requestSerializer setTimeoutInterval:300];
     

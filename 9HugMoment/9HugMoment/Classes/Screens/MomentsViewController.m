@@ -32,22 +32,16 @@
             [appDelegate.session openWithCompletionHandler:^(FBSession *session,
                                                              FBSessionState status,
                                                              NSError *error) {
-                NSLog(@"You are login = %d",appDelegate.session.isOpen);
             }];
-            
         }else{
-            NSLog(@"You are don't login %d",appDelegate.session.isOpen);
             [self showLoginFB];
         }
     }
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
-//    facebookToken = appDelegate.session.accessTokenData.accessToken;
-    NSLog(@" facebookToken = %@",appDelegate.session.accessTokenData.accessToken);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,21 +51,19 @@
 #pragma mark - Button add CaptureVideo
 
 - (IBAction)addCaptureVideoButtonAction:(id)sender {
-    [self performSegueWithIdentifier:@"pushCaptureVideoViewController" sender:nil];
+    [self performSegueWithIdentifier:PUSH_CAPTURE_VIDEOVIEWCONTROLLER sender:nil];
 }
 
 - (void)showLoginFB {
-    fbConnectViewController = (FBConnectViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"trending"];
+    fbConnectViewController = (FBConnectViewController *)[self.storyboard instantiateViewControllerWithIdentifier:PRESENT_TRENDING];
     fbConnectViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [self presentViewController:fbConnectViewController animated:YES completion:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"pushCaptureVideoViewController"]) {
-//        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    if ([[segue identifier] isEqualToString:PUSH_CAPTURE_VIDEOVIEWCONTROLLER]) {
         captureVideoViewController = [segue destinationViewController];
         captureVideoViewController.userToken = [[UserData currentAccount] strUserToken];
-        NSLog(@"userTokennnnnn in Moments %@",[[UserData currentAccount] strUserToken]);
     }
 }
 

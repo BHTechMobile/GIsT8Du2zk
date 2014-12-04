@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.BHTech.TestApp</string>
+	<string>com.BHTechMobile.9Hug</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -35,10 +35,14 @@
 	<string>873783752634529</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+	<key>UIStatusBarHidden</key>
+	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
+	<string>Trending</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

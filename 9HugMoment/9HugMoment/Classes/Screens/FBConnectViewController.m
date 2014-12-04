@@ -59,7 +59,6 @@
             [self login];
         }];
     }
-//    [self dismissViewControllerAnimated:YES completion: nil];
 }
 
 #pragma mark - Check/Creat account 9Hug
@@ -68,15 +67,14 @@
     NSDictionary *_dictLogin =@{@"email":[[UserData currentAccount] strFacebookId],
                                 @"password":SYSTEM_PASSWORD
                                 };
-    NSLog(@"_dictLogin %@",_dictLogin);
     [BaseServices loginClient9Hug:_dictLogin success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"response object login %@",responseObject);
         if ([[responseObject objectForKey:@"status" ] isEqualToString:@"1"]) {
             [[UserData currentAccount] setStrUserToken:[responseObject valueForKey:@"token"]];
             NSLog(@"USER TOKEN = %@",[responseObject valueForKey:@"token"]);
-            NSLog(@"da login dc");
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
             [self dismissViewControllerAnimated:YES completion: nil];
-        }
+            }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"errorrrr %@",error);
         [self createAccount9hug];
@@ -119,7 +117,6 @@
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large",
                                        [dicUser objectForKey:@"id"]]];
     UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
-    NSLog(@"image 2 %@",image);
 }
 
 - (void)login{
@@ -136,6 +133,7 @@
              NSLog(@"_userFB after = %@",_userInfo);
              [self getAvatarFB];
              [self loginid:_userInfo];
+             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
              [self checkLogin9hug];
          }
      }];
@@ -144,9 +142,6 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex==1) {
-//        [_facebookManager logout];
-//        [[NSUserDefaults standardUserDefaults]setObject:nil forKey:objectLogin];
-//        [[UserData currentAccount] clearCached];
         AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
         if (appDelegate.session.isOpen) {
             [appDelegate.session closeAndClearTokenInformation];
