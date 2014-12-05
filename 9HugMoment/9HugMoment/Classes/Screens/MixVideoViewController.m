@@ -719,53 +719,17 @@
 
 #pragma mark - Share video to Facebook
 
-- (void)publishStory
-{
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    appDelegate.session  = [FBSession activeSession];
-    NSArray *permissionsNeeded = @[@"publish_actions"];
+- (void)makeRequestToShareLink:(NSString*)link {
     
-    [FBRequestConnection startWithGraphPath:@"/me/permissions"
-                          completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                              if (!error){
-                                  NSDictionary *currentPermissions= [(NSArray *)[result data] objectAtIndex:0];
-                                  NSMutableArray *requestPermissions = [[NSMutableArray alloc] initWithArray:@[]];
-                                  for (NSString *permission in permissionsNeeded){
-                                      if (![currentPermissions objectForKey:permission]){
-                                          [requestPermissions addObject:permission];
-                                      }
-                                  }
-                                  
-                                  if ([requestPermissions count] > 0){
-                                      [FBSession.activeSession requestNewPublishPermissions:requestPermissions
-                                                                            defaultAudience:FBSessionDefaultAudienceFriends
-                                                                          completionHandler:^(FBSession *session, NSError *error) {
-                                                                              if (!error) {
-                                                                                  [self makeRequestToShareLink];
-                                                                              } else {
-                                                                                  NSLog(@"%@", error.description);
-                                                                              }
-                                                                          }];
-                                      
-                                  } else {
-                                      [self makeRequestToShareLink];
-                                  }
-                              } else {
-                                  NSLog(@" ===>>>> %@", error.description);
-                              }
-                          }];
+    NSDictionary *params = @{@"message": @"I've just take this video with Moment app",
+                             @"link": link};
     
-}
-
-- (void)makeRequestToShareLink {
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            @"This is a test message", @"message",
-                            nil
-                            ];
     FBRequest *uploadRequest = [FBRequest requestWithGraphPath:@"/me/feed" parameters:params HTTPMethod:@"POST"];
+    uploadRequest.session = APP_DELEGATE.session;
     [uploadRequest startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         if (!error) {
             NSLog(@"result: %@", result);
+            [UIAlertView showMessage:@"Video is shared on Facebook!"];
         } else {
             NSLog(@"%@", error.description);
         }
@@ -776,19 +740,26 @@
 
 -(void)upload{
     NSLog(@"_exportUrl %@",_exportUrl);
+    [BaseServices generateImage:_exportUrl success:^(UIImage *image) {
+        [self uploadWithImage:image];
+    } failure:^(NSError *error) {
+        [self uploadWithImage:nil];
+    }];
+}
+
+-(void)uploadWithImage:(UIImage*)image{
     [BaseServices updateMessage:_message?_message:@""
                             key:_mKey
                           frame:@"1"
                            path:_exportUrl
                    notification:_notificationButton.selected
+                      thumbnail:image
                         sussess:^(AFHTTPRequestOperation *operation, id responseObject) {
                             dispatch_async(dispatch_get_main_queue(), ^{
                                 [MBProgressHUD hideHUDForView:self.view animated:YES];
-                                [self getLinkVideo:_mKey];
-                                NSLog(@"get xong link");
-                                [self publishStory];
-                                NSLog(@"post link");
-                                [UIAlertView showMessage:@"Upload video success"];
+                                //                                [self getLinkVideo:_mKey];
+                                [self makeRequestToShareLink:[NSString stringWithFormat:@"http://www.9hug.com/message/%@",_mKey]];
+                                [UIAlertView showMessage:@"Video is uploaded!"];
                                 [self.navigationController popToRootViewControllerAnimated:YES];
                             });
                         } failure:^(NSString *bodyString, NSError *error) {

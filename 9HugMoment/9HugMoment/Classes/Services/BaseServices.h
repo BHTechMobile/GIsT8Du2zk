@@ -30,7 +30,7 @@ typedef void (^DownloadResponseBlock)(float progress);
 
 + (void)getMessageByKey:(NSString*)key sussess:(SuccessBlock)success failure:(MessageBlock)failure;
 
-+ (void)updateMessage:(NSString*)message key:(NSString*)key frame:(NSString*)frame path:(NSURL*)videoPath notification:(BOOL)notiF sussess:(SuccessBlock)success failure:(MessageBlock)failure;
++ (void)updateMessage:(NSString*)message key:(NSString*)key frame:(NSString*)frame path:(NSURL*)videoPath notification:(BOOL)notiF thumbnail:(UIImage*)image sussess:(SuccessBlock)success failure:(MessageBlock)failure;
 
 +(void)getAllMessageSussess:(SuccessBlock)success failure:(MessageBlock)failure;
 
@@ -42,4 +42,7 @@ typedef void (^DownloadResponseBlock)(float progress);
 + (void)createUserWithParam:(NSDictionary *)dicParam success:(SuccessBlock)success failure:(FailureBlock)failure;
 + (void)createToken:(NSString *)email withPassword:(NSString *)password success:(SuccessBlock)success failure:(FailureBlock)failure;
 + (void)createQRCode:(NSString *)token withType:(NSString *)type success:(SuccessBlock)success failure:(FailureBlock)failure;
+
++ (void)generateImage:(NSURL*)url success:(void(^)(UIImage* image))success failure:(void(^)(NSError* error))failure;
+
 @end
