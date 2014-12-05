@@ -51,7 +51,8 @@
         [Utilities showAlertViewWithTitle:@"" andMessage:@"Are you sure you want to logout?" andDelegate:self];
     } else {
         if (appDelegate.session.state != FBSessionStateCreated) {
-            appDelegate.session = [[FBSession alloc] init];
+            appDelegate.session = [[FBSession alloc] initWithPermissions:@[@"publish_actions",@"public_profile", @"user_friends",@"read_friendlists"]];
+//            appDelegate.session = [[FBSession alloc] init];
         }
         [appDelegate.session openWithCompletionHandler:^(FBSession *session,
                                                          FBSessionState status,
@@ -98,7 +99,7 @@
 - (void)checkSession{
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     if (!appDelegate.session.isOpen) {
-        appDelegate.session = [[FBSession alloc] init];
+        appDelegate.session = [[FBSession alloc] initWithPermissions:@[@"publish_actions",@"public_profile", @"user_friends",@"read_friendlists"]];
         if (appDelegate.session.state == FBSessionStateCreatedTokenLoaded) {
             [appDelegate.session openWithCompletionHandler:^(FBSession *session,
                                                              FBSessionState status,
@@ -121,7 +122,8 @@
 
 - (void)login{
     FBRequest *_fbRequest = [FBRequest requestForMe];
-    [_fbRequest setSession:APP_DELEGATE.session];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    [_fbRequest setSession:appDelegate.session];
     [_fbRequest startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error)
      {
          NSDictionary *_userInfo = nil;
@@ -134,6 +136,7 @@
              [self getAvatarFB];
              [self loginid:_userInfo];
              [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+             [FBSession setActiveSession:appDelegate.session];
              [self checkLogin9hug];
          }
      }];
