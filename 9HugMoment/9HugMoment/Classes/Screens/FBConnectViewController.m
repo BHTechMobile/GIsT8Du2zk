@@ -46,17 +46,20 @@
 #pragma mark - Button Login Facebook
 
 - (IBAction)touchLoginFaceBook:(id)sender{
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    if (appDelegate.session.isOpen) {
+    if (APP_DELEGATE.session.isOpen) {
         [Utilities showAlertViewWithTitle:@"" andMessage:@"Are you sure you want to logout?" andDelegate:self];
     } else {
-        if (appDelegate.session.state != FBSessionStateCreated) {
-            appDelegate.session = [[FBSession alloc] init];
+        if (APP_DELEGATE.session.state != FBSessionStateCreated) {
+            APP_DELEGATE.session = [[FBSession alloc] initWithPermissions:@[@"publish_actions",@"public_profile", @"user_friends",@"read_friendlists"]];
         }
-        [appDelegate.session openWithCompletionHandler:^(FBSession *session,
+        [APP_DELEGATE.session openWithCompletionHandler:^(FBSession *session,
                                                          FBSessionState status,
                                                          NSError *error) {
-            [self login];
+            if (!error) {
+                [self login];
+                APP_DELEGATE.session = session;
+                [FBSession setActiveSession:session];
+            }
         }];
     }
 }
@@ -96,14 +99,13 @@
 #pragma mark - Check session facebook
 
 - (void)checkSession{
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    if (!appDelegate.session.isOpen) {
-        appDelegate.session = [[FBSession alloc] init];
-        if (appDelegate.session.state == FBSessionStateCreatedTokenLoaded) {
-            [appDelegate.session openWithCompletionHandler:^(FBSession *session,
+    if (!APP_DELEGATE.session.isOpen) {
+        APP_DELEGATE.session = [[FBSession alloc] initWithPermissions:@[@"publish_actions",@"public_profile", @"user_friends",@"read_friendlists"]];
+        if (APP_DELEGATE.session.state == FBSessionStateCreatedTokenLoaded) {
+            [APP_DELEGATE.session openWithCompletionHandler:^(FBSession *session,
                                                              FBSessionState status,
                                                              NSError *error) {
-                NSLog(@"appDelegate.session.isOpen = %d",appDelegate.session.isOpen);
+                NSLog(@"appDelegate.session.isOpen = %d",APP_DELEGATE.session.isOpen);
             }];
         }
     }
@@ -134,6 +136,7 @@
              [self getAvatarFB];
              [self loginid:_userInfo];
              [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+             [FBSession setActiveSession:APP_DELEGATE.session];
              [self checkLogin9hug];
          }
      }];

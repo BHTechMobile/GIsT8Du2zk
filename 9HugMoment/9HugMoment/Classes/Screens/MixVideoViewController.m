@@ -18,6 +18,7 @@
     UIButton *buttonBack;
     UIImageView *imageChoose;
     MixAudioViewController *mixAudioViewController;
+    NSString *linkVideoFromServer;
 }
 
 #pragma mark - Header Control
@@ -666,36 +667,23 @@
                 [self processMixingWithStatus:status outputURLString:output];
             }];
         });
-        
     }
 }
 
 #pragma mark - Base Services
 
--(void)upload{
-    [BaseServices updateMessage:_message?_message:@""
-                            key:_mKey
-                          frame:@"1"
-                           path:_exportUrl
-                   notification:_notificationButton.selected
-                        sussess:^(AFHTTPRequestOperation *operation, id responseObject) {
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                [MBProgressHUD hideHUDForView:self.view animated:YES];
-                                [UIAlertView showMessage:@"Upload video success"];
-                                [self.navigationController popToRootViewControllerAnimated:YES];
-                            });
-                            
-                        } failure:^(NSString *bodyString, NSError *error) {
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                [MBProgressHUD hideHUDForView:self.view animated:YES];
-                            });
-                            _mixed = NO;
-                        }];
-//_mKey
-}
-
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    [self.navigationController popToRootViewControllerAnimated:YES];
+-(void)getLinkVideo:(NSString *)_qrCode{
+    [BaseServices getMessageByKey:_qrCode sussess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"getLinkVideo success %@",responseObject);
+        linkVideoFromServer = [responseObject objectForKey:@"attachement1"];
+        NSLog(@"linkVideoFromServer %@",linkVideoFromServer);
+        _postParams = @{
+                        @"link":linkVideoFromServer
+                        };
+        NSLog(@"_postParams %@",_postParams);
+    } failure:^(NSString *bodyString, NSError *error) {
+        NSLog(@"error getLinkVideo %@",error);
+    }];
 }
 
 #pragma mark - AVAudioPlayer Delegate
@@ -725,8 +713,65 @@
     return roundedImage;
 }
 
-
 - (IBAction)publicVideoButtonAction:(id)sender {
     [self mixVideo];
 }
+
+#pragma mark - Share video to Facebook
+
+- (void)makeRequestToShareLink:(NSString*)link {
+    
+    NSDictionary *params = @{@"message": @"I've just take this video with Moment app",
+                             @"link": link};
+    
+    FBRequest *uploadRequest = [FBRequest requestWithGraphPath:@"/me/feed" parameters:params HTTPMethod:@"POST"];
+    uploadRequest.session = APP_DELEGATE.session;
+    [uploadRequest startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        if (!error) {
+            NSLog(@"result: %@", result);
+            [UIAlertView showMessage:@"Video is shared on Facebook!"];
+        } else {
+            NSLog(@"%@", error.description);
+        }
+    }];
+}
+
+#pragma mark - Upload video
+
+-(void)upload{
+    NSLog(@"_exportUrl %@",_exportUrl);
+    [BaseServices generateImage:_exportUrl success:^(UIImage *image) {
+        [self uploadWithImage:image];
+    } failure:^(NSError *error) {
+        [self uploadWithImage:nil];
+    }];
+}
+
+-(void)uploadWithImage:(UIImage*)image{
+    [BaseServices updateMessage:_message?_message:@""
+                            key:_mKey
+                          frame:@"1"
+                           path:_exportUrl
+                   notification:_notificationButton.selected
+                      thumbnail:image
+                        sussess:^(AFHTTPRequestOperation *operation, id responseObject) {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                //                                [self getLinkVideo:_mKey];
+                                [self makeRequestToShareLink:[NSString stringWithFormat:@"http://www.9hug.com/message/%@",_mKey]];
+                                [UIAlertView showMessage:@"Video is uploaded!"];
+                                [self.navigationController popToRootViewControllerAnimated:YES];
+                            });
+                        } failure:^(NSString *bodyString, NSError *error) {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                            });
+                            _mixed = NO;
+                        }];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
 @end

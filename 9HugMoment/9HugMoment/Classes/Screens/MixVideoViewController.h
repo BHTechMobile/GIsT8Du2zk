@@ -54,4 +54,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnFrames;
 @property (weak, nonatomic) IBOutlet UIButton *btnVideoFilters;
 
+@property (strong, nonatomic) NSDictionary *postParams;
+
 @end

@@ -27,11 +27,12 @@
     
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     if (!appDelegate.session.isOpen) {
-        appDelegate.session = [[FBSession alloc] init];
+        appDelegate.session = [[FBSession alloc] initWithPermissions:@[@"publish_actions",@"public_profile", @"user_friends",@"read_friendlists"]];
         if (appDelegate.session.state == FBSessionStateCreatedTokenLoaded) {
             [appDelegate.session openWithCompletionHandler:^(FBSession *session,
                                                              FBSessionState status,
                                                              NSError *error) {
+                [FBSession setActiveSession:appDelegate.session];
             }];
         }else{
             [self showLoginFB];
@@ -59,6 +60,8 @@
     fbConnectViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [self presentViewController:fbConnectViewController animated:YES completion:nil];
 }
+
+
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:PUSH_CAPTURE_VIDEOVIEWCONTROLLER]) {

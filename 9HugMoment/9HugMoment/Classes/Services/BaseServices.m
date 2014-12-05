@@ -233,11 +233,36 @@
     
 }
 
++ (void)generateImage:(NSURL*)url success:(void(^)(UIImage* image))success failure:(void(^)(NSError* error))failure{
+    AVURLAsset *asset=[[AVURLAsset alloc] initWithURL:url options:nil];
+    AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+    generator.appliesPreferredTrackTransform=TRUE;
+    CMTime thumbTime = CMTimeMakeWithSeconds(0,30);
+    
+    AVAssetImageGeneratorCompletionHandler handler = ^(CMTime requestedTime, CGImageRef im, CMTime actualTime, AVAssetImageGeneratorResult result, NSError *error){
+        if (result != AVAssetImageGeneratorSucceeded) {
+            NSLog(@"couldn't generate thumbnail, error:%@", error);
+        }
+        if (success) {
+            success([UIImage imageWithCGImage:im]);
+        }
+        else if (failure){
+            failure(error);
+        }
+    };
+    
+    CGSize maxSize = CGSizeMake(640, 640);
+    generator.maximumSize = maxSize;
+    [generator generateCGImagesAsynchronouslyForTimes:[NSArray arrayWithObject:[NSValue valueWithCMTime:thumbTime]] completionHandler:handler];
+    
+}
+
 + (void)updateMessage:(NSString*)message
                   key:(NSString*)key
                 frame:(NSString*)frame
                  path:(NSURL*)videoPath
          notification:(BOOL)notiF
+            thumbnail:(UIImage*)image
               sussess:(SuccessBlock)success
               failure:(MessageBlock)failure
 {
@@ -260,6 +285,9 @@
                                             }
                                             
                                             [formData appendPartWithFileData:videoData name:@"attachement1" fileName:@"video.mp4" mimeType:@"video/mp4"];
+                                            
+                                            [formData appendPartWithFileData:UIImagePNGRepresentation(image) name:@"attachement2" fileName:@"thumbnail.png" mimeType:@"image/png"];
+
                                             
                                         } success:^(AFHTTPRequestOperation *operation, id responseObject)
                                         {
