@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		50122DC05EA6BE8B2C84D3E2 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C244774540907ADC2E89DBF /* libPods.a */; };
+		51A6E3061A31BC3C00BE3039 /* JTNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A6E3011A31BC3C00BE3039 /* JTNavigationController.m */; };
+		51A6E3071A31BC3C00BE3039 /* JTTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A6E3031A31BC3C00BE3039 /* JTTabBarController.m */; };
+		51A6E3081A31BC3C00BE3039 /* JTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A6E3051A31BC3C00BE3039 /* JTViewController.m */; };
 		9F0671E61A2716AA0077F66B /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F0671E51A2716AA0077F66B /* Utilities.m */; };
 		9F9F98211A2820200089018B /* VideoFilterActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F981F1A2820200089018B /* VideoFilterActionView.m */; };
 		9F9F98221A2820200089018B /* VideoFilterActionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F9F98201A2820200089018B /* VideoFilterActionView.xib */; };
@@ -69,6 +72,12 @@
 
 /* Begin PBXFileReference section */
 		09E7E7659CA4BCEEA9396327 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		51A6E3001A31BC3C00BE3039 /* JTNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTNavigationController.h; sourceTree = "<group>"; };
+		51A6E3011A31BC3C00BE3039 /* JTNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTNavigationController.m; sourceTree = "<group>"; };
+		51A6E3021A31BC3C00BE3039 /* JTTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTTabBarController.h; sourceTree = "<group>"; };
+		51A6E3031A31BC3C00BE3039 /* JTTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTTabBarController.m; sourceTree = "<group>"; };
+		51A6E3041A31BC3C00BE3039 /* JTViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTViewController.h; sourceTree = "<group>"; };
+		51A6E3051A31BC3C00BE3039 /* JTViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTViewController.m; sourceTree = "<group>"; };
 		7C244774540907ADC2E89DBF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F0671D71A26CAC80077F66B /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		9F0671D81A26CB7F0077F66B /* 9HugMoment-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "9HugMoment-Prefix.pch"; sourceTree = "<group>"; };
@@ -169,6 +178,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		51A6E2FF1A31BC3C00BE3039 /* JTViewController */ = {
+			isa = PBXGroup;
+			children = (
+				51A6E3001A31BC3C00BE3039 /* JTNavigationController.h */,
+				51A6E3011A31BC3C00BE3039 /* JTNavigationController.m */,
+				51A6E3021A31BC3C00BE3039 /* JTTabBarController.h */,
+				51A6E3031A31BC3C00BE3039 /* JTTabBarController.m */,
+				51A6E3041A31BC3C00BE3039 /* JTViewController.h */,
+				51A6E3051A31BC3C00BE3039 /* JTViewController.m */,
+			);
+			path = JTViewController;
+			sourceTree = "<group>";
+		};
 		9F0671E31A2716AA0077F66B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -276,6 +298,7 @@
 		9FB03B201A27902F00370885 /* Third Parties */ = {
 			isa = PBXGroup;
 			children = (
+				51A6E2FF1A31BC3C00BE3039 /* JTViewController */,
 				9F9F98371A286D640089018B /* Custom View */,
 				9F9F982A1A2829F40089018B /* MyStructure */,
 				9FB03B211A27902F00370885 /* Navigation View */,
@@ -583,11 +606,14 @@
 				9FFFDDC31A2CD10E0081ADC9 /* UserData.m in Sources */,
 				CECCB78E1A23470900C1220C /* MomentsViewController.m in Sources */,
 				CECCB7A61A2347B200C1220C /* MixAudioViewController.m in Sources */,
+				51A6E3081A31BC3C00BE3039 /* JTViewController.m in Sources */,
 				CECCB7971A23472E00C1220C /* CaptureVideoViewController.m in Sources */,
 				CE3E23461A233CDF00008D27 /* AppDelegate.m in Sources */,
 				CECCB79D1A23476B00C1220C /* RecentMomentsViewController.m in Sources */,
 				9F0671E61A2716AA0077F66B /* Utilities.m in Sources */,
 				9FADF12F1A2C5226007FFCFF /* BaseServices.m in Sources */,
+				51A6E3061A31BC3C00BE3039 /* JTNavigationController.m in Sources */,
+				51A6E3071A31BC3C00BE3039 /* JTTabBarController.m in Sources */,
 				9F9F98451A286D640089018B /* VolumeView.m in Sources */,
 				9F9F98211A2820200089018B /* VideoFilterActionView.m in Sources */,
 				9F9F98491A286E180089018B /* UIView+AutoLayout.m in Sources */,
