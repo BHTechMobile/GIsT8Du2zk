@@ -34,6 +34,14 @@
 		9FADF12F1A2C5226007FFCFF /* BaseServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FADF12E1A2C5226007FFCFF /* BaseServices.m */; };
 		9FB03B291A27905C00370885 /* NavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FB03B281A27905C00370885 /* NavigationView.m */; };
 		9FB03B2B1A27909400370885 /* NavigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FB03B2A1A27909400370885 /* NavigationView.xib */; };
+		9FC33C2C1A32ACD7003BB41C /* UpvoteMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC33C2A1A32ACD7003BB41C /* UpvoteMessageTableViewCell.m */; };
+		9FC33C2D1A32ACD7003BB41C /* UpvoteMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FC33C2B1A32ACD7003BB41C /* UpvoteMessageTableViewCell.xib */; };
+		9FC33C311A32ACE7003BB41C /* CommentMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC33C2F1A32ACE7003BB41C /* CommentMessageTableViewCell.m */; };
+		9FC33C321A32ACE7003BB41C /* CommentMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FC33C301A32ACE7003BB41C /* CommentMessageTableViewCell.xib */; };
+		9FC33C371A32B1D0003BB41C /* CommentHeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC33C351A32B1D0003BB41C /* CommentHeaderTableViewCell.m */; };
+		9FC33C381A32B1D0003BB41C /* CommentHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FC33C361A32B1D0003BB41C /* CommentHeaderTableViewCell.xib */; };
+		9FC33C3D1A32B7F6003BB41C /* EnterMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC33C3B1A32B7F6003BB41C /* EnterMessageView.m */; };
+		9FC33C3E1A32B7F6003BB41C /* EnterMessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FC33C3C1A32B7F6003BB41C /* EnterMessageView.xib */; };
 		9FFFDDC21A2CD10E0081ADC9 /* FacebookManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFFDDBF1A2CD10E0081ADC9 /* FacebookManager.m */; };
 		9FFFDDC31A2CD10E0081ADC9 /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFFDDC11A2CD10E0081ADC9 /* UserData.m */; };
 		CE3E23431A233CDF00008D27 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3E23421A233CDF00008D27 /* main.m */; };
@@ -110,6 +118,18 @@
 		9FB03B271A27905C00370885 /* NavigationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationView.h; sourceTree = "<group>"; };
 		9FB03B281A27905C00370885 /* NavigationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationView.m; sourceTree = "<group>"; };
 		9FB03B2A1A27909400370885 /* NavigationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavigationView.xib; sourceTree = "<group>"; };
+		9FC33C291A32ACD7003BB41C /* UpvoteMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpvoteMessageTableViewCell.h; sourceTree = "<group>"; };
+		9FC33C2A1A32ACD7003BB41C /* UpvoteMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpvoteMessageTableViewCell.m; sourceTree = "<group>"; };
+		9FC33C2B1A32ACD7003BB41C /* UpvoteMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpvoteMessageTableViewCell.xib; sourceTree = "<group>"; };
+		9FC33C2E1A32ACE7003BB41C /* CommentMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentMessageTableViewCell.h; sourceTree = "<group>"; };
+		9FC33C2F1A32ACE7003BB41C /* CommentMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentMessageTableViewCell.m; sourceTree = "<group>"; };
+		9FC33C301A32ACE7003BB41C /* CommentMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentMessageTableViewCell.xib; sourceTree = "<group>"; };
+		9FC33C341A32B1D0003BB41C /* CommentHeaderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentHeaderTableViewCell.h; sourceTree = "<group>"; };
+		9FC33C351A32B1D0003BB41C /* CommentHeaderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentHeaderTableViewCell.m; sourceTree = "<group>"; };
+		9FC33C361A32B1D0003BB41C /* CommentHeaderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentHeaderTableViewCell.xib; sourceTree = "<group>"; };
+		9FC33C3A1A32B7F6003BB41C /* EnterMessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnterMessageView.h; sourceTree = "<group>"; };
+		9FC33C3B1A32B7F6003BB41C /* EnterMessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnterMessageView.m; sourceTree = "<group>"; };
+		9FC33C3C1A32B7F6003BB41C /* EnterMessageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnterMessageView.xib; sourceTree = "<group>"; };
 		9FFFDDBE1A2CD10E0081ADC9 /* FacebookManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookManager.h; sourceTree = "<group>"; };
 		9FFFDDBF1A2CD10E0081ADC9 /* FacebookManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookManager.m; sourceTree = "<group>"; };
 		9FFFDDC01A2CD10E0081ADC9 /* UserData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserData.h; sourceTree = "<group>"; };
@@ -185,7 +205,17 @@
 		9F0671E81A2738110077F66B /* UIs */ = {
 			isa = PBXGroup;
 			children = (
+				9FC33C391A32B7F6003BB41C /* MessageController */,
 				9F9F981D1A2820200089018B /* VideoFilter */,
+				9FC33C291A32ACD7003BB41C /* UpvoteMessageTableViewCell.h */,
+				9FC33C2A1A32ACD7003BB41C /* UpvoteMessageTableViewCell.m */,
+				9FC33C2B1A32ACD7003BB41C /* UpvoteMessageTableViewCell.xib */,
+				9FC33C2E1A32ACE7003BB41C /* CommentMessageTableViewCell.h */,
+				9FC33C2F1A32ACE7003BB41C /* CommentMessageTableViewCell.m */,
+				9FC33C301A32ACE7003BB41C /* CommentMessageTableViewCell.xib */,
+				9FC33C341A32B1D0003BB41C /* CommentHeaderTableViewCell.h */,
+				9FC33C351A32B1D0003BB41C /* CommentHeaderTableViewCell.m */,
+				9FC33C361A32B1D0003BB41C /* CommentHeaderTableViewCell.xib */,
 			);
 			path = UIs;
 			sourceTree = "<group>";
@@ -291,6 +321,16 @@
 				9FB03B2A1A27909400370885 /* NavigationView.xib */,
 			);
 			path = "Navigation View";
+			sourceTree = "<group>";
+		};
+		9FC33C391A32B7F6003BB41C /* MessageController */ = {
+			isa = PBXGroup;
+			children = (
+				9FC33C3A1A32B7F6003BB41C /* EnterMessageView.h */,
+				9FC33C3B1A32B7F6003BB41C /* EnterMessageView.m */,
+				9FC33C3C1A32B7F6003BB41C /* EnterMessageView.xib */,
+			);
+			path = MessageController;
 			sourceTree = "<group>";
 		};
 		B2DF2177E94B99CDF181F68C /* Pods */ = {
@@ -510,17 +550,21 @@
 				CE3E234F1A233CDF00008D27 /* Main.storyboard in Resources */,
 				9FA218B11A320C4000C3891B /* GPUImageColorDodgeBlendFilter5.mp4 in Resources */,
 				CECCB7881A2344FC00C1220C /* Trending.storyboard in Resources */,
+				9FC33C2D1A32ACD7003BB41C /* UpvoteMessageTableViewCell.xib in Resources */,
 				9FA218B31A320C4000C3891B /* GPUImageColorDodgeBlendFilter7.mp4 in Resources */,
+				9FC33C381A32B1D0003BB41C /* CommentHeaderTableViewCell.xib in Resources */,
 				9F9F98461A286D640089018B /* VolumeView.xib in Resources */,
 				CE3E23541A233CE000008D27 /* LaunchScreen.xib in Resources */,
 				9FA218AF1A320C4000C3891B /* GPUImageColorDodgeBlendFilter3.mov in Resources */,
 				CECCB7AD1A23482600C1220C /* MyMoments.storyboard in Resources */,
 				9F9F98221A2820200089018B /* VideoFilterActionView.xib in Resources */,
+				9FC33C321A32ACE7003BB41C /* CommentMessageTableViewCell.xib in Resources */,
 				9FA218AC1A320C4000C3891B /* GPUImageColorDodgeBlendFilter0.mp4 in Resources */,
 				CE3E23511A233CE000008D27 /* Images.xcassets in Resources */,
 				CECCB7AB1A23481D00C1220C /* FromFriends.storyboard in Resources */,
 				CECCB7A91A23481400C1220C /* Recent.storyboard in Resources */,
 				9FA218B41A320C4000C3891B /* GPUImageColorDodgeBlendFilter8.mp4 in Resources */,
+				9FC33C3E1A32B7F6003BB41C /* EnterMessageView.xib in Resources */,
 				9F9F98421A286D640089018B /* AudioRangerSelectorView.xib in Resources */,
 				9FB03B2B1A27909400370885 /* NavigationView.xib in Resources */,
 				9F9F98441A286D640089018B /* PlayerView.xib in Resources */,
@@ -579,12 +623,15 @@
 			files = (
 				CECCB7A01A23477D00C1220C /* FriendMomentsViewController.m in Sources */,
 				9FFFDDC21A2CD10E0081ADC9 /* FacebookManager.m in Sources */,
+				9FC33C371A32B1D0003BB41C /* CommentHeaderTableViewCell.m in Sources */,
 				9F9F98431A286D640089018B /* PlayerView.m in Sources */,
 				9FFFDDC31A2CD10E0081ADC9 /* UserData.m in Sources */,
+				9FC33C3D1A32B7F6003BB41C /* EnterMessageView.m in Sources */,
 				CECCB78E1A23470900C1220C /* MomentsViewController.m in Sources */,
 				CECCB7A61A2347B200C1220C /* MixAudioViewController.m in Sources */,
 				CECCB7971A23472E00C1220C /* CaptureVideoViewController.m in Sources */,
 				CE3E23461A233CDF00008D27 /* AppDelegate.m in Sources */,
+				9FC33C2C1A32ACD7003BB41C /* UpvoteMessageTableViewCell.m in Sources */,
 				CECCB79D1A23476B00C1220C /* RecentMomentsViewController.m in Sources */,
 				9F0671E61A2716AA0077F66B /* Utilities.m in Sources */,
 				9FADF12F1A2C5226007FFCFF /* BaseServices.m in Sources */,
@@ -593,6 +640,7 @@
 				9F9F98491A286E180089018B /* UIView+AutoLayout.m in Sources */,
 				CE3E23431A233CDF00008D27 /* main.m in Sources */,
 				9FB03B291A27905C00370885 /* NavigationView.m in Sources */,
+				9FC33C311A32ACE7003BB41C /* CommentMessageTableViewCell.m in Sources */,
 				9F9F98261A2825DB0089018B /* UIView+Utils.m in Sources */,
 				9F9F982D1A2829F40089018B /* MixEngine.m in Sources */,
 				CECCB7941A23472600C1220C /* MixVideoViewController.m in Sources */,
