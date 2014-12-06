@@ -12,10 +12,13 @@
 
 @end
 
+#define kFriendMomentsTitle @"Friend Moments"
+
 @implementation FriendMomentsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = kFriendMomentsTitle;
     // Do any additional setup after loading the view.
 }
 

@@ -11,11 +11,13 @@
 @interface MyMomentsViewController ()
 
 @end
+#define kYouTitle @"My Moments"
 
 @implementation MyMomentsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = kYouTitle;
     // Do any additional setup after loading the view.
 }
 

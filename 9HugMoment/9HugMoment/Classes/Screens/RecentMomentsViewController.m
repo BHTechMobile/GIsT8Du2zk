@@ -12,10 +12,13 @@
 
 @end
 
+#define kRencentTitle @"Recent"
+
 @implementation RecentMomentsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = kRencentTitle;
     // Do any additional setup after loading the view.
 }
 
