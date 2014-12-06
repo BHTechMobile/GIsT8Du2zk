@@ -22,6 +22,15 @@
 		9F9F98451A286D640089018B /* VolumeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F983F1A286D640089018B /* VolumeView.m */; };
 		9F9F98461A286D640089018B /* VolumeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F9F98401A286D640089018B /* VolumeView.xib */; };
 		9F9F98491A286E180089018B /* UIView+AutoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F98481A286E180089018B /* UIView+AutoLayout.m */; };
+		9FA218AC1A320C4000C3891B /* GPUImageColorDodgeBlendFilter0.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 9FA218A31A320C4000C3891B /* GPUImageColorDodgeBlendFilter0.mp4 */; };
+		9FA218AD1A320C4000C3891B /* GPUImageColorDodgeBlendFilter1.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 9FA218A41A320C4000C3891B /* GPUImageColorDodgeBlendFilter1.mp4 */; };
+		9FA218AE1A320C4000C3891B /* GPUImageColorDodgeBlendFilter2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 9FA218A51A320C4000C3891B /* GPUImageColorDodgeBlendFilter2.mp4 */; };
+		9FA218AF1A320C4000C3891B /* GPUImageColorDodgeBlendFilter3.mov in Resources */ = {isa = PBXBuildFile; fileRef = 9FA218A61A320C4000C3891B /* GPUImageColorDodgeBlendFilter3.mov */; };
+		9FA218B01A320C4000C3891B /* GPUImageColorDodgeBlendFilter4.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 9FA218A71A320C4000C3891B /* GPUImageColorDodgeBlendFilter4.mp4 */; };
+		9FA218B11A320C4000C3891B /* GPUImageColorDodgeBlendFilter5.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 9FA218A81A320C4000C3891B /* GPUImageColorDodgeBlendFilter5.mp4 */; };
+		9FA218B21A320C4000C3891B /* GPUImageColorDodgeBlendFilter6.mov in Resources */ = {isa = PBXBuildFile; fileRef = 9FA218A91A320C4000C3891B /* GPUImageColorDodgeBlendFilter6.mov */; };
+		9FA218B31A320C4000C3891B /* GPUImageColorDodgeBlendFilter7.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 9FA218AA1A320C4000C3891B /* GPUImageColorDodgeBlendFilter7.mp4 */; };
+		9FA218B41A320C4000C3891B /* GPUImageColorDodgeBlendFilter8.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 9FA218AB1A320C4000C3891B /* GPUImageColorDodgeBlendFilter8.mp4 */; };
 		9FADF12F1A2C5226007FFCFF /* BaseServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FADF12E1A2C5226007FFCFF /* BaseServices.m */; };
 		9FB03B291A27905C00370885 /* NavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FB03B281A27905C00370885 /* NavigationView.m */; };
 		9FB03B2B1A27909400370885 /* NavigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FB03B2A1A27909400370885 /* NavigationView.xib */; };
@@ -87,6 +96,15 @@
 		9F9F98401A286D640089018B /* VolumeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VolumeView.xib; sourceTree = "<group>"; };
 		9F9F98471A286E180089018B /* UIView+AutoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+AutoLayout.h"; sourceTree = "<group>"; };
 		9F9F98481A286E180089018B /* UIView+AutoLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+AutoLayout.m"; sourceTree = "<group>"; };
+		9FA218A31A320C4000C3891B /* GPUImageColorDodgeBlendFilter0.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = GPUImageColorDodgeBlendFilter0.mp4; sourceTree = "<group>"; };
+		9FA218A41A320C4000C3891B /* GPUImageColorDodgeBlendFilter1.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = GPUImageColorDodgeBlendFilter1.mp4; sourceTree = "<group>"; };
+		9FA218A51A320C4000C3891B /* GPUImageColorDodgeBlendFilter2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = GPUImageColorDodgeBlendFilter2.mp4; sourceTree = "<group>"; };
+		9FA218A61A320C4000C3891B /* GPUImageColorDodgeBlendFilter3.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = GPUImageColorDodgeBlendFilter3.mov; sourceTree = "<group>"; };
+		9FA218A71A320C4000C3891B /* GPUImageColorDodgeBlendFilter4.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = GPUImageColorDodgeBlendFilter4.mp4; sourceTree = "<group>"; };
+		9FA218A81A320C4000C3891B /* GPUImageColorDodgeBlendFilter5.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = GPUImageColorDodgeBlendFilter5.mp4; sourceTree = "<group>"; };
+		9FA218A91A320C4000C3891B /* GPUImageColorDodgeBlendFilter6.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = GPUImageColorDodgeBlendFilter6.mov; sourceTree = "<group>"; };
+		9FA218AA1A320C4000C3891B /* GPUImageColorDodgeBlendFilter7.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = GPUImageColorDodgeBlendFilter7.mp4; sourceTree = "<group>"; };
+		9FA218AB1A320C4000C3891B /* GPUImageColorDodgeBlendFilter8.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = GPUImageColorDodgeBlendFilter8.mp4; sourceTree = "<group>"; };
 		9FADF12D1A2C5226007FFCFF /* BaseServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseServices.h; sourceTree = "<group>"; };
 		9FADF12E1A2C5226007FFCFF /* BaseServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseServices.m; sourceTree = "<group>"; };
 		9FB03B271A27905C00370885 /* NavigationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationView.h; sourceTree = "<group>"; };
@@ -222,6 +240,30 @@
 			path = "Custom View";
 			sourceTree = "<group>";
 		};
+		9FA218A11A320C4000C3891B /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				9FA218A21A320C4000C3891B /* VideoMix */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		9FA218A21A320C4000C3891B /* VideoMix */ = {
+			isa = PBXGroup;
+			children = (
+				9FA218A31A320C4000C3891B /* GPUImageColorDodgeBlendFilter0.mp4 */,
+				9FA218A41A320C4000C3891B /* GPUImageColorDodgeBlendFilter1.mp4 */,
+				9FA218A51A320C4000C3891B /* GPUImageColorDodgeBlendFilter2.mp4 */,
+				9FA218A61A320C4000C3891B /* GPUImageColorDodgeBlendFilter3.mov */,
+				9FA218A71A320C4000C3891B /* GPUImageColorDodgeBlendFilter4.mp4 */,
+				9FA218A81A320C4000C3891B /* GPUImageColorDodgeBlendFilter5.mp4 */,
+				9FA218A91A320C4000C3891B /* GPUImageColorDodgeBlendFilter6.mov */,
+				9FA218AA1A320C4000C3891B /* GPUImageColorDodgeBlendFilter7.mp4 */,
+				9FA218AB1A320C4000C3891B /* GPUImageColorDodgeBlendFilter8.mp4 */,
+			);
+			path = VideoMix;
+			sourceTree = "<group>";
+		};
 		9FADF12C1A2C5226007FFCFF /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -283,6 +325,7 @@
 		CE3E233F1A233CDF00008D27 /* 9HugMoment */ = {
 			isa = PBXGroup;
 			children = (
+				9FA218A11A320C4000C3891B /* Resource */,
 				CECCB7811A2344D300C1220C /* Classes */,
 				CE3E23441A233CDF00008D27 /* AppDelegate.h */,
 				CE3E23451A233CDF00008D27 /* AppDelegate.m */,
@@ -463,18 +506,27 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FA218AD1A320C4000C3891B /* GPUImageColorDodgeBlendFilter1.mp4 in Resources */,
 				CE3E234F1A233CDF00008D27 /* Main.storyboard in Resources */,
+				9FA218B11A320C4000C3891B /* GPUImageColorDodgeBlendFilter5.mp4 in Resources */,
 				CECCB7881A2344FC00C1220C /* Trending.storyboard in Resources */,
+				9FA218B31A320C4000C3891B /* GPUImageColorDodgeBlendFilter7.mp4 in Resources */,
 				9F9F98461A286D640089018B /* VolumeView.xib in Resources */,
 				CE3E23541A233CE000008D27 /* LaunchScreen.xib in Resources */,
+				9FA218AF1A320C4000C3891B /* GPUImageColorDodgeBlendFilter3.mov in Resources */,
 				CECCB7AD1A23482600C1220C /* MyMoments.storyboard in Resources */,
 				9F9F98221A2820200089018B /* VideoFilterActionView.xib in Resources */,
+				9FA218AC1A320C4000C3891B /* GPUImageColorDodgeBlendFilter0.mp4 in Resources */,
 				CE3E23511A233CE000008D27 /* Images.xcassets in Resources */,
 				CECCB7AB1A23481D00C1220C /* FromFriends.storyboard in Resources */,
 				CECCB7A91A23481400C1220C /* Recent.storyboard in Resources */,
+				9FA218B41A320C4000C3891B /* GPUImageColorDodgeBlendFilter8.mp4 in Resources */,
 				9F9F98421A286D640089018B /* AudioRangerSelectorView.xib in Resources */,
 				9FB03B2B1A27909400370885 /* NavigationView.xib in Resources */,
 				9F9F98441A286D640089018B /* PlayerView.xib in Resources */,
+				9FA218B01A320C4000C3891B /* GPUImageColorDodgeBlendFilter4.mp4 in Resources */,
+				9FA218B21A320C4000C3891B /* GPUImageColorDodgeBlendFilter6.mov in Resources */,
+				9FA218AE1A320C4000C3891B /* GPUImageColorDodgeBlendFilter2.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
