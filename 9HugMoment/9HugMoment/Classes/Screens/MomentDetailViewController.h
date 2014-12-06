@@ -10,4 +10,15 @@
 
 @interface MomentDetailViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UISegmentedControl *momentSegmentController;
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
+@property (weak, nonatomic) IBOutlet UIButton *addVideoButton;
+@property (weak, nonatomic) IBOutlet UIScrollView *contentScrollView;
+
+- (IBAction)addVideoButtonAction:(id)sender;
+- (IBAction)backButtonAction:(id)sender;
+- (IBAction)momentSegmentControllerAction:(id)sender;
+
+@property (strong, nonatomic) IBOutlet UIView *extendView;
+@property (strong, nonatomic) IBOutlet UIView *playerView;
 @end
