@@ -307,6 +307,38 @@
     }];
 }
 
++(void)getAllMessageSussess:(SuccessBlock)success failure:(MessageBlock)failure
+{
+    NSDictionary* parameters = @{KEY_USER_ID:[NSUserDefaults getStringForKey:KEY_USER_SETTING_LOGGED_IN_ID]};
+    
+    [BaseServices requestByMethod:@"GET" widthPath:@"message/browse?sent=0" withParameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (success) {
+            success(operation,responseObject);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSString* bodyString = [operation responseString];
+        if (failure) {
+            failure(bodyString,error);
+        }
+    }];
+}
+
++(void)resetMessage:(MessageObject *)message Sussess:(SuccessBlock)success failure:(MessageBlock)failure
+{
+    NSDictionary* parameters = @{KEY_USER_ID:[NSUserDefaults getStringForKey:KEY_USER_SETTING_LOGGED_IN_ID]};
+    
+    [BaseServices requestByMethod:@"GET" widthPath:[NSString stringWithFormat:@"message/reset?code=%@",message.code] withParameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (success) {
+            success(operation,responseObject);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSString* bodyString = [operation responseString];
+        if (failure) {
+            failure(bodyString,error);
+        }
+    }];
+}
+
 #pragma mark - Utilities
 
 +(id)dictionaryFromData:(id)data error:(NSError**)error{
