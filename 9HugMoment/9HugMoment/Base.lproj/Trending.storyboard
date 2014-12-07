@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="M0H-6t-lG7">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="M0H-6t-lG7">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
@@ -91,12 +91,24 @@
                                             <constraint firstItem="ffl-47-H3e" firstAttribute="leading" secondItem="V3w-zv-1Xt" secondAttribute="leading" constant="9" id="vSg-lu-DBn"/>
                                         </constraints>
                                     </view>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Iw5-Sx-IO9" userLabel="Message - Table View">
+                                        <rect key="frame" x="0.0" y="45" width="320" height="435"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="9Z4-rF-abU" id="7gg-U2-3BR"/>
+                                            <outlet property="delegate" destination="9Z4-rF-abU" id="d0e-GO-LDW"/>
+                                        </connections>
+                                    </tableView>
                                 </subviews>
                                 <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="V3w-zv-1Xt" firstAttribute="leading" secondItem="NdO-YG-2z1" secondAttribute="leading" id="4hE-Ey-ZG3"/>
                                     <constraint firstAttribute="trailing" secondItem="V3w-zv-1Xt" secondAttribute="trailing" id="Bde-yy-UrT"/>
                                     <constraint firstItem="V3w-zv-1Xt" firstAttribute="top" secondItem="NdO-YG-2z1" secondAttribute="top" id="Cob-qW-oVl"/>
+                                    <constraint firstItem="Iw5-Sx-IO9" firstAttribute="top" secondItem="V3w-zv-1Xt" secondAttribute="bottom" id="INE-Lb-mYH"/>
+                                    <constraint firstAttribute="bottom" secondItem="Iw5-Sx-IO9" secondAttribute="bottom" id="Vne-M3-8pd"/>
+                                    <constraint firstAttribute="trailing" secondItem="Iw5-Sx-IO9" secondAttribute="trailing" id="tOf-is-7Fg"/>
+                                    <constraint firstItem="Iw5-Sx-IO9" firstAttribute="leading" secondItem="NdO-YG-2z1" secondAttribute="leading" id="yDy-3L-Nmt"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -115,6 +127,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="addCaptureVideoButton" destination="ToM-LD-9h7" id="jAl-bw-Fbg"/>
+                        <outlet property="messagesTableView" destination="Iw5-Sx-IO9" id="weA-9u-RJ9"/>
                         <segue destination="Sez-qI-75R" kind="push" identifier="pushCaptureVideoViewController" id="vYE-wn-f0s"/>
                     </connections>
                 </viewController>
@@ -234,7 +247,7 @@
                                             <constraint firstAttribute="width" constant="37" id="JYO-mi-EUu"/>
                                             <constraint firstAttribute="height" constant="37" id="wcg-oN-Koz"/>
                                         </constraints>
-                                        <state key="normal" image="camera" backgroundImage="C7281230-C0AB-4E9F-B3B1-533CD1DB34D8">
+                                        <state key="normal" image="camera" backgroundImage="1A3F6E69-1471-418A-827D-0A577F23034B">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -849,9 +862,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="5_floral_on_the_right" width="320" height="320"/>
-        <image name="9hug_logo" width="250" height="250"/>
-        <image name="C7281230-C0AB-4E9F-B3B1-533CD1DB34D8" width="37" height="37">
+        <image name="1A3F6E69-1471-418A-827D-0A577F23034B" width="37" height="37">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -993,6 +1004,8 @@ wx7MHt8e4x72HwEfCh8PHxcfGh8fHy4fMh85H0EfTh9TH1UfVx9cH2QfZx9sH3Qfdx+JH4wfkQAAAAAA
 AAIBAAAAAAAAAEIAAAAAAAAAAAAAAAAAAB+TA
 </mutableData>
         </image>
+        <image name="5_floral_on_the_right" width="320" height="320"/>
+        <image name="9hug_logo" width="250" height="250"/>
         <image name="btn_add_music" width="27" height="27"/>
         <image name="btn_add_music_hover_bordeaux" width="27" height="27"/>
         <image name="btn_mix_filter_button" width="100" height="41"/>
