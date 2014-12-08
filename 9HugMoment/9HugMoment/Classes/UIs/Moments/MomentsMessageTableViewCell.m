@@ -45,8 +45,17 @@
     _userNameLabel.text = message.fullName;
     _numberReadsLabel.text = (![message.reads isEqualToString:@""])?message.reads:@"0";
     
-    NSString *imgURL = [NSString stringWithFormat:@"%@%@",URL_MESSAGE_GRCODE_BY_KEY,message.key];
-    [_thumbnailImageView setImageWithURL:[NSURL URLWithString:imgURL]
+    [_attachment2ImageView setImageWithURL:[NSURL URLWithString:message.attachement2]
+                        placeholderImage:[UIImage imageNamed:IMAGE_NAME_ATTACHMENT_2_DEFAULT]
+                                 options:SDWebImageProgressiveDownload
+                               completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+                                   if(error){
+                                       NSLog(@"Error: Image not found");
+                                   }
+                               }];
+    
+    NSString *thumbnailURL = [NSString stringWithFormat:@"%@%@",URL_MESSAGE_GRCODE_BY_KEY,message.key];
+    [_thumbnailImageView setImageWithURL:[NSURL URLWithString:thumbnailURL]
                         placeholderImage:[UIImage imageNamed:IMAGE_NAME_THUMB_PLACE_HOLDER]
                                  options:SDWebImageProgressiveDownload
                                completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
@@ -54,7 +63,6 @@
             NSLog(@"Error: Image not found");
         }
     }];
-    
 }
 
 #pragma mark - Actions

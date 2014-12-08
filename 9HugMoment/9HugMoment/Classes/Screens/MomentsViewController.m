@@ -20,6 +20,7 @@
     FBConnectViewController *fbConnectViewController;
     NSString *facebookToken;
     MomentsModel *_momentModel;
+    DownloadVideoView *_downloadVideoView;
 }
 @synthesize _facebookManager;
 
@@ -29,6 +30,14 @@
     [super viewDidLoad];
     _momentModel = [[MomentsModel alloc] init];
     [self getAllMessage];
+    _downloadVideoView = [DownloadVideoView fromNib];
+    CGRect downloadVideoFrame = self.view.frame;
+    downloadVideoFrame.origin.y = self.messagesTableView.frame.origin.y;
+    downloadVideoFrame.size.height = downloadVideoFrame.size.height - self.messagesTableView.frame.origin.y;
+    _downloadVideoView.frame = downloadVideoFrame;
+    _downloadVideoView.alpha = 0.0;
+    _downloadVideoView.delegate = self;
+    [self.view addSubview:_downloadVideoView];
     
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     if (!appDelegate.session.isOpen) {
@@ -116,7 +125,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     MessageObject *message = [_momentModel.messages objectAtIndex:indexPath.row];
-    //TODO: Go to detail message
+    if (!message.downloaded && message.localVideoPath) {
+        _downloadVideoView.alpha = 1;
+        [_downloadVideoView showWithAnimation];
+        [_downloadVideoView downloadVideoByMessage:message];
+    }else {
+        //TODO: Go to detail message
+    }
 }
 
 #pragma mark - MomentsMessageTableViewCell delegate 
@@ -133,6 +148,18 @@
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
+}
+
+#pragma mark - DownloadVideo delegate
+- (void)downloadVideoSuccess:(MessageObject *)message {
+    message.downloaded = YES;
+    [_downloadVideoView hideWithAnimation];
+    //TODO: Go to detail message
+}
+
+- (void)downloadVideoFailure:(MessageObject *)message  {
+    [_downloadVideoView hideWithAnimation];
+    [UIAlertView showTitle:@"Error" message:@"Cann't download this video"];
 }
 
 @end

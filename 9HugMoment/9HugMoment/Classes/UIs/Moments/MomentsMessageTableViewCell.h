@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftSpaceDataViewConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightSpaceDataViewConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *resetButton;
+@property (weak, nonatomic) IBOutlet UIImageView *attachment2ImageView;
 
 @property (nonatomic, assign)id<MomentsMessageTableViewCellDelegate> delegate;
 

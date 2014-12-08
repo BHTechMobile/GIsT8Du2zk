@@ -97,6 +97,7 @@
 #pragma mark - Images Name
 // Images Name
 #define IMAGE_NAME_THUMB_PLACE_HOLDER @"icon_circle_gray"
+#define IMAGE_NAME_ATTACHMENT_2_DEFAULT @"attachment_2_default"
 
 #pragma mark - Identifier TableViewCell
 // Identifier TableViewCell
@@ -119,6 +120,7 @@
 #import "NSDictionary+Helpers.h"
 #import "NSDate+Helpers.h"
 #import "NSUserDefaults+Helpers.h"
+#import "UIColor+Helpers.h"
 
 #pragma mark - MixVideoViewController
 /*MixVideoViewController*/
@@ -137,7 +139,7 @@
 
 #pragma mark - MomentsViewController
 // MomentsViewController
-#define HEIGHT_ROW_TABLE_VIEW_MOMENTS_VIEW_CONTROLLER 80
+#define HEIGHT_ROW_TABLE_VIEW_MOMENTS_VIEW_CONTROLLER 272
 #define NUMBER_OF_SECTION_TABLE_VIEW_MOMENTS_VIEW_CONTROLLER 1
 
 #pragma mark - MomentsMessageTableViewCell

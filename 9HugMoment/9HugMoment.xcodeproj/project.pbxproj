@@ -46,6 +46,9 @@
 		CECCB7A91A23481400C1220C /* Recent.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CECCB7A71A23481400C1220C /* Recent.storyboard */; };
 		CECCB7AB1A23481D00C1220C /* FromFriends.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CECCB7AA1A23481D00C1220C /* FromFriends.storyboard */; };
 		CECCB7AD1A23482600C1220C /* MyMoments.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CECCB7AC1A23482600C1220C /* MyMoments.storyboard */; };
+		D22994681A35453E00496FAA /* DownloadVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = D22994661A35453E00496FAA /* DownloadVideoView.m */; };
+		D22994691A35453E00496FAA /* DownloadVideoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D22994671A35453E00496FAA /* DownloadVideoView.xib */; };
+		D229946C1A3545E800496FAA /* UIColor+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = D229946B1A3545E800496FAA /* UIColor+Helpers.m */; };
 		D252F9FD1A32B72B00B6E666 /* MomentsMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D252F9FB1A32B72B00B6E666 /* MomentsMessageTableViewCell.m */; };
 		D252F9FE1A32B72B00B6E666 /* MomentsMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D252F9FC1A32B72B00B6E666 /* MomentsMessageTableViewCell.xib */; };
 		D2E01A571A3494DC0032F71E /* MessageObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E01A561A3494DC0032F71E /* MessageObject.m */; };
@@ -137,6 +140,11 @@
 		CECCB7A81A23481400C1220C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Recent.storyboard; sourceTree = "<group>"; };
 		CECCB7AA1A23481D00C1220C /* FromFriends.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FromFriends.storyboard; sourceTree = "<group>"; };
 		CECCB7AC1A23482600C1220C /* MyMoments.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyMoments.storyboard; sourceTree = "<group>"; };
+		D22994651A35453E00496FAA /* DownloadVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadVideoView.h; sourceTree = "<group>"; };
+		D22994661A35453E00496FAA /* DownloadVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadVideoView.m; sourceTree = "<group>"; };
+		D22994671A35453E00496FAA /* DownloadVideoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownloadVideoView.xib; sourceTree = "<group>"; };
+		D229946A1A3545E800496FAA /* UIColor+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Helpers.h"; sourceTree = "<group>"; };
+		D229946B1A3545E800496FAA /* UIColor+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Helpers.m"; sourceTree = "<group>"; };
 		D252F9FA1A32B72B00B6E666 /* MomentsMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MomentsMessageTableViewCell.h; sourceTree = "<group>"; };
 		D252F9FB1A32B72B00B6E666 /* MomentsMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MomentsMessageTableViewCell.m; sourceTree = "<group>"; };
 		D252F9FC1A32B72B00B6E666 /* MomentsMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MomentsMessageTableViewCell.xib; sourceTree = "<group>"; };
@@ -187,6 +195,7 @@
 		9F0671E81A2738110077F66B /* UIs */ = {
 			isa = PBXGroup;
 			children = (
+				D22994641A35453E00496FAA /* Others */,
 				D252F9F91A32B6DB00B6E666 /* Moments */,
 				9F9F981D1A2820200089018B /* VideoFilter */,
 			);
@@ -206,6 +215,8 @@
 		9F9F98231A2825DB0089018B /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				D229946A1A3545E800496FAA /* UIColor+Helpers.h */,
+				D229946B1A3545E800496FAA /* UIColor+Helpers.m */,
 				D2E01A591A34A9150032F71E /* NSUserDefaults+Helpers.h */,
 				D2E01A5A1A34A9150032F71E /* NSUserDefaults+Helpers.m */,
 				D2F085F01A31C85800503A64 /* NSDate+Helpers.h */,
@@ -401,6 +412,16 @@
 			path = Screens;
 			sourceTree = "<group>";
 		};
+		D22994641A35453E00496FAA /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				D22994651A35453E00496FAA /* DownloadVideoView.h */,
+				D22994661A35453E00496FAA /* DownloadVideoView.m */,
+				D22994671A35453E00496FAA /* DownloadVideoView.xib */,
+			);
+			path = Others;
+			sourceTree = "<group>";
+		};
 		D252F9F91A32B6DB00B6E666 /* Moments */ = {
 			isa = PBXGroup;
 			children = (
@@ -506,6 +527,7 @@
 			files = (
 				CE3E234F1A233CDF00008D27 /* Main.storyboard in Resources */,
 				CECCB7881A2344FC00C1220C /* Trending.storyboard in Resources */,
+				D22994691A35453E00496FAA /* DownloadVideoView.xib in Resources */,
 				9F9F98461A286D640089018B /* VolumeView.xib in Resources */,
 				CE3E23541A233CE000008D27 /* LaunchScreen.xib in Resources */,
 				CECCB7AD1A23482600C1220C /* MyMoments.storyboard in Resources */,
@@ -574,6 +596,7 @@
 				9FFFDDC31A2CD10E0081ADC9 /* UserData.m in Sources */,
 				D2F085F21A31C85800503A64 /* NSDate+Helpers.m in Sources */,
 				CECCB78E1A23470900C1220C /* MomentsViewController.m in Sources */,
+				D229946C1A3545E800496FAA /* UIColor+Helpers.m in Sources */,
 				CECCB7A61A2347B200C1220C /* MixAudioViewController.m in Sources */,
 				CECCB7971A23472E00C1220C /* CaptureVideoViewController.m in Sources */,
 				CE3E23461A233CDF00008D27 /* AppDelegate.m in Sources */,
@@ -591,6 +614,7 @@
 				9F9F982D1A2829F40089018B /* MixEngine.m in Sources */,
 				CECCB7941A23472600C1220C /* MixVideoViewController.m in Sources */,
 				CECCB78B1A23460800C1220C /* FBConnectViewController.m in Sources */,
+				D22994681A35453E00496FAA /* DownloadVideoView.m in Sources */,
 				CECCB7A31A23478C00C1220C /* MyMomentsViewController.m in Sources */,
 				D2E01A5B1A34A9150032F71E /* NSUserDefaults+Helpers.m in Sources */,
 				CECCB79A1A23474A00C1220C /* MomentDetailViewController.m in Sources */,

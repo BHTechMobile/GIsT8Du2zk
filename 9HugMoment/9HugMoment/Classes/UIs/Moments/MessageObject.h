@@ -29,7 +29,9 @@
 @property (nonatomic, strong) NSString *receivedDate;
 @property (nonatomic, strong) NSString *reads;
 @property (nonatomic, strong) NSString *fullName;
+@property (nonatomic, assign) BOOL downloaded;
 
 + (MessageObject *)createMessageByDictionnary:(NSDictionary *)dict;
+- (NSString*)localVideoPath;
 
 @end

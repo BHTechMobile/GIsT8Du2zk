@@ -62,4 +62,11 @@
     return message;
 }
 
+#pragma mark - Custom Methods
+- (NSString*)localVideoPath
+{
+    NSString* fileName = [NSString stringWithFormat:@"Documents/%@.mp4",self.key];
+    return [NSHomeDirectory() stringByAppendingPathComponent:fileName];
+}
+
 @end
