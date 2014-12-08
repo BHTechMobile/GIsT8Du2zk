@@ -33,6 +33,7 @@
 		9FA12BFA1A35D66300CE737C /* EnterMessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FA12BF11A35D66300CE737C /* EnterMessageView.xib */; };
 		9FA12BFB1A35D66300CE737C /* UpvoteMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA12BF31A35D66300CE737C /* UpvoteMessageTableViewCell.m */; };
 		9FA12BFC1A35D66300CE737C /* UpvoteMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FA12BF41A35D66300CE737C /* UpvoteMessageTableViewCell.xib */; };
+		9FA12BFF1A35D87600CE737C /* MomentsDetailsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA12BFE1A35D87600CE737C /* MomentsDetailsModel.m */; };
 		9FA218AC1A320C4000C3891B /* GPUImageColorDodgeBlendFilter0.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 9FA218A31A320C4000C3891B /* GPUImageColorDodgeBlendFilter0.mp4 */; };
 		9FA218AD1A320C4000C3891B /* GPUImageColorDodgeBlendFilter1.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 9FA218A41A320C4000C3891B /* GPUImageColorDodgeBlendFilter1.mp4 */; };
 		9FA218AE1A320C4000C3891B /* GPUImageColorDodgeBlendFilter2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 9FA218A51A320C4000C3891B /* GPUImageColorDodgeBlendFilter2.mp4 */; };
@@ -135,6 +136,8 @@
 		9FA12BF21A35D66300CE737C /* UpvoteMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpvoteMessageTableViewCell.h; sourceTree = "<group>"; };
 		9FA12BF31A35D66300CE737C /* UpvoteMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpvoteMessageTableViewCell.m; sourceTree = "<group>"; };
 		9FA12BF41A35D66300CE737C /* UpvoteMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpvoteMessageTableViewCell.xib; sourceTree = "<group>"; };
+		9FA12BFD1A35D87600CE737C /* MomentsDetailsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MomentsDetailsModel.h; sourceTree = "<group>"; };
+		9FA12BFE1A35D87600CE737C /* MomentsDetailsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MomentsDetailsModel.m; sourceTree = "<group>"; };
 		9FA218A31A320C4000C3891B /* GPUImageColorDodgeBlendFilter0.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = GPUImageColorDodgeBlendFilter0.mp4; sourceTree = "<group>"; };
 		9FA218A41A320C4000C3891B /* GPUImageColorDodgeBlendFilter1.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = GPUImageColorDodgeBlendFilter1.mp4; sourceTree = "<group>"; };
 		9FA218A51A320C4000C3891B /* GPUImageColorDodgeBlendFilter2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = GPUImageColorDodgeBlendFilter2.mp4; sourceTree = "<group>"; };
@@ -489,6 +492,8 @@
 			children = (
 				D23BA4781A357FFB000EDE47 /* MomentsModel.h */,
 				D23BA4791A357FFB000EDE47 /* MomentsModel.m */,
+				9FA12BFD1A35D87600CE737C /* MomentsDetailsModel.h */,
+				9FA12BFE1A35D87600CE737C /* MomentsDetailsModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -711,6 +716,7 @@
 				CECCB7A01A23477D00C1220C /* FriendMomentsViewController.m in Sources */,
 				9FFFDDC21A2CD10E0081ADC9 /* FacebookManager.m in Sources */,
 				9F9F98431A286D640089018B /* PlayerView.m in Sources */,
+				9FA12BFF1A35D87600CE737C /* MomentsDetailsModel.m in Sources */,
 				D23BA4751A357FA0000EDE47 /* NSDictionary+Helpers.m in Sources */,
 				9FFFDDC31A2CD10E0081ADC9 /* UserData.m in Sources */,
 				CECCB78E1A23470900C1220C /* MomentsViewController.m in Sources */,

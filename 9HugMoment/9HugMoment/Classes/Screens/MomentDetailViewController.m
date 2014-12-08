@@ -11,6 +11,7 @@
 #import "CommentHeaderTableViewCell.h"
 #import "CommentMessageTableViewCell.h"
 #import "UpvoteMessageTableViewCell.h"
+#import "MomentsDetailsModel.h"
 
 @interface MomentDetailViewController ()<CommentHeaderTableViewCellDelegate>
 
@@ -18,12 +19,15 @@
 
 @implementation MomentDetailViewController{
     MomentsModel *_momentModel;
+    MomentsDetailsModel *_momentsDetailsModel;
     AVAudioPlayer * audioPlayer;
+    MessageObject *message;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    _momentsDetailsModel = [[MomentsDetailsModel alloc] init];
+    [self getAllMessage];
     [self setupRemotePlayerByUrl:_capturePath];
     
     [_contentScrollView addSubview:_playerView];
@@ -35,8 +39,7 @@
     [_contentScrollView setFrame:frameScroll];
     [_contentScrollView addSubview:_extendView];
     [_contentScrollView setContentSize:CGSizeMake(320, CGRectGetHeight(_contentScrollView.frame))];
-    
-    [self getAllMessage];
+
     _usernameLabel.text = _userLabel;
     _voteButton.titleLabel.text = _countVote;
     
@@ -54,12 +57,12 @@
 #pragma mark - ...
 
 - (void)getAllMessage {
-//    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//    [_momentModel getAllMessagesSuccess:^(id result) {
-//        [MBProgressHUD hideHUDForView:self.view animated:YES];
+//    [_momentsDetailsModel getAllDetailSuccess:^(id result) {
+//        NSLog(@"count : %lu",(unsigned long)_momentsDetailsModel.messagesDetails.count);
+//        [_messageContentTableView reloadData];
 //    } failure:^(NSError *error) {
-//        [MBProgressHUD hideHUDForView:self.view animated:YES];
 //    }];
+    [_momentsDetailsModel getAllDetailSuccess];
 }
 
 - (NSString *)setFormatDate :(NSDate *)date andFormat:(NSString *)stringFormat{
@@ -86,40 +89,7 @@
     else if (indexPath.row == 1){
         return 30;
     }
-    else if (indexPath.row == 2){
-        return 60;
-    }
-    else if (indexPath.row == 3){
-        return 60;
-    }
-    else if (indexPath.row == 4){
-        return 60;
-    }
-    else if (indexPath.row == 5){
-        return 60;
-    }
-    else if (indexPath.row == 6){
-        return 60;
-    }
-    else if (indexPath.row == 7){
-        return 60;
-    }
-    else if (indexPath.row == 8){
-        return 60;
-    }
-    else if (indexPath.row == 9){
-        return 60;
-    }
-    else if (indexPath.row == 10){
-        return 60;
-    }
-    else if (indexPath.row == 11){
-        return 60;
-    }
-    else if (indexPath.row == 12){
-        return 60;
-    }
-    else if (indexPath.row == 13){
+    else{
         return 60;
     }
 
@@ -127,7 +97,8 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 14;
+    return 2 + _momentsDetailsModel.messagesDetails.count;
+//    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -148,100 +119,13 @@
         [cell.addCommentButton setTag:indexPath.row];
         tableCell = cell;
     }
-    else if (indexPath.row == 2) {
+    else {
         CommentMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentMessageTableViewCell"];
         if (cell == nil) {
             cell = [[CommentMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CommentMessageTableViewCell"];
         }
-        cell.commentTextView.text = @"I've been working on lately!";
-        tableCell = cell;
-    }
-    else if (indexPath.row == 3) {
-        CommentMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentMessageTableViewCell"];
-        if (cell == nil) {
-            cell = [[CommentMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CommentMessageTableViewCell"];
-        }
-        cell.commentTextView.text = @"I've been working on lately!";
-        tableCell = cell;
-    }
-    else if (indexPath.row == 4) {
-        CommentMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentMessageTableViewCell"];
-        if (cell == nil) {
-            cell = [[CommentMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CommentMessageTableViewCell"];
-        }
-        cell.commentTextView.text = @"I've been working on lately!";
-        tableCell = cell;
-    }
-    else if (indexPath.row == 5) {
-        CommentMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentMessageTableViewCell"];
-        if (cell == nil) {
-            cell = [[CommentMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CommentMessageTableViewCell"];
-        }
-        cell.commentTextView.text = @"I've been working on lately!";
-        tableCell = cell;
-    }
-    else if (indexPath.row == 6) {
-        CommentMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentMessageTableViewCell"];
-        if (cell == nil) {
-            cell = [[CommentMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CommentMessageTableViewCell"];
-        }
-        cell.commentTextView.text = @"I've been working on lately!";
-        tableCell = cell;
-    }
-    else if (indexPath.row == 7) {
-        CommentMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentMessageTableViewCell"];
-        if (cell == nil) {
-            cell = [[CommentMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CommentMessageTableViewCell"];
-        }
-        cell.commentTextView.text = @"I've been working on lately!";
-        tableCell = cell;
-    }
-    else if (indexPath.row == 8) {
-        CommentMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentMessageTableViewCell"];
-        if (cell == nil) {
-            cell = [[CommentMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CommentMessageTableViewCell"];
-        }
-        cell.commentTextView.text = @"I've been working on lately!";
-        tableCell = cell;
-    }
-    else if (indexPath.row == 9) {
-        CommentMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentMessageTableViewCell"];
-        if (cell == nil) {
-            cell = [[CommentMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CommentMessageTableViewCell"];
-        }
-        cell.commentTextView.text = @"I've been working on lately!";
-        tableCell = cell;
-    }
-    else if (indexPath.row == 10) {
-        CommentMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentMessageTableViewCell"];
-        if (cell == nil) {
-            cell = [[CommentMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CommentMessageTableViewCell"];
-        }
-        cell.commentTextView.text = @"I've been working on lately!";
-        tableCell = cell;
-    }
-    else if (indexPath.row == 11) {
-        CommentMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentMessageTableViewCell"];
-        if (cell == nil) {
-            cell = [[CommentMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CommentMessageTableViewCell"];
-        }
-        cell.commentTextView.text = @"I've been working on lately!";
-        tableCell = cell;
-    }
-    else if (indexPath.row == 12) {
-        CommentMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentMessageTableViewCell"];
-        if (cell == nil) {
-            cell = [[CommentMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CommentMessageTableViewCell"];
-        }
-        cell.commentTextView.text = @"I've been working on lately!";
-        tableCell = cell;
-    }
-    else if (indexPath.row == 13) {
-        CommentMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentMessageTableViewCell"];
-        if (cell == nil) {
-            cell = [[CommentMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CommentMessageTableViewCell"];
-        }
-        cell.commentTextView.text = @"I've been working on lately!";
+        message = [_momentsDetailsModel.messagesDetails objectAtIndex:indexPath.row - 2];
+        cell.commentTextView.text = message.text;
         tableCell = cell;
     }
     
