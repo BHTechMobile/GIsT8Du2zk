@@ -18,7 +18,6 @@
 @implementation MomentsViewController{
     CaptureVideoViewController *captureVideoViewController;
     FBConnectViewController *fbConnectViewController;
-    NSString *facebookToken;
     MomentsModel *_momentModel;
     DownloadVideoView *_downloadVideoView;
 }
@@ -39,14 +38,14 @@
     _downloadVideoView.delegate = self;
     [self.view addSubview:_downloadVideoView];
     
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    if (!appDelegate.session.isOpen) {
-        appDelegate.session = [[FBSession alloc] initWithPermissions:@[@"publish_actions",@"public_profile", @"user_friends",@"read_friendlists"]];
-        if (appDelegate.session.state == FBSessionStateCreatedTokenLoaded) {
-            [appDelegate.session openWithCompletionHandler:^(FBSession *session,
+    if (!APP_DELEGATE.session.isOpen) {
+        APP_DELEGATE.session = [[FBSession alloc] initWithPermissions:@[@"publish_actions",@"public_profile", @"user_friends",@"read_friendlists"]];
+        if (APP_DELEGATE.session.state == FBSessionStateCreatedTokenLoaded) {
+            [APP_DELEGATE.session openWithCompletionHandler:^(FBSession *session,
                                                              FBSessionState status,
                                                              NSError *error) {
-                [FBSession setActiveSession:appDelegate.session];
+                [FBSession setActiveSession:session];
+                APP_DELEGATE.session = session;
             }];
         }else{
             [self showLoginFB];
@@ -93,7 +92,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:PUSH_CAPTURE_VIDEOVIEWCONTROLLER]) {
         captureVideoViewController = [segue destinationViewController];
-        captureVideoViewController.userToken = [[UserData currentAccount] strUserToken];
+        captureVideoViewController.userToken = [[UserData currentAccount] strFacebookToken];
     }
 }
 
@@ -151,6 +150,7 @@
 }
 
 #pragma mark - DownloadVideo delegate
+
 - (void)downloadVideoSuccess:(MessageObject *)message {
     message.downloaded = YES;
     [_downloadVideoView hideWithAnimation];

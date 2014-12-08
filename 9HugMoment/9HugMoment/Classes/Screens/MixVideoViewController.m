@@ -748,26 +748,32 @@
 }
 
 -(void)uploadWithImage:(UIImage*)image{
-    [BaseServices updateMessage:_message?_message:@""
-                            key:_mKey
-                          frame:@"1"
-                           path:_exportUrl
-                   notification:_notificationButton.selected
-                      thumbnail:image
-                        sussess:^(AFHTTPRequestOperation *operation, id responseObject) {
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                [MBProgressHUD hideHUDForView:self.view animated:YES];
-                                //                                [self getLinkVideo:_mKey];
-                                [self makeRequestToShareLink:[NSString stringWithFormat:@"http://www.9hug.com/message/%@",_mKey]];
-                                [UIAlertView showMessage:@"Video is uploaded!"];
-                                [self.navigationController popToRootViewControllerAnimated:YES];
-                            });
-                        } failure:^(NSString *bodyString, NSError *error) {
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                [MBProgressHUD hideHUDForView:self.view animated:YES];
-                            });
-                            _mixed = NO;
-                        }];
+    [BaseServices createMomentForUser:[[UserData currentAccount] strId] withType:@"1" success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString* key = [[responseObject firstObject] valueForKey:@"key"];
+        [BaseServices updateMessage:_message?_message:@""
+                                key:key
+                              frame:@"1"
+                               path:_exportUrl
+                       notification:_notificationButton.selected
+                          thumbnail:image
+                            sussess:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                    [self makeRequestToShareLink:[NSString stringWithFormat:@"http://www.9hug.com/message/%@",_mKey]];
+                                    [UIAlertView showMessage:@"Video is uploaded!"];
+                                    [self.navigationController popToRootViewControllerAnimated:YES];
+                                });
+                            } failure:^(NSString *bodyString, NSError *error) {
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                });
+                                _mixed = NO;
+                            }];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"error %@",error);
+    }];
+    
+    
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{

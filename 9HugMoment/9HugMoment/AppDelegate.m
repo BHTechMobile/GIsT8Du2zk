@@ -23,6 +23,7 @@
     self.window.backgroundColor = [UIColor blackColor];
     self.window.rootViewController = tabBarController;
     [self.window makeKeyAndVisible];
+    _session = [FBSession activeSession];
     return YES;
 }
 

@@ -60,7 +60,6 @@
     [self createProcessView];
     [self touchResetCapturedButton:nil];
     NSLog(@"_userToken in CaptureVideo %@",_userToken);
-    [self getQrcode];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -76,17 +75,6 @@
     [super didReceiveMemoryWarning];
 }
 
-#pragma mark - GET service
-
--(void)getQrcode{
-    [BaseServices createQRCode:_userToken withType:@"1" success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        _qrcode = responseObject;
-        _mKey = [[_qrcode firstObject] valueForKey:@"key"];
-        NSLog(@"_key %@",_mKey);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"error %@",error);
-    }];
-}
 
 #pragma mark - Navigation Custom View
 
