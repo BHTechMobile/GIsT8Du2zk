@@ -213,7 +213,8 @@ NSString * const kTrackEventVideoComplete = @"Video Complete";
     }
 }
 
-- (void)playVideoWithTitle:(NSString *)title URL:(NSURL *)url videoID:(NSString *)videoID shareURL:(NSURL *)shareURL isStreaming:(BOOL)streaming playInFullScreen:(BOOL)playInFullScreen
+//- (void)playVideoWithTitle:(NSString *)title URL:(NSURL *)url videoID:(NSString *)videoID shareURL:(NSURL *)shareURL isStreaming:(BOOL)streaming playInFullScreen:(BOOL)playInFullScreen
+- (void)playVideoWithTitle:(NSString *)title URL:(NSURL *)url videoID:(NSString *)videoID isStreaming:(BOOL)streaming playInFullScreen:(BOOL)playInFullScreen
 {
     [self.videoPlayer pause];
     
@@ -223,8 +224,8 @@ NSString * const kTrackEventVideoComplete = @"Video Complete";
     [self showControls];
     
     NSString *vidID = videoID ?: @"";
-    _currentVideoInfo = @{ @"title": title ?: @"", @"videoID": vidID, @"isStreaming": @(streaming), @"shareURL": shareURL ?: url};
-    
+//    _currentVideoInfo = @{ @"title": title ?: @"", @"videoID": vidID, @"isStreaming": @(streaming), @"shareURL": shareURL ?: url};
+    _currentVideoInfo = @{ @"title": title ?: @"", @"videoID": vidID, @"isStreaming": @(streaming)};
     [[NSNotificationCenter defaultCenter] postNotificationName:kVideoPlayerVideoChangedNotification
                                                         object:self
                                                       userInfo:_currentVideoInfo];

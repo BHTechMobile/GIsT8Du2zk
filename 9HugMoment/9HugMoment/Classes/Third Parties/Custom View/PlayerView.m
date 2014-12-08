@@ -71,10 +71,15 @@
 //    [self createUI];
     [self createVideoPlayer];
     
+//    [_videoPlayerKit playVideoWithTitle:@""
+//                                    URL:_videoUrl
+//                                videoID:nil
+//                               shareURL:nil
+//                            isStreaming:NO
+//                       playInFullScreen:NO];
     [_videoPlayerKit playVideoWithTitle:@""
                                     URL:_videoUrl
                                 videoID:nil
-                               shareURL:nil
                             isStreaming:NO
                        playInFullScreen:NO];
     

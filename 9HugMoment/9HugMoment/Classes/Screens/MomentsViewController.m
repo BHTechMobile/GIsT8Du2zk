@@ -10,6 +10,7 @@
 #import "CaptureVideoViewController.h"
 #import "FBConnectViewController.h"
 #import "MomentsModel.h"
+#import "MomentDetailViewController.h"
 
 @interface MomentsViewController ()
 @property (nonatomic, strong) FacebookManager *_facebookManager;
@@ -18,8 +19,11 @@
 @implementation MomentsViewController{
     CaptureVideoViewController *captureVideoViewController;
     FBConnectViewController *fbConnectViewController;
+    NSString *facebookToken;
     MomentsModel *_momentModel;
     DownloadVideoView *_downloadVideoView;
+    MomentDetailViewController *momentDetailViewController;
+    MessageObject *message;
 }
 @synthesize _facebookManager;
 
@@ -38,14 +42,14 @@
     _downloadVideoView.delegate = self;
     [self.view addSubview:_downloadVideoView];
     
-    if (!APP_DELEGATE.session.isOpen) {
-        APP_DELEGATE.session = [[FBSession alloc] initWithPermissions:@[@"publish_actions",@"public_profile", @"user_friends",@"read_friendlists"]];
-        if (APP_DELEGATE.session.state == FBSessionStateCreatedTokenLoaded) {
-            [APP_DELEGATE.session openWithCompletionHandler:^(FBSession *session,
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    if (!appDelegate.session.isOpen) {
+        appDelegate.session = [[FBSession alloc] initWithPermissions:@[@"publish_actions",@"public_profile", @"user_friends",@"read_friendlists"]];
+        if (appDelegate.session.state == FBSessionStateCreatedTokenLoaded) {
+            [appDelegate.session openWithCompletionHandler:^(FBSession *session,
                                                              FBSessionState status,
                                                              NSError *error) {
-                [FBSession setActiveSession:session];
-                APP_DELEGATE.session = session;
+                [FBSession setActiveSession:appDelegate.session];
             }];
         }else{
             [self showLoginFB];
@@ -92,7 +96,17 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:PUSH_CAPTURE_VIDEOVIEWCONTROLLER]) {
         captureVideoViewController = [segue destinationViewController];
-        captureVideoViewController.userToken = [[UserData currentAccount] strFacebookToken];
+        captureVideoViewController.userToken = [[UserData currentAccount] strUserToken];
+    }
+    
+    if ([[segue identifier] isEqualToString:@"pushMomentDetailsView"]) {
+        momentDetailViewController = [segue destinationViewController];
+        momentDetailViewController.capturePath = [NSURL fileURLWithPath:message.localVideoPath];
+        momentDetailViewController.userLabel = message.fullName;
+        momentDetailViewController.countVote = (![message.reads isEqualToString:@""])?message.reads:@"0";
+        momentDetailViewController.hidesBottomBarWhenPushed = YES;
+        NSLog(@"message.localVideoPath %@",message.localVideoPath);
+        NSLog(@"momentDetailViewController.capture %@",momentDetailViewController.capturePath);
     }
 }
 
@@ -116,20 +130,21 @@
         cell = [[MomentsMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:IDENTIFIER_MOMENTS_MESSAGE_TABLE_VIEW_CELL];
     }
     cell.delegate = self;
-    MessageObject *message = (MessageObject *)[_momentModel.messages objectAtIndex:indexPath.row];
-    [cell setMessageWithMessage:message];
+    MessageObject *mymessage = (MessageObject *)[_momentModel.messages objectAtIndex:indexPath.row];
+    [cell setMessageWithMessage:mymessage];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    MessageObject *message = [_momentModel.messages objectAtIndex:indexPath.row];
+    message = [_momentModel.messages objectAtIndex:indexPath.row];
     if (!message.downloaded && message.localVideoPath) {
         _downloadVideoView.alpha = 1;
         [_downloadVideoView showWithAnimation];
         [_downloadVideoView downloadVideoByMessage:message];
     }else {
         //TODO: Go to detail message
+        [self performSegueWithIdentifier:@"pushMomentDetailsView" sender:nil];
     }
 }
 
@@ -150,11 +165,11 @@
 }
 
 #pragma mark - DownloadVideo delegate
-
 - (void)downloadVideoSuccess:(MessageObject *)message {
     message.downloaded = YES;
     [_downloadVideoView hideWithAnimation];
     //TODO: Go to detail message
+    [self performSegueWithIdentifier:@"pushMomentDetailsView" sender:nil];
 }
 
 - (void)downloadVideoFailure:(MessageObject *)message  {
