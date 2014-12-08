@@ -57,8 +57,18 @@
 #define IS_HEIGHT_GTE_736 (([[UIScreen mainScreen ] bounds].size.height >= 700)?TRUE:FALSE)
 #define IS_IPHONE_6_PLUS (IS_IPHONE && IS_HEIGHT_GTE_736)
 
+#pragma mark - Enums
+//Enum
+typedef NS_ENUM (NSInteger, MessageType){
+    MessageTypeVote = 0,
+    MessageTypeVoice,
+    MessageTypePhoto,
+    MessageTypeComment
+};
+
 #pragma mark - KEYS
 // KEYS
+#define KEY_TOKEN @"token"
 #define KEY_ID @"id"
 #define KEY_AGENT_ID @"agentid"
 #define KEY_TYPE @"type"
@@ -86,6 +96,9 @@
 #define KEY_I_TOTAL_RECORDS @"iTotalRecords"
 #define KEY_I_TOTAL_DISPLAY_RECORDS @"iTotalDisplayRecords"
 #define KEY_AA_DATA @"aaData"
+#define KEY_MESSAGE_ID @"message_id"
+#define KEY_MESSAGE_STRING @"message"
+#define KEY_MEDIA_LINK @"media_link"
 //User setting key
 #define KEY_USER_SETTING_LOGGED_IN_ID @"userSettingLoggedInID"
 #define KEY_USER_SETTING_LOGGED_IN_TOKEN @"userSettingLoggedInToken"

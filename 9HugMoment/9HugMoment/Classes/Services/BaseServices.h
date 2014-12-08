@@ -48,4 +48,6 @@ typedef void (^DownloadResponseBlock)(float progress);
 
 + (void)generateImage:(NSURL*)url success:(void(^)(UIImage* image))success failure:(void(^)(NSError* error))failure;
 
++ (void)responseMessage:(NSDictionary *)dicParam success:(SuccessBlock)success failure:(FailureBlock)failure;
+
 @end

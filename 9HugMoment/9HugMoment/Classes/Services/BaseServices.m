@@ -375,6 +375,21 @@
     op.outputStream = [NSOutputStream outputStreamToFileAtPath:outputPath append:YES];
 }
 
++ (void)responseMessage:(NSDictionary *)dicParam success:(SuccessBlock)success failure:(FailureBlock)failure{
+    [[BaseServices sharedManager].requestSerializer setTimeoutInterval:30];
+    [[BaseServices sharedManager] POST:@"message/response" parameters:dicParam
+             constructingBodyWithBlock:^(id<AFMultipartFormData> formData){
+             } success:^(AFHTTPRequestOperation *operation, id responseObject){
+                 if (success) {
+                     success(operation,[[self class] dictionaryFromData:operation.responseData error:nil]);
+                 }
+             } failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                 if (failure) {
+                     failure(nil,error);
+                 }
+             }];
+}
+
 #pragma mark - Utilities
 
 +(id)dictionaryFromData:(id)data error:(NSError**)error{
