@@ -55,6 +55,7 @@
 
 
 - (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     [self setDelegate:self];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     }

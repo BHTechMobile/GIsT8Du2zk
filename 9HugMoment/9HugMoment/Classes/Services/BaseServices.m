@@ -144,62 +144,60 @@
              }];
 }
 
-+(void)loginWithCode:(NSString*)code fullName:(NSString*)fullName fbID:(NSString*)fbid fbToken:(NSString*)fbToken nickname:(NSString*)nickname mobile:(NSString*)mobile email:(NSString*)email password:(NSString*)password success:(SuccessBlock)success failure:(FailureBlock)failure{
-    
-    NSDictionary * params  = @{@"code":code,
-                               @"fullname":fullName,
-                               @"facebookid":fbid,
-                               @"facebook_token":fbToken,
-                               @"nickname":nickname,
-                               @"mobile":mobile,
-                               @"email":email,
-                               @"password":password
-                               };
-    NSLog(@"params %@",params);
-    //AFHTTPRequestOperation* operator =
-    
-    
-}
-
-#pragma mark - Login
-
-+ (void)createToken:(NSString *)email withPassword:(NSString *)password success:(SuccessBlock)success failure:(FailureBlock)failure{
-    [[BaseServices sharedManager].requestSerializer setTimeoutInterval:30];
-    NSDictionary* dict;
-    dict = @{@"email":email,
-             @"password":password
-             };
-    [[BaseServices sharedManager] POST:@"client/login" parameters:dict
-             constructingBodyWithBlock:^(id<AFMultipartFormData> formData){
-                 
-             } success:^(AFHTTPRequestOperation *operation, id responseObject){
-                 if (success) {
-                     success(operation,[[self class] dictionaryFromData:operation.responseData error:nil]);
-                 }
-                 
-             } failure:^(AFHTTPRequestOperation *operation, NSError *error){
-                 if (failure) {
-                     failure(nil,error);
-                 }
-             }];
-}
+//+(void)loginWithCode:(NSString*)code fullName:(NSString*)fullName fbID:(NSString*)fbid fbToken:(NSString*)fbToken nickname:(NSString*)nickname mobile:(NSString*)mobile email:(NSString*)email password:(NSString*)password success:(SuccessBlock)success failure:(FailureBlock)failure{
+//    
+//    NSDictionary * params  = @{@"code":code,
+//                               @"fullname":fullName,
+//                               @"facebookid":fbid,
+//                               @"facebook_token":fbToken,
+//                               @"nickname":nickname,
+//                               @"mobile":mobile,
+//                               @"email":email,
+//                               @"password":password
+//                               };
+//    NSLog(@"params %@",params);
+//    //AFHTTPRequestOperation* operator =
+//    
+//    
+//}
+//
+//#pragma mark - Login
+//
+//+ (void)createToken:(NSString *)email withPassword:(NSString *)password success:(SuccessBlock)success failure:(FailureBlock)failure{
+//    [[BaseServices sharedManager].requestSerializer setTimeoutInterval:30];
+//    NSDictionary* dict;
+//    dict = @{@"email":email,
+//             @"password":password
+//             };
+//    [[BaseServices sharedManager] POST:@"client/login" parameters:dict
+//             constructingBodyWithBlock:^(id<AFMultipartFormData> formData){
+//                 
+//             } success:^(AFHTTPRequestOperation *operation, id responseObject){
+//                 if (success) {
+//                     success(operation,[[self class] dictionaryFromData:operation.responseData error:nil]);
+//                 }
+//                 
+//             } failure:^(AFHTTPRequestOperation *operation, NSError *error){
+//                 if (failure) {
+//                     failure(nil,error);
+//                 }
+//             }];
+//}
 
 #pragma mark - Make QRCode
 
-+ (void)createQRCode:(NSString *)token withType:(NSString *)type success:(SuccessBlock)success failure:(FailureBlock)failure{
++ (void)createMomentForUser:(NSString *)userid withType:(NSString *)type success:(SuccessBlock)success failure:(FailureBlock)failure{
     [[BaseServices sharedManager].requestSerializer setTimeoutInterval:30];
-    NSDictionary* dict;
-    dict = @{@"token":token,
-             @"type":type
-             };
+    NSDictionary* dict = @{@"userid":userid,
+                           @"type":type
+                           };
+    
     [[BaseServices sharedManager] POST:@"message/create" parameters:dict
              constructingBodyWithBlock:^(id<AFMultipartFormData> formData){
-                 
              } success:^(AFHTTPRequestOperation *operation, id responseObject){
                  if (success) {
                      success(operation,[[self class] dictionaryFromData:operation.responseData error:nil]);
                  }
-                 
              } failure:^(AFHTTPRequestOperation *operation, NSError *error){
                  if (failure) {
                      failure(nil,error);
@@ -227,10 +225,7 @@
         if (failure) {
             failure(bodyString,error);
         }
-        
     }];
-    
-    
 }
 
 + (void)generateImage:(NSURL*)url success:(void(^)(UIImage* image))success failure:(void(^)(NSError* error))failure{
@@ -270,7 +265,8 @@
     dict = @{@"key":key,
              @"text":message,
              @"frameid":frame,
-             @"notification":@(notiF)
+             @"notification":@(notiF),
+             @"userid":[[UserData currentAccount] strId]
              };
     
     [[BaseServices sharedManager].requestSerializer setTimeoutInterval:300];
