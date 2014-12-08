@@ -7,10 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MomentsMessageTableViewCell.h"
+#import "MessageObject.h"
+#import "DownloadVideoView.h"
 
-@interface MomentsViewController : UIViewController
+@interface MomentsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MomentsMessageTableViewCellDelegate,DownloadVideoDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *addCaptureVideoButton;
+@property (weak, nonatomic) IBOutlet UITableView *messagesTableView;
+
 - (IBAction)addCaptureVideoButtonAction:(id)sender;
 - (void)showLoginFB;
+
 @end

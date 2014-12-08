@@ -9,6 +9,7 @@
 #import "MomentsViewController.h"
 #import "CaptureVideoViewController.h"
 #import "FBConnectViewController.h"
+#import "MomentsModel.h"
 
 @interface MomentsViewController ()
 @property (nonatomic, strong) FacebookManager *_facebookManager;
@@ -18,12 +19,25 @@
     CaptureVideoViewController *captureVideoViewController;
     FBConnectViewController *fbConnectViewController;
     NSString *facebookToken;
+    MomentsModel *_momentModel;
+    DownloadVideoView *_downloadVideoView;
 }
 @synthesize _facebookManager;
-#pragma mark - Header Controll
+
+#pragma mark - MomentsViewController management
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _momentModel = [[MomentsModel alloc] init];
+    [self getAllMessage];
+    _downloadVideoView = [DownloadVideoView fromNib];
+    CGRect downloadVideoFrame = self.view.frame;
+    downloadVideoFrame.origin.y = self.messagesTableView.frame.origin.y;
+    downloadVideoFrame.size.height = downloadVideoFrame.size.height - self.messagesTableView.frame.origin.y;
+    _downloadVideoView.frame = downloadVideoFrame;
+    _downloadVideoView.alpha = 0.0;
+    _downloadVideoView.delegate = self;
+    [self.view addSubview:_downloadVideoView];
     
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     if (!appDelegate.session.isOpen) {
@@ -49,11 +63,13 @@
     [super didReceiveMemoryWarning];
 }
 
-#pragma mark - Button add CaptureVideo
+#pragma mark - Actions
 
 - (IBAction)addCaptureVideoButtonAction:(id)sender {
     [self performSegueWithIdentifier:PUSH_CAPTURE_VIDEOVIEWCONTROLLER sender:nil];
 }
+
+#pragma mark - Custom Methods
 
 - (void)showLoginFB {
     fbConnectViewController = (FBConnectViewController *)[self.storyboard instantiateViewControllerWithIdentifier:PRESENT_TRENDING];
@@ -61,13 +77,89 @@
     [self presentViewController:fbConnectViewController animated:YES completion:nil];
 }
 
+- (void)getAllMessage {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [_momentModel getAllMessagesSuccess:^(id result) {
+        NSLog(@"count : %lu",(unsigned long)_momentModel.messages.count);
+        [_messagesTableView reloadData];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }];
+}
 
+#pragma mark - Segue
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:PUSH_CAPTURE_VIDEOVIEWCONTROLLER]) {
         captureVideoViewController = [segue destinationViewController];
         captureVideoViewController.userToken = [[UserData currentAccount] strUserToken];
     }
+}
+
+#pragma mark - TableView delegates & datasources
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return NUMBER_OF_SECTION_TABLE_VIEW_MOMENTS_VIEW_CONTROLLER;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return HEIGHT_ROW_TABLE_VIEW_MOMENTS_VIEW_CONTROLLER;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return _momentModel.messages.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    MomentsMessageTableViewCell *cell = (MomentsMessageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:IDENTIFIER_MOMENTS_MESSAGE_TABLE_VIEW_CELL];
+    if (!cell) {
+        cell = [[MomentsMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:IDENTIFIER_MOMENTS_MESSAGE_TABLE_VIEW_CELL];
+    }
+    cell.delegate = self;
+    MessageObject *message = (MessageObject *)[_momentModel.messages objectAtIndex:indexPath.row];
+    [cell setMessageWithMessage:message];
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    MessageObject *message = [_momentModel.messages objectAtIndex:indexPath.row];
+    if (!message.downloaded && message.localVideoPath) {
+        _downloadVideoView.alpha = 1;
+        [_downloadVideoView showWithAnimation];
+        [_downloadVideoView downloadVideoByMessage:message];
+    }else {
+        //TODO: Go to detail message
+    }
+}
+
+#pragma mark - MomentsMessageTableViewCell delegate 
+
+- (void)resetMessageAtCell:(MomentsMessageTableViewCell *)messageCell
+{
+    MomentsMessageTableViewCell *currentCell = messageCell;
+    NSIndexPath *indexPath = [_messagesTableView indexPathForCell:currentCell];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    MessageObject *currentMessage = [_momentModel.messages objectAtIndex:indexPath.row];
+    [_momentModel resetMessages:currentMessage Success:^(id result) {
+        [_messagesTableView reloadData];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }];
+}
+
+#pragma mark - DownloadVideo delegate
+- (void)downloadVideoSuccess:(MessageObject *)message {
+    message.downloaded = YES;
+    [_downloadVideoView hideWithAnimation];
+    //TODO: Go to detail message
+}
+
+- (void)downloadVideoFailure:(MessageObject *)message  {
+    [_downloadVideoView hideWithAnimation];
+    [UIAlertView showTitle:@"Error" message:@"Cann't download this video"];
 }
 
 @end
