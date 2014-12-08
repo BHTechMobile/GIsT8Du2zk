@@ -6,6 +6,7 @@
 #import <Foundation/Foundation.h>
 #import "AFHTTPRequestOperation.h"
 #import "AFHTTPRequestOperationManager.h"
+#import "MessageObject.h"
 
 typedef void (^SuccessBlock)(AFHTTPRequestOperation *operation, id responseObject);
 typedef void (^FailureBlock)(AFHTTPRequestOperation *operation, NSError *error);
@@ -33,6 +34,8 @@ typedef void (^DownloadResponseBlock)(float progress);
 + (void)updateMessage:(NSString*)message key:(NSString*)key frame:(NSString*)frame path:(NSURL*)videoPath notification:(BOOL)notiF thumbnail:(UIImage*)image sussess:(SuccessBlock)success failure:(MessageBlock)failure;
 
 +(void)getAllMessageSussess:(SuccessBlock)success failure:(MessageBlock)failure;
+
++(void)resetMessage:(MessageObject *)message Sussess:(SuccessBlock)success failure:(MessageBlock)failure;
 
 +(void)downloadVideoUrl:(NSString*)videoUrl outputPath:(NSString*)outputPath sussess:(SuccessBlock)success failure:(FailureBlock)failure progress:(DownloadResponseBlock)progress;
 

@@ -307,6 +307,78 @@
     }];
 }
 
++(void)getAllMessageSussess:(SuccessBlock)success failure:(MessageBlock)failure
+{
+    NSDictionary* parameters = @{KEY_USER_ID:[NSUserDefaults getStringForKey:KEY_USER_SETTING_LOGGED_IN_ID]};
+    
+    [BaseServices requestByMethod:@"GET" widthPath:@"message/browse?sent=0" withParameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (success) {
+            success(operation,responseObject);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSString* bodyString = [operation responseString];
+        if (failure) {
+            failure(bodyString,error);
+        }
+    }];
+}
+
++(void)resetMessage:(MessageObject *)message Sussess:(SuccessBlock)success failure:(MessageBlock)failure
+{
+    NSDictionary* parameters = @{KEY_USER_ID:[NSUserDefaults getStringForKey:KEY_USER_SETTING_LOGGED_IN_ID]};
+    
+    [BaseServices requestByMethod:@"GET" widthPath:[NSString stringWithFormat:@"message/reset?code=%@",message.code] withParameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (success) {
+            success(operation,responseObject);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSString* bodyString = [operation responseString];
+        if (failure) {
+            failure(bodyString,error);
+        }
+    }];
+}
+
++(void)downloadVideoUrl:(NSString*)videoUrl outputPath:(NSString*)outputPath sussess:(SuccessBlock)success failure:(FailureBlock)failure progress:(DownloadResponseBlock)progress{
+    AFHTTPRequestOperationManager* manager = [BaseServices sharedManager];
+    [manager.requestSerializer setTimeoutInterval:300];
+    AFHTTPRequestOperation *op = [manager GET:videoUrl
+                                   parameters:nil
+                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                          NSLog(@"success");
+                                          if (success) {
+                                              success(operation,responseObject);
+                                          }
+                                          
+                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          
+                                          if (error.code == NSURLErrorCancelled) {
+                                              return;
+                                          }
+                                          
+                                          if (error.code == NSURLErrorNotConnectedToInternet) {
+                                              [UIAlertView showTitle:@"Error" message:@"Cannot connect to server."];
+                                              return;
+                                          }
+                                          
+                                          if (error.code == NSURLErrorTimedOut) {
+                                              [UIAlertView showTitle:@"Error" message:@"Connection timeout."];
+                                              return;
+                                          }
+                                          
+                                          if (failure) {
+                                              failure(operation,error);
+                                          }
+                                      }];
+    [op setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+        float pg = totalBytesRead / (float)totalBytesExpectedToRead;
+        if (progress) {
+            progress(pg);
+        }
+    }];
+    op.outputStream = [NSOutputStream outputStreamToFileAtPath:outputPath append:YES];
+}
+
 #pragma mark - Utilities
 
 +(id)dictionaryFromData:(id)data error:(NSError**)error{

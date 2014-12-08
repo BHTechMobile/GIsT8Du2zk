@@ -58,6 +58,16 @@
 		CECCB7A91A23481400C1220C /* Recent.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CECCB7A71A23481400C1220C /* Recent.storyboard */; };
 		CECCB7AB1A23481D00C1220C /* FromFriends.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CECCB7AA1A23481D00C1220C /* FromFriends.storyboard */; };
 		CECCB7AD1A23482600C1220C /* MyMoments.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CECCB7AC1A23482600C1220C /* MyMoments.storyboard */; };
+		D23BA4671A357F75000EDE47 /* MessageObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D23BA45F1A357F75000EDE47 /* MessageObject.m */; };
+		D23BA4681A357F75000EDE47 /* MomentsMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D23BA4611A357F75000EDE47 /* MomentsMessageTableViewCell.m */; };
+		D23BA4691A357F75000EDE47 /* MomentsMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D23BA4621A357F75000EDE47 /* MomentsMessageTableViewCell.xib */; };
+		D23BA46A1A357F75000EDE47 /* DownloadVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = D23BA4651A357F75000EDE47 /* DownloadVideoView.m */; };
+		D23BA46B1A357F75000EDE47 /* DownloadVideoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D23BA4661A357F75000EDE47 /* DownloadVideoView.xib */; };
+		D23BA4741A357FA0000EDE47 /* NSDate+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = D23BA46D1A357FA0000EDE47 /* NSDate+Helpers.m */; };
+		D23BA4751A357FA0000EDE47 /* NSDictionary+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = D23BA46F1A357FA0000EDE47 /* NSDictionary+Helpers.m */; };
+		D23BA4761A357FA0000EDE47 /* NSUserDefaults+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = D23BA4711A357FA0000EDE47 /* NSUserDefaults+Helpers.m */; };
+		D23BA4771A357FA0000EDE47 /* UIColor+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = D23BA4731A357FA0000EDE47 /* UIColor+Helpers.m */; };
+		D23BA47A1A357FFB000EDE47 /* MomentsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D23BA4791A357FFB000EDE47 /* MomentsModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -157,6 +167,24 @@
 		CECCB7A81A23481400C1220C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Recent.storyboard; sourceTree = "<group>"; };
 		CECCB7AA1A23481D00C1220C /* FromFriends.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FromFriends.storyboard; sourceTree = "<group>"; };
 		CECCB7AC1A23482600C1220C /* MyMoments.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyMoments.storyboard; sourceTree = "<group>"; };
+		D23BA45E1A357F75000EDE47 /* MessageObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageObject.h; sourceTree = "<group>"; };
+		D23BA45F1A357F75000EDE47 /* MessageObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageObject.m; sourceTree = "<group>"; };
+		D23BA4601A357F75000EDE47 /* MomentsMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MomentsMessageTableViewCell.h; sourceTree = "<group>"; };
+		D23BA4611A357F75000EDE47 /* MomentsMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MomentsMessageTableViewCell.m; sourceTree = "<group>"; };
+		D23BA4621A357F75000EDE47 /* MomentsMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MomentsMessageTableViewCell.xib; sourceTree = "<group>"; };
+		D23BA4641A357F75000EDE47 /* DownloadVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadVideoView.h; sourceTree = "<group>"; };
+		D23BA4651A357F75000EDE47 /* DownloadVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadVideoView.m; sourceTree = "<group>"; };
+		D23BA4661A357F75000EDE47 /* DownloadVideoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownloadVideoView.xib; sourceTree = "<group>"; };
+		D23BA46C1A357FA0000EDE47 /* NSDate+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Helpers.h"; sourceTree = "<group>"; };
+		D23BA46D1A357FA0000EDE47 /* NSDate+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helpers.m"; sourceTree = "<group>"; };
+		D23BA46E1A357FA0000EDE47 /* NSDictionary+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Helpers.h"; sourceTree = "<group>"; };
+		D23BA46F1A357FA0000EDE47 /* NSDictionary+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Helpers.m"; sourceTree = "<group>"; };
+		D23BA4701A357FA0000EDE47 /* NSUserDefaults+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+Helpers.h"; sourceTree = "<group>"; };
+		D23BA4711A357FA0000EDE47 /* NSUserDefaults+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+Helpers.m"; sourceTree = "<group>"; };
+		D23BA4721A357FA0000EDE47 /* UIColor+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Helpers.h"; sourceTree = "<group>"; };
+		D23BA4731A357FA0000EDE47 /* UIColor+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Helpers.m"; sourceTree = "<group>"; };
+		D23BA4781A357FFB000EDE47 /* MomentsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MomentsModel.h; sourceTree = "<group>"; };
+		D23BA4791A357FFB000EDE47 /* MomentsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MomentsModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +235,8 @@
 		9F0671E81A2738110077F66B /* UIs */ = {
 			isa = PBXGroup;
 			children = (
+				D23BA45D1A357F75000EDE47 /* Moments */,
+				D23BA4631A357F75000EDE47 /* Others */,
 				9F9F981D1A2820200089018B /* VideoFilter */,
 			);
 			path = UIs;
@@ -225,6 +255,14 @@
 		9F9F98231A2825DB0089018B /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				D23BA46C1A357FA0000EDE47 /* NSDate+Helpers.h */,
+				D23BA46D1A357FA0000EDE47 /* NSDate+Helpers.m */,
+				D23BA46E1A357FA0000EDE47 /* NSDictionary+Helpers.h */,
+				D23BA46F1A357FA0000EDE47 /* NSDictionary+Helpers.m */,
+				D23BA4701A357FA0000EDE47 /* NSUserDefaults+Helpers.h */,
+				D23BA4711A357FA0000EDE47 /* NSUserDefaults+Helpers.m */,
+				D23BA4721A357FA0000EDE47 /* UIColor+Helpers.h */,
+				D23BA4731A357FA0000EDE47 /* UIColor+Helpers.m */,
 				9F9F98471A286E180089018B /* UIView+AutoLayout.h */,
 				9F9F98481A286E180089018B /* UIView+AutoLayout.m */,
 				9F9F982E1A282A640089018B /* NSString+Helpers.h */,
@@ -409,6 +447,8 @@
 		CECCB7821A2344D300C1220C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D23BA4781A357FFB000EDE47 /* MomentsModel.h */,
+				D23BA4791A357FFB000EDE47 /* MomentsModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -436,6 +476,28 @@
 				CECCB7A21A23478C00C1220C /* MyMomentsViewController.m */,
 			);
 			path = Screens;
+			sourceTree = "<group>";
+		};
+		D23BA45D1A357F75000EDE47 /* Moments */ = {
+			isa = PBXGroup;
+			children = (
+				D23BA45E1A357F75000EDE47 /* MessageObject.h */,
+				D23BA45F1A357F75000EDE47 /* MessageObject.m */,
+				D23BA4601A357F75000EDE47 /* MomentsMessageTableViewCell.h */,
+				D23BA4611A357F75000EDE47 /* MomentsMessageTableViewCell.m */,
+				D23BA4621A357F75000EDE47 /* MomentsMessageTableViewCell.xib */,
+			);
+			path = Moments;
+			sourceTree = "<group>";
+		};
+		D23BA4631A357F75000EDE47 /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				D23BA4641A357F75000EDE47 /* DownloadVideoView.h */,
+				D23BA4651A357F75000EDE47 /* DownloadVideoView.m */,
+				D23BA4661A357F75000EDE47 /* DownloadVideoView.xib */,
+			);
+			path = Others;
 			sourceTree = "<group>";
 		};
 		E7660F4C4E32C4269FA4AF84 /* Frameworks */ = {
@@ -532,6 +594,7 @@
 				9FA218AD1A320C4000C3891B /* GPUImageColorDodgeBlendFilter1.mp4 in Resources */,
 				CE3E234F1A233CDF00008D27 /* Main.storyboard in Resources */,
 				9FA218B11A320C4000C3891B /* GPUImageColorDodgeBlendFilter5.mp4 in Resources */,
+				D23BA46B1A357F75000EDE47 /* DownloadVideoView.xib in Resources */,
 				CECCB7881A2344FC00C1220C /* Trending.storyboard in Resources */,
 				9FA218B31A320C4000C3891B /* GPUImageColorDodgeBlendFilter7.mp4 in Resources */,
 				9F9F98461A286D640089018B /* VolumeView.xib in Resources */,
@@ -548,6 +611,7 @@
 				9FB03B2B1A27909400370885 /* NavigationView.xib in Resources */,
 				9F9F98441A286D640089018B /* PlayerView.xib in Resources */,
 				9FA218B01A320C4000C3891B /* GPUImageColorDodgeBlendFilter4.mp4 in Resources */,
+				D23BA4691A357F75000EDE47 /* MomentsMessageTableViewCell.xib in Resources */,
 				9FA218B21A320C4000C3891B /* GPUImageColorDodgeBlendFilter6.mov in Resources */,
 				9FA218AE1A320C4000C3891B /* GPUImageColorDodgeBlendFilter2.mp4 in Resources */,
 			);
@@ -603,11 +667,16 @@
 				CECCB7A01A23477D00C1220C /* FriendMomentsViewController.m in Sources */,
 				9FFFDDC21A2CD10E0081ADC9 /* FacebookManager.m in Sources */,
 				9F9F98431A286D640089018B /* PlayerView.m in Sources */,
+				D23BA4751A357FA0000EDE47 /* NSDictionary+Helpers.m in Sources */,
 				9FFFDDC31A2CD10E0081ADC9 /* UserData.m in Sources */,
 				CECCB78E1A23470900C1220C /* MomentsViewController.m in Sources */,
 				CECCB7A61A2347B200C1220C /* MixAudioViewController.m in Sources */,
 				51A6E3081A31BC3C00BE3039 /* JTViewController.m in Sources */,
+				D23BA4681A357F75000EDE47 /* MomentsMessageTableViewCell.m in Sources */,
+				D23BA4741A357FA0000EDE47 /* NSDate+Helpers.m in Sources */,
 				CECCB7971A23472E00C1220C /* CaptureVideoViewController.m in Sources */,
+				D23BA4771A357FA0000EDE47 /* UIColor+Helpers.m in Sources */,
+				D23BA4671A357F75000EDE47 /* MessageObject.m in Sources */,
 				CE3E23461A233CDF00008D27 /* AppDelegate.m in Sources */,
 				CECCB79D1A23476B00C1220C /* RecentMomentsViewController.m in Sources */,
 				9F0671E61A2716AA0077F66B /* Utilities.m in Sources */,
@@ -619,9 +688,12 @@
 				9F9F98491A286E180089018B /* UIView+AutoLayout.m in Sources */,
 				CE3E23431A233CDF00008D27 /* main.m in Sources */,
 				9FB03B291A27905C00370885 /* NavigationView.m in Sources */,
+				D23BA46A1A357F75000EDE47 /* DownloadVideoView.m in Sources */,
+				D23BA47A1A357FFB000EDE47 /* MomentsModel.m in Sources */,
 				9F9F98261A2825DB0089018B /* UIView+Utils.m in Sources */,
 				9F9F982D1A2829F40089018B /* MixEngine.m in Sources */,
 				CECCB7941A23472600C1220C /* MixVideoViewController.m in Sources */,
+				D23BA4761A357FA0000EDE47 /* NSUserDefaults+Helpers.m in Sources */,
 				CECCB78B1A23460800C1220C /* FBConnectViewController.m in Sources */,
 				CECCB7A31A23478C00C1220C /* MyMomentsViewController.m in Sources */,
 				CECCB79A1A23474A00C1220C /* MomentDetailViewController.m in Sources */,

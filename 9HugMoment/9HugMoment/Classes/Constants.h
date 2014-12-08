@@ -9,8 +9,8 @@
 #ifndef _HugMoment_Constants_h
 #define _HugMoment_Constants_h
 
+#pragma mark - ALl Pages
 /*All Page*/
-
 #define SYSTEM_PASSWORD @"Gfix0hVBUCNPf9wyKGiQ"
 #define UPLOAD_VIDEO @"http://ws.9hug.com/api/message/update"
 #define URL_GET_FOLLOW_ENDPOINT @"http://ws.9hug.com/api/client/login"
@@ -56,33 +56,96 @@
 //414
 #define IS_HEIGHT_GTE_736 (([[UIScreen mainScreen ] bounds].size.height >= 700)?TRUE:FALSE)
 #define IS_IPHONE_6_PLUS (IS_IPHONE && IS_HEIGHT_GTE_736)
-/*FBConnectViewController*/
 
+#pragma mark - KEYS
+// KEYS
+#define KEY_ID @"id"
+#define KEY_AGENT_ID @"agentid"
+#define KEY_TYPE @"type"
+#define KEY_STYLE @"style"
+#define KEY_NOTIFICATION @"notification"
+#define KEY_KEY @"key"
+#define KEY_CODE @"code"
+#define KEY_LENGTH @"length"
+#define KEY_THUMB @"thumb"
+#define KEY_ATTACHEMENT_1 @"attachement1"
+#define KEY_ATTACHEMENT_2 @"attachement2"
+#define KEY_TEXT @"text"
+#define KEY_USER_ID @"userid"
+#define KEY_FRAME_ID @"frameid"
+#define KEY_CATEGORY @"category"
+#define KEY_GENERATED_DATE @"generateddate"
+#define KEY_CREATE_DATED @"createdated"
+#define KEY_SCHEDULED @"scheduled"
+#define KEY_SENT_DATE @"sentdate"
+#define KEY_RECEIVER_ID @"receiverid"
+#define KEY_RECEIVER_DATE @"receiveddate"
+#define KEY_READS @"reads"
+#define KEY_FULL_NAME @"fullname"
+#define KEY_S_ECHO @"sEcho"
+#define KEY_I_TOTAL_RECORDS @"iTotalRecords"
+#define KEY_I_TOTAL_DISPLAY_RECORDS @"iTotalDisplayRecords"
+#define KEY_AA_DATA @"aaData"
+//User setting key
+#define KEY_USER_SETTING_LOGGED_IN_ID @"userSettingLoggedInID"
+#define KEY_USER_SETTING_LOGGED_IN_TOKEN @"userSettingLoggedInToken"
+
+#pragma mark - Services
+// Services
+#define URL_MESSAGE_GRCODE_BY_KEY @"http://ws.9hug.com/api/message/qrcode?key="
+
+#pragma mark - Images Name
+// Images Name
+#define IMAGE_NAME_THUMB_PLACE_HOLDER @"icon_circle_gray"
+#define IMAGE_NAME_ATTACHMENT_2_DEFAULT @"attachment_2_default"
+
+#pragma mark - Identifier TableViewCell
+// Identifier TableViewCell
+#define IDENTIFIER_MOMENTS_MESSAGE_TABLE_VIEW_CELL @"identifierMomentsMessageTableViewCell"
+
+#pragma mark - FBConnectViewController
+/*FBConnectViewController*/
 #define objectLogin @"objectlogin"
 #import <FacebookSDK/FacebookSDK.h>
 #import <FacebookSDK/FBSession.h>
 #import "UserData.h"
 #import "FacebookManager.h"
 
+#pragma mark - Categories
 /*Categories*/
 #import "UIView+Utils.h"
 #import "UIAlertView+Helpers.h"
 #import "MixEngine.h"
 #import "NSString+Helpers.h"
+#import "NSDictionary+Helpers.h"
+#import "NSDate+Helpers.h"
+#import "NSUserDefaults+Helpers.h"
+#import "UIColor+Helpers.h"
 
+#pragma mark - MixVideoViewController
 /*MixVideoViewController*/
-
 #define BG_COLOR_PROCESS_MIX_VIDEO [UIColor colorWithRed:224.0/255.0 green:100.0/255.0 blue:176.0/255.0 alpha:1.0]
 
+#pragma mark - CaptureVideoViewController
 /*CaptureVideoViewController*/
-
 #define PointX 80
 #define COLOR_PROCESS [UIColor colorWithRed:224.0/255.0 green:100.0/255.0 blue:176.0/255.0 alpha:1.0]
 #define BG_COLOR_PROCESS [UIColor colorWithRed:43.0/255.0 green:42.0/255.0 blue:50.0/255.0 alpha:1.0]
 #define KEY_DISTANCE @"key_distance"
 
+#pragma mark - NavigationView
 /*NavigationView*/
-
 #define NAVIGATION_BAR_CUSTOM_DEFAULT_HEIGHT 44
+
+#pragma mark - MomentsViewController
+// MomentsViewController
+#define HEIGHT_ROW_TABLE_VIEW_MOMENTS_VIEW_CONTROLLER 272
+#define NUMBER_OF_SECTION_TABLE_VIEW_MOMENTS_VIEW_CONTROLLER 1
+
+#pragma mark - MomentsMessageTableViewCell
+// MomentsMessageTableViewCell
+#define WIGHT_RESET_BUTTON_MOMENTS_MESSAGE_TABLE_VIEW_CELL 65
+#define TIME_TO_SHOW_RESET_BUTTON_MOMENTS_MESSAGE_TABLE_VIEW_CELL 0.3
+#define NUMBER_OF_TOUCH_SWIPE_MOMENTS_MESSAGE_TABLE_VIEW_CELL 1
 
 #endif
