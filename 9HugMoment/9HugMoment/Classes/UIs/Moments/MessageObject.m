@@ -37,6 +37,11 @@
     NSString *readsFromDict     = [dict stringForKey:KEY_READS];
     NSString *fullNameFromDict  = [dict stringForKey:KEY_FULL_NAME];
     
+    NSString *styleFromDict  = [dict stringForKey:KEY_STYLE];
+    NSMutableArray *votesArrayFromDict = (NSMutableArray *)[dict stringForKey:KEY_VOTES];
+    NSMutableArray *voicesArrayFromDict = (NSMutableArray *)[dict stringForKey:KEY_VOICES];
+    NSMutableArray *photosArrayFromDict = (NSMutableArray *)[dict stringForKey:KEY_PHOTOS];
+    
     message.messageID       = (messageIDFromDict != (id)[NSNull null])?messageIDFromDict:@"";
     message.agentID         = (agentIDFromDict != (id)[NSNull null])?agentIDFromDict:@"";
     message.type            = (typeFromDict != (id)[NSNull null])?typeFromDict:@"";
@@ -59,6 +64,10 @@
     message.receivedDate    = (receivedDateFromDict!= (id)[NSNull null])?receivedDateFromDict:@"";
     message.reads           = (readsFromDict!= (id)[NSNull null])?readsFromDict:@"";
     message.fullName        = (fullNameFromDict!= (id)[NSNull null])?fullNameFromDict:@"";
+    message.style           = (styleFromDict!= (id)[NSNull null])?styleFromDict:@"";
+    message.votesArray      = votesArrayFromDict;
+    message.voicesArray     = voicesArrayFromDict;
+    message.photosArray     = photosArrayFromDict;
     return message;
 }
 

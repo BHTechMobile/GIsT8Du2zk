@@ -31,6 +31,11 @@
 @property (nonatomic, strong) NSString *fullName;
 @property (nonatomic, assign) BOOL downloaded;
 
+@property (nonatomic, strong) NSString *style;
+@property (nonatomic, strong) NSMutableArray *votesArray;
+@property (nonatomic, strong) NSMutableArray *voicesArray;
+@property (nonatomic, strong) NSMutableArray *photosArray;
+
 + (MessageObject *)createMessageByDictionnary:(NSDictionary *)dict;
 - (NSString*)localVideoPath;
 
