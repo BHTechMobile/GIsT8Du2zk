@@ -23,7 +23,14 @@
     [_messages removeAllObjects];
     [BaseServices getAllMessageSussess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary* dict = (NSDictionary*)responseObject;
-        NSArray* aaData = [dict customObjectForKey:@"aaData"];
+        
+        NSArray* aaData;
+        if ([dict valueForKey:@"aaData"] && [[dict valueForKey:@"aaData"] isKindOfClass:[NSArray class]]) {
+            aaData = [dict customObjectForKey:@"aaData"];
+        }
+        else{
+            aaData = @[];
+        }
         NSLog(@"%@",aaData);
         for (NSDictionary* mDict in aaData) {
             MessageObject* message = [MessageObject createMessageByDictionnary:mDict];

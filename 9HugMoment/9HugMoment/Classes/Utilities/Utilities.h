@@ -23,4 +23,6 @@
 + (void)setImage :(UIImageView *)imageView andURLImage :(NSString *)strUrl addToArray:(NSMutableArray *)arrCache;
 + (void)setImageForButton:(UIButton *)btn andURLImage:(NSString *)strUrl andArrayCaches:(NSMutableArray *)arr;
 + (UIImage *)setThumbnail :(UIImage *)image withSize:(CGSize )destinationSize;
++ (NSString *)MD5StringFromString:(NSString*)string ;
+
 @end

@@ -67,7 +67,8 @@
         [[UserData currentAccount] setStrFacebookToken:APP_DELEGATE.session.accessTokenData.accessToken];
         [[UserData currentAccount] setStrFacebookId:[user valueForKey:@"id"]];
         [[UserData currentAccount] setStrFullName:[user valueForKey:@"name"]];
-        
+        [[UserData currentAccount] setStrUserToken:[Utilities MD5StringFromString:[user valueForKey:@"id"]]];
+
         NSDictionary *dicParam = @{@"code":[user valueForKey:@"id"],
                                    @"fullname":[user valueForKey:@"name"],
                                    @"facebookid":[user valueForKey:@"id"] ,
