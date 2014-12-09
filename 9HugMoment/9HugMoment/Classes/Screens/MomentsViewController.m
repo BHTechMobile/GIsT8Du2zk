@@ -147,7 +147,6 @@
     if (!cell) {
         cell = [[MomentsMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:IDENTIFIER_MOMENTS_MESSAGE_TABLE_VIEW_CELL];
     }
-    cell.delegate = self;
     MessageObject *mymessage = (MessageObject *)[_momentModel.messages objectAtIndex:indexPath.row];
     [cell setMessageWithMessage:mymessage];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
