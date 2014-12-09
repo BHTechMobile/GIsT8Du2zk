@@ -48,10 +48,10 @@
 #define IS_HEIGHT_GTE_480 (([[UIScreen mainScreen ] bounds].size.height < 568)?TRUE:FALSE)
 #define IS_IPHONE_4 (IS_IPHONE && IS_HEIGHT_GTE_480)
 //320
-#define IS_HEIGHT_GTE_568 (([[UIScreen mainScreen ] bounds].size.height >= 500)?TRUE:FALSE)
+#define IS_HEIGHT_GTE_568 ( (([[UIScreen mainScreen ] bounds].size.height >= 500) & ([[UIScreen mainScreen ] bounds].size.height < 600))?TRUE:FALSE)
 #define IS_IPHONE_5 (IS_IPHONE && IS_HEIGHT_GTE_568)
 //375
-#define IS_HEIGHT_GTE_667 (([[UIScreen mainScreen ] bounds].size.height >= 600)?TRUE:FALSE)
+#define IS_HEIGHT_GTE_667 ( (([[UIScreen mainScreen ] bounds].size.height >= 600) & ([[UIScreen mainScreen ] bounds].size.height < 700))?TRUE:FALSE)
 #define IS_IPHONE_6 (IS_IPHONE && IS_HEIGHT_GTE_667)
 //414
 #define IS_HEIGHT_GTE_736 (([[UIScreen mainScreen ] bounds].size.height >= 700)?TRUE:FALSE)
@@ -103,6 +103,7 @@ typedef NS_ENUM (NSInteger, MessageType){
 #define KEY_VOICES @"voices"
 #define KEY_PHOTOS @"photos"
 #define KEY_COMMENTS @"comments"
+
 //User setting key
 #define KEY_USER_SETTING_LOGGED_IN_ID @"userSettingLoggedInID"
 #define KEY_USER_SETTING_LOGGED_IN_TOKEN @"userSettingLoggedInToken"

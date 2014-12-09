@@ -20,5 +20,6 @@
 
 -(void)updateWithDuration:(float)duration;
 -(CGFloat)getSecondStartAt;
+@property (weak, nonatomic) IBOutlet UIImageView *waveView;
 
 @end
