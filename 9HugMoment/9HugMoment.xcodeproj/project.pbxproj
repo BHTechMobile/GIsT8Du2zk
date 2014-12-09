@@ -12,6 +12,10 @@
 		51A6E3071A31BC3C00BE3039 /* JTTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A6E3031A31BC3C00BE3039 /* JTTabBarController.m */; };
 		51A6E3081A31BC3C00BE3039 /* JTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A6E3051A31BC3C00BE3039 /* JTViewController.m */; };
 		9F0671E61A2716AA0077F66B /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F0671E51A2716AA0077F66B /* Utilities.m */; };
+		9F8D55EC1A3694A700735634 /* PlayerViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8D55EA1A3694A700735634 /* PlayerViewTableViewCell.m */; };
+		9F8D55ED1A3694A700735634 /* PlayerViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F8D55EB1A3694A700735634 /* PlayerViewTableViewCell.xib */; };
+		9F8D55F11A36952D00735634 /* UserInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8D55EF1A36952D00735634 /* UserInfoTableViewCell.m */; };
+		9F8D55F21A36952D00735634 /* UserInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F8D55F01A36952D00735634 /* UserInfoTableViewCell.xib */; };
 		9F9F98211A2820200089018B /* VideoFilterActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F981F1A2820200089018B /* VideoFilterActionView.m */; };
 		9F9F98221A2820200089018B /* VideoFilterActionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F9F98201A2820200089018B /* VideoFilterActionView.xib */; };
 		9F9F98261A2825DB0089018B /* UIView+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F98251A2825DB0089018B /* UIView+Utils.m */; };
@@ -102,6 +106,12 @@
 		9F0671D81A26CB7F0077F66B /* 9HugMoment-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "9HugMoment-Prefix.pch"; sourceTree = "<group>"; };
 		9F0671E41A2716AA0077F66B /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		9F0671E51A2716AA0077F66B /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
+		9F8D55E91A3694A700735634 /* PlayerViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerViewTableViewCell.h; sourceTree = "<group>"; };
+		9F8D55EA1A3694A700735634 /* PlayerViewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerViewTableViewCell.m; sourceTree = "<group>"; };
+		9F8D55EB1A3694A700735634 /* PlayerViewTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerViewTableViewCell.xib; sourceTree = "<group>"; };
+		9F8D55EE1A36952D00735634 /* UserInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoTableViewCell.h; sourceTree = "<group>"; };
+		9F8D55EF1A36952D00735634 /* UserInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoTableViewCell.m; sourceTree = "<group>"; };
+		9F8D55F01A36952D00735634 /* UserInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserInfoTableViewCell.xib; sourceTree = "<group>"; };
 		9F9F981E1A2820200089018B /* VideoFilterActionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoFilterActionView.h; sourceTree = "<group>"; };
 		9F9F981F1A2820200089018B /* VideoFilterActionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoFilterActionView.m; sourceTree = "<group>"; };
 		9F9F98201A2820200089018B /* VideoFilterActionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoFilterActionView.xib; sourceTree = "<group>"; };
@@ -271,6 +281,12 @@
 				D23BA45D1A357F75000EDE47 /* Moments */,
 				D23BA4631A357F75000EDE47 /* Others */,
 				9F9F981D1A2820200089018B /* VideoFilter */,
+				9F8D55E91A3694A700735634 /* PlayerViewTableViewCell.h */,
+				9F8D55EA1A3694A700735634 /* PlayerViewTableViewCell.m */,
+				9F8D55EB1A3694A700735634 /* PlayerViewTableViewCell.xib */,
+				9F8D55EE1A36952D00735634 /* UserInfoTableViewCell.h */,
+				9F8D55EF1A36952D00735634 /* UserInfoTableViewCell.m */,
+				9F8D55F01A36952D00735634 /* UserInfoTableViewCell.xib */,
 			);
 			path = UIs;
 			sourceTree = "<group>";
@@ -642,7 +658,9 @@
 				D23BA46B1A357F75000EDE47 /* DownloadVideoView.xib in Resources */,
 				CECCB7881A2344FC00C1220C /* Trending.storyboard in Resources */,
 				9FA12BFC1A35D66300CE737C /* UpvoteMessageTableViewCell.xib in Resources */,
+				9F8D55F21A36952D00735634 /* UserInfoTableViewCell.xib in Resources */,
 				9FA218B31A320C4000C3891B /* GPUImageColorDodgeBlendFilter7.mp4 in Resources */,
+				9F8D55ED1A3694A700735634 /* PlayerViewTableViewCell.xib in Resources */,
 				9FA12BF61A35D66300CE737C /* CommentHeaderTableViewCell.xib in Resources */,
 				9F9F98461A286D640089018B /* VolumeView.xib in Resources */,
 				CE3E23541A233CE000008D27 /* LaunchScreen.xib in Resources */,
@@ -715,6 +733,7 @@
 			files = (
 				CECCB7A01A23477D00C1220C /* FriendMomentsViewController.m in Sources */,
 				9FFFDDC21A2CD10E0081ADC9 /* FacebookManager.m in Sources */,
+				9F8D55F11A36952D00735634 /* UserInfoTableViewCell.m in Sources */,
 				9F9F98431A286D640089018B /* PlayerView.m in Sources */,
 				9FA12BFF1A35D87600CE737C /* MomentsDetailsModel.m in Sources */,
 				D23BA4751A357FA0000EDE47 /* NSDictionary+Helpers.m in Sources */,
@@ -754,6 +773,7 @@
 				9F9F98411A286D640089018B /* AudioRangerSelectorView.m in Sources */,
 				9F9F98291A28266B0089018B /* UIAlertView+Helpers.m in Sources */,
 				9F9F98301A282A640089018B /* NSString+Helpers.m in Sources */,
+				9F8D55EC1A3694A700735634 /* PlayerViewTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
