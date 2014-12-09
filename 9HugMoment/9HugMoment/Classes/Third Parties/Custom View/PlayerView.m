@@ -54,6 +54,7 @@
         _videoPlayerKit.allowPortraitFullscreen = NO;
         _videoPlayerKit.showStaticEndTime = NO;
         _videoPlayerKit.view.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
+//        _videoPlayerKit.view.frame = CGRectMake(0, 0, CGRectGetWidth(self.viewControl.frame), CGRectGetHeight(self.viewControl.frame));
         [self insertSubview:_videoPlayerKit.view atIndex:0];
         _playImageView = [[UIImageView alloc]initWithFrame:_videoPlayerKit.view.frame];
         [_playImageView setImage:[UIImage imageNamed:@"btn_play_hover_white"]];

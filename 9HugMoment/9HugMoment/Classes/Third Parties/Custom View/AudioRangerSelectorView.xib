@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="240" height="50"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="wave" translatesAutoresizingMaskIntoConstraints="NO" id="hUW-UO-NtI">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wave" translatesAutoresizingMaskIntoConstraints="NO" id="hUW-UO-NtI">
                     <rect key="frame" x="0.0" y="0.0" width="240" height="50"/>
                 </imageView>
                 <view alpha="0.40000000000000002" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MLH-HY-64d">
@@ -20,10 +20,17 @@
                 </view>
             </subviews>
             <color key="backgroundColor" red="0.14117647059999999" green="0.54117647059999996" blue="0.69019607839999997" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="hUW-UO-NtI" secondAttribute="bottom" id="4ko-1h-aCI"/>
+                <constraint firstItem="hUW-UO-NtI" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="GZc-R2-1U3"/>
+                <constraint firstItem="hUW-UO-NtI" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="OtY-2C-2rf"/>
+                <constraint firstAttribute="trailing" secondItem="hUW-UO-NtI" secondAttribute="trailing" id="WWY-8P-8bR"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="rangeView" destination="MLH-HY-64d" id="22h-W9-laH"/>
+                <outlet property="waveView" destination="hUW-UO-NtI" id="vOf-zh-R67"/>
             </connections>
             <point key="canvasLocation" x="140" y="154"/>
         </view>
