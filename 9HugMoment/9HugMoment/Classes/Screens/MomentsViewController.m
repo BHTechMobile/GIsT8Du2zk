@@ -11,6 +11,7 @@
 #import "FBConnectViewController.h"
 #import "MomentsModel.h"
 #import "MomentDetailViewController.h"
+#import "ODRefreshControl.h"
 
 @interface MomentsViewController ()
 @property (nonatomic, strong) FacebookManager *_facebookManager;
@@ -24,6 +25,8 @@
     DownloadVideoView *_downloadVideoView;
     MomentDetailViewController *momentDetailViewController;
     MessageObject *message;
+    ODRefreshControl *_refreshControl;
+    MBProgressHUD *_hud;
 }
 @synthesize _facebookManager;
 
@@ -41,6 +44,16 @@
     _downloadVideoView.alpha = 0.0;
     _downloadVideoView.delegate = self;
     [self.view addSubview:_downloadVideoView];
+    
+    _hud = [[MBProgressHUD alloc] initWithView:self.view];
+    _hud.userInteractionEnabled = NO;
+    _hud.labelText = NSLocalizedString(@"Loading...", nil);
+    _hud.labelFont = [UIFont fontWithName:@"HelveticaNeue" size:14.0];
+    _hud.mode = MBProgressHUDModeIndeterminate;
+    [self.view addSubview:_hud];
+    
+    _refreshControl = [[ODRefreshControl alloc] initInScrollView:self.messagesTableView];
+    [_refreshControl addTarget:self action:@selector(refreshTableView) forControlEvents:UIControlEventValueChanged];
     
     if (!APP_DELEGATE.session.isOpen) {
         APP_DELEGATE.session = [[FBSession alloc] initWithPermissions:@[@"publish_actions",@"public_profile", @"user_friends",@"read_friendlists"]];
@@ -72,6 +85,10 @@
     [self performSegueWithIdentifier:PUSH_CAPTURE_VIDEOVIEWCONTROLLER sender:nil];
 }
 
+- (IBAction)refreshButtonAction:(id)sender {
+    [self getAllMessage];
+}
+
 #pragma mark - Custom Methods
 
 - (void)showLoginFB {
@@ -81,13 +98,13 @@
 }
 
 - (void)getAllMessage {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [_hud show:YES];
     [_momentModel getAllMessagesSuccess:^(id result) {
         NSLog(@"count : %lu",(unsigned long)_momentModel.messages.count);
         [_messagesTableView reloadData];
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [_hud hide:YES];
     } failure:^(NSError *error) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [_hud hide:YES];
     }];
 }
 
@@ -130,7 +147,6 @@
     if (!cell) {
         cell = [[MomentsMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:IDENTIFIER_MOMENTS_MESSAGE_TABLE_VIEW_CELL];
     }
-    cell.delegate = self;
     MessageObject *mymessage = (MessageObject *)[_momentModel.messages objectAtIndex:indexPath.row];
     [cell setMessageWithMessage:mymessage];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -149,33 +165,33 @@
     }
 }
 
-#pragma mark - MomentsMessageTableViewCell delegate 
-
-- (void)resetMessageAtCell:(MomentsMessageTableViewCell *)messageCell
-{
-    MomentsMessageTableViewCell *currentCell = messageCell;
-    NSIndexPath *indexPath = [_messagesTableView indexPathForCell:currentCell];
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    MessageObject *currentMessage = [_momentModel.messages objectAtIndex:indexPath.row];
-    [_momentModel resetMessages:currentMessage Success:^(id result) {
-        [_messagesTableView reloadData];
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-    } failure:^(NSError *error) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-    }];
-}
-
 #pragma mark - DownloadVideo delegate
-- (void)downloadVideoSuccess:(MessageObject *)message {
-    message.downloaded = YES;
+- (void)downloadVideoSuccess:(MessageObject *)messageObject {
+    messageObject.downloaded = YES;
     [_downloadVideoView hideWithAnimation];
     //TODO: Go to detail message
     [self performSegueWithIdentifier:@"pushMomentDetailsView" sender:nil];
 }
 
-- (void)downloadVideoFailure:(MessageObject *)message  {
+- (void)downloadVideoFailure:(MessageObject *)messageObject  {
     [_downloadVideoView hideWithAnimation];
     [UIAlertView showTitle:@"Error" message:@"Cann't download this video"];
+}
+
+#pragma mark - Refresh control management
+
+- (void)refreshTableView {
+    [_momentModel getAllMessagesSuccess:^(id result) {
+        NSLog(@"Message found: %lu",(unsigned long)_momentModel.messages.count);
+        [self refreshTableViewDone];
+    } failure:^(NSError *error) {
+        [self refreshTableViewDone];
+    }];
+}
+
+- (void)refreshTableViewDone {
+    [_refreshControl endRefreshing];
+    [_messagesTableView reloadData];
 }
 
 @end
