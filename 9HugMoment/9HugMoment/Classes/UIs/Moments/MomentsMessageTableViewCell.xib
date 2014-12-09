@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
@@ -113,21 +113,6 @@
                             <constraint firstAttribute="trailing" secondItem="dn8-Wv-RLJ" secondAttribute="trailing" constant="20" id="pLG-T9-n89"/>
                         </constraints>
                     </view>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gPx-QJ-yd9">
-                        <rect key="frame" x="320" y="176" width="65" height="90"/>
-                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="65" id="1vp-gQ-BwG"/>
-                            <constraint firstAttribute="height" constant="90" id="4Oo-f5-rIT"/>
-                        </constraints>
-                        <state key="normal" title="Reset">
-                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                        <connections>
-                            <action selector="resetAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="WPX-tw-2zN"/>
-                        </connections>
-                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="jjS-NF-PHI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="9Qd-cK-sXi"/>
@@ -135,10 +120,8 @@
                     <constraint firstAttribute="bottom" secondItem="P9t-uf-5yk" secondAttribute="bottom" constant="5" id="Hsi-SF-kf0"/>
                     <constraint firstAttribute="trailing" secondItem="jjS-NF-PHI" secondAttribute="trailing" id="RkB-wd-qt6"/>
                     <constraint firstItem="P9t-uf-5yk" firstAttribute="top" secondItem="jjS-NF-PHI" secondAttribute="bottom" id="Tbz-6F-QAG"/>
-                    <constraint firstItem="gPx-QJ-yd9" firstAttribute="centerY" secondItem="P9t-uf-5yk" secondAttribute="centerY" id="cDP-sM-blR"/>
                     <constraint firstItem="P9t-uf-5yk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ctx-vk-uRR"/>
                     <constraint firstItem="jjS-NF-PHI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="kkm-Rx-l7e"/>
-                    <constraint firstItem="gPx-QJ-yd9" firstAttribute="leading" secondItem="P9t-uf-5yk" secondAttribute="trailing" id="prk-A4-BB7"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -147,7 +130,6 @@
                 <outlet property="leftSpaceDataViewConstraint" destination="ctx-vk-uRR" id="wnm-jH-faM"/>
                 <outlet property="locationLabel" destination="nXZ-DG-TYc" id="Bmd-b4-TQ0"/>
                 <outlet property="numberReadsLabel" destination="SeQ-jc-GQm" id="xRx-rf-vs9"/>
-                <outlet property="resetButton" destination="gPx-QJ-yd9" id="fIh-RW-oC3"/>
                 <outlet property="rightSpaceDataViewConstraint" destination="Cvb-qd-SWq" id="7GS-6k-we8"/>
                 <outlet property="thumbnailImageView" destination="TMm-rZ-aDn" id="Pg3-6x-DjU"/>
                 <outlet property="userNameLabel" destination="OtT-Qz-JhY" id="F2r-8V-Cto"/>

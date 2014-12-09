@@ -20,7 +20,6 @@
 - (void)getAllMessagesSuccess:(void (^)(id result))success
                      failure:(void (^)(NSError *error))failure
 {
-    [_messages removeAllObjects];
     [BaseServices getAllMessageSussess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary* dict = (NSDictionary*)responseObject;
         
@@ -32,6 +31,7 @@
             aaData = @[];
         }
         NSLog(@"%@",aaData);
+        [_messages removeAllObjects];
         for (NSDictionary* mDict in aaData) {
             MessageObject* message = [MessageObject createMessageByDictionnary:mDict];
             [_messages addObject:message];
