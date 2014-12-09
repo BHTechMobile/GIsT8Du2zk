@@ -11,7 +11,6 @@
 #import "CommentHeaderTableViewCell.h"
 #import "CommentMessageTableViewCell.h"
 #import "UpvoteMessageTableViewCell.h"
-#import "MomentsDetailsModel.h"
 #import "PlayerViewTableViewCell.h"
 #import "UserInfoTableViewCell.h"
 
@@ -29,7 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _momentsDetailsModel = [[MomentsDetailsModel alloc] init];
-    [self getAllMessage];
+    [_momentsDetailsModel getAllDetailSuccess];
     
     _enterMessageView = [EnterMessageView fromNib];
     _enterMessageView.delegate = self;
@@ -42,11 +41,7 @@
     [super didReceiveMemoryWarning];
 }
 
-#pragma mark - ...
-
-- (void)getAllMessage {
-    [_momentsDetailsModel getAllDetailSuccess];
-}
+#pragma mark - Custom Methods
 
 - (NSString *)setFormatDate :(NSDate *)date andFormat:(NSString *)stringFormat{
     NSDateFormatter *_formatter=[[NSDateFormatter alloc]init];
@@ -211,4 +206,17 @@
 
 - (IBAction)voteButtonAction:(id)sender {
 }
+
+#pragma mark - MomentsDetailsModel delegate
+
+- (void)didGetMessageDetailSuccess:(MomentsDetailsModel *)momentsDetailsModel
+{
+    //TODO: Update Data
+    [_messageContentTableView reloadData];
+}
+- (void)didGetMessageDetailFailed:(MomentsDetailsModel *)momentsDetailsModel withError:(NSError *)error
+{
+    //TODO: Get data failed
+}
+
 @end

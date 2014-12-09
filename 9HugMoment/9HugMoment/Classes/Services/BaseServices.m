@@ -305,7 +305,7 @@
 
 +(void)getAllMessageSussess:(SuccessBlock)success failure:(MessageBlock)failure
 {
-    NSDictionary* parameters = @{KEY_USER_ID:[NSUserDefaults getStringForKey:KEY_USER_SETTING_LOGGED_IN_ID]};
+    NSDictionary* parameters = @{KEY_TOKEN:[UserData currentAccount].strUserToken,KEY_USER_ID:[NSUserDefaults getStringForKey:KEY_USER_SETTING_LOGGED_IN_ID]};
     
     [BaseServices requestByMethod:@"GET" widthPath:@"message/browse?sent=0" withParameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {

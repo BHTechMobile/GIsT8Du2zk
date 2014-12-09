@@ -2,16 +2,38 @@
 //  MomentsDetailsModel.h
 //  9HugMoment
 //
-//  Created by PhamHuuPhuong on 8/12/14.
-//  Copyright (c) 2014 BHTech Mobile. All rights reserved.
-//
 
 #import <Foundation/Foundation.h>
+@class MomentsDetailsModel;
+@protocol MomentsDetailsModelDelegate <NSObject>
+@optional
+- (void)didGetMessageDetailSuccess:(MomentsDetailsModel *)momentsDetailsModel;
+- (void)didGetMessageDetailFailed:(MomentsDetailsModel *)momentsDetailsModel withError:(NSError *)error;
+
+- (void)didVoteMessageSuccess:(MomentsDetailsModel *)momentsDetailsModel;
+- (void)didVoteMessageFailed:(MomentsDetailsModel *)momentsDetailsModel;
+
+- (void)didCommentVoiceMessageSuccess:(MomentsDetailsModel *)momentsDetailsModel;
+- (void)didCommentVoiceMessageFailed:(MomentsDetailsModel *)momentsDetailsModel;
+
+- (void)didCommentPhotoMessageSuccess:(MomentsDetailsModel *)momentsDetailsModel;
+- (void)didCommentPhotoMessageFailed:(MomentsDetailsModel *)momentsDetailsModel;
+
+- (void)didCommentTextMessageSuccess:(MomentsDetailsModel *)momentsDetailsModel;
+- (void)didCommentTextMessageFailed:(MomentsDetailsModel *)momentsDetailsModel;
+@end
 
 @interface MomentsDetailsModel : NSObject
 
-@property (nonatomic,strong) NSMutableArray *messagesDetails;
+@property (nonatomic, strong) NSMutableArray *messagesDetails;
+@property (nonatomic, strong) MessageObject *message;
+@property (nonatomic, weak) id<MomentsDetailsModelDelegate> delegate;
 
 - (void)getAllDetailSuccess;
+- (void)getMessageByKey:(NSString *)keyMessage;
+- (void)voteMessage;
+- (void)commentVoiceMessage:(NSString *)mediaLink;
+- (void)commentPhotoMessage:(NSString *)mediaLink;
+- (void)commentTextMessage:(NSString *)messageString;
 
 @end

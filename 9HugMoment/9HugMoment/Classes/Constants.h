@@ -99,6 +99,10 @@ typedef NS_ENUM (NSInteger, MessageType){
 #define KEY_MESSAGE_ID @"message_id"
 #define KEY_MESSAGE_STRING @"message"
 #define KEY_MEDIA_LINK @"media_link"
+#define KEY_VOTES @"votes"
+#define KEY_VOICES @"voices"
+#define KEY_PHOTOS @"photos"
+#define KEY_COMMENTS @"comments"
 //User setting key
 #define KEY_USER_SETTING_LOGGED_IN_ID @"userSettingLoggedInID"
 #define KEY_USER_SETTING_LOGGED_IN_TOKEN @"userSettingLoggedInToken"
