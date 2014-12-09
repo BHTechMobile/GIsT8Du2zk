@@ -12,6 +12,8 @@
 #import "CommentMessageTableViewCell.h"
 #import "UpvoteMessageTableViewCell.h"
 #import "MomentsDetailsModel.h"
+#import "PlayerViewTableViewCell.h"
+#import "UserInfoTableViewCell.h"
 
 @interface MomentDetailViewController ()<CommentHeaderTableViewCellDelegate>
 
@@ -28,20 +30,6 @@
     [super viewDidLoad];
     _momentsDetailsModel = [[MomentsDetailsModel alloc] init];
     [self getAllMessage];
-    [self setupRemotePlayerByUrl:_capturePath];
-    
-    [_contentScrollView addSubview:_playerView];
-    CGRect frameExtend = [_extendView frame];
-    frameExtend.origin.y = CGRectGetHeight(_playerView.frame);
-    [_extendView setFrame:frameExtend];
-    CGRect frameScroll = [_contentScrollView frame];
-    frameScroll.size.height= CGRectGetHeight(_playerView.frame)+CGRectGetHeight(_extendView.frame);
-    [_contentScrollView setFrame:frameScroll];
-    [_contentScrollView addSubview:_extendView];
-    [_contentScrollView setContentSize:CGSizeMake(320, CGRectGetHeight(_contentScrollView.frame))];
-
-    _usernameLabel.text = _userLabel;
-    _voteButton.titleLabel.text = _countVote;
     
     _enterMessageView = [EnterMessageView fromNib];
     _enterMessageView.delegate = self;
@@ -57,11 +45,6 @@
 #pragma mark - ...
 
 - (void)getAllMessage {
-//    [_momentsDetailsModel getAllDetailSuccess:^(id result) {
-//        NSLog(@"count : %lu",(unsigned long)_momentsDetailsModel.messagesDetails.count);
-//        [_messageContentTableView reloadData];
-//    } failure:^(NSError *error) {
-//    }];
     [_momentsDetailsModel getAllDetailSuccess];
 }
 
@@ -73,58 +56,85 @@
 }
 
 -(void)setupRemotePlayerByUrl:(NSURL*)url{
-    _videoPlayer = [PlayerView fromNib];
-    [_videoPlayer setFrame:CGRectMake(0, 0, _playerView.frame.size.width, _playerView.frame.size.height)];
-    [_playerView addSubview:_videoPlayer];
-    [_videoPlayer playWithUrl:url];
+//    _videoPlayer = [PlayerView fromNib];
+//    [_videoPlayer setFrame:CGRectMake(0, 0, _playerView.frame.size.width, _playerView.frame.size.height)];
+//    [_playerView addSubview:_videoPlayer];
+//    [_videoPlayer playWithUrl:url];
 }
 
 #pragma mark - TableView delegates & datasources
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat height = 30;
-    if (indexPath.row == 0){
-        return 63;
+    CGFloat height = HEIGHT_ROW_TABLE_VIEW_MOMENTS_DETAILS_VIEW_CONTROLLER;
+    if (indexPath.row == ROW_IN_SECTION){
+        return _messageContentTableView.frame.size.width;
     }
-    else if (indexPath.row == 1){
-        return 30;
+    else if (indexPath.row == ROW_IN_SECTION_){
+        return HEIGHT_ROW_1_TABLE_VIEW_MOMENTS_DETAILS_VIEW_CONTROLLER;
+    }
+    else if (indexPath.row == ROW_IN_SECTION__){
+        return HEIGHT_ROW_2_TABLE_VIEW_MOMENTS_DETAILS_VIEW_CONTROLLER;
+    }
+    else if (indexPath.row == ROW_IN_SECTION___){
+        return HEIGHT_ROW_3_TABLE_VIEW_MOMENTS_DETAILS_VIEW_CONTROLLER;
     }
     else{
-        return 60;
+        return HEIGHT_ROW_4_TABLE_VIEW_MOMENTS_DETAILS_VIEW_CONTROLLER;
     }
 
     return height;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2 + _momentsDetailsModel.messagesDetails.count;
-//    return 3;
+    return NUMBER_OF_ROW_TABLE_VIEW_MOMENTS_DETAILS_VIEW_CONTROLLER + _momentsDetailsModel.messagesDetails.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *tableCell = nil;
-    if (indexPath.row == 0){
-        UpvoteMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UpvoteMessageTableViewCell"];
+    if (indexPath.row == ROW_IN_SECTION){
+        PlayerViewTableViewCell *playerCell = [tableView dequeueReusableCellWithIdentifier:PLAYER_VIEW_CELL_INDETIFIER];
+        if (playerCell == nil) {
+            playerCell = [[PlayerViewTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:PLAYER_VIEW_CELL_INDETIFIER];
+        }
+        
+        _videoPlayer = [PlayerView fromNib];
+        [_videoPlayer setFrame:CGRectMake(0, 0, _messageContentTableView.frame.size.width, _messageContentTableView.frame.size.width)];
+        [playerCell.playerViewCell addSubview:_videoPlayer];
+        [_videoPlayer playWithUrl:_capturePath];
+        
+        tableCell = playerCell;
+    }
+    else if (indexPath.row == ROW_IN_SECTION_){
+        UserInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:USER_VIEW_CELL_INDETIFIER];
         if (cell == nil) {
-            cell = [[UpvoteMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UpvoteMessageTableViewCell"];
+            cell = [[UserInfoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:USER_VIEW_CELL_INDETIFIER];
+        }
+        cell.usernameLabel.text = _userLabel;
+        cell.voteButton.titleLabel.text = _countVote;
+        tableCell = cell;
+    }
+    else if (indexPath.row == ROW_IN_SECTION__){
+        UpvoteMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:UPVOTE_VIEW_CELL_INDETIFIER];
+        if (cell == nil) {
+            cell = [[UpvoteMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:UPVOTE_VIEW_CELL_INDETIFIER];
         }
         tableCell = cell;
     }
-    else if (indexPath.row == 1){
-        CommentHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentHeaderTableViewCell"];
+    else if (indexPath.row == ROW_IN_SECTION___){
+        CommentHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:COMMENT_VIEW_CELL_INDETIFIER];
         if (cell == nil) {
-            cell = [[CommentHeaderTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CommentHeaderTableViewCell"];
+            cell = [[CommentHeaderTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:COMMENT_VIEW_CELL_INDETIFIER];
         }
         [cell setDelegate:self];
         [cell.addCommentButton setTag:indexPath.row];
         tableCell = cell;
     }
     else {
-        CommentMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentMessageTableViewCell"];
+        CommentMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:COMMENT_MESSAGE_VIEW_CELL_INDETIFIER];
         if (cell == nil) {
-            cell = [[CommentMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CommentMessageTableViewCell"];
+            cell = [[CommentMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:COMMENT_MESSAGE_VIEW_CELL_INDETIFIER];
         }
-        message = [_momentsDetailsModel.messagesDetails objectAtIndex:indexPath.row - 2];
+        message = [_momentsDetailsModel.messagesDetails objectAtIndex:indexPath.row - NUMBER_OF_ROW_TABLE_VIEW_MOMENTS_DETAILS_VIEW_CONTROLLER];
         cell.commentTextView.text = message.text;
         tableCell = cell;
     }
@@ -139,6 +149,12 @@
     _enterMessageView.hidden = NO;
     [_enterMessageView.textView setText:@""];
     _topPosition.constant = 40.0f;
+    
+    CGRect frameExtend2 = [_enterMessageView frame];
+    frameExtend2.origin.y = 100;
+    frameExtend2.origin.x = _messageContentTableView.centerX;
+    [_enterMessageView setFrame:frameExtend2];
+    
     [_enterMessageView showUpKeyboard];
     [self.view setNeedsUpdateConstraints];
     

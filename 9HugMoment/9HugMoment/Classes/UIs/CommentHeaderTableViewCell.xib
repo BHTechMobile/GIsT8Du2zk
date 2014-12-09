@@ -14,25 +14,53 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Comment" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qhH-93-cox">
-                        <rect key="frame" x="8" y="5" width="85" height="20"/>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7I4-e0-SDA">
-                        <rect key="frame" x="292" y="4" width="22" height="22"/>
-                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                        <state key="normal">
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                    </button>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KP9-eU-oOW">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="29"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comment" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qhH-93-cox">
+                                <rect key="frame" x="6" y="4" width="218" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="ivv-Oj-CYi"/>
+                                    <constraint firstAttribute="width" constant="218" id="nJn-dd-dPB"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7I4-e0-SDA">
+                                <rect key="frame" x="282" y="4" width="22" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="9aC-ek-tC8"/>
+                                    <constraint firstAttribute="width" constant="22" id="Nh9-Fs-Wrh"/>
+                                </constraints>
+                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="7I4-e0-SDA" secondAttribute="trailing" constant="16" id="1GT-gC-iyT"/>
+                            <constraint firstAttribute="bottom" secondItem="qhH-93-cox" secondAttribute="bottom" constant="5" id="NiJ-WD-Ljl"/>
+                            <constraint firstAttribute="bottom" secondItem="7I4-e0-SDA" secondAttribute="bottom" constant="3" id="fMe-sK-iab"/>
+                            <constraint firstItem="7I4-e0-SDA" firstAttribute="top" secondItem="KP9-eU-oOW" secondAttribute="top" constant="4" id="jt7-JO-MtD"/>
+                            <constraint firstItem="qhH-93-cox" firstAttribute="top" secondItem="KP9-eU-oOW" secondAttribute="top" constant="4" id="rFu-ji-rEe"/>
+                            <constraint firstItem="qhH-93-cox" firstAttribute="leading" secondItem="KP9-eU-oOW" secondAttribute="leading" constant="6" id="srk-XX-hzn"/>
+                        </constraints>
+                    </view>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="KP9-eU-oOW" secondAttribute="trailing" id="Fqn-Pj-pw9"/>
+                    <constraint firstAttribute="bottom" secondItem="KP9-eU-oOW" secondAttribute="bottom" id="PUS-go-kIe"/>
+                    <constraint firstItem="KP9-eU-oOW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ZEB-mK-8d1"/>
+                    <constraint firstItem="KP9-eU-oOW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="sGL-I6-5MP"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="addCommentButton" destination="7I4-e0-SDA" id="bhA-0X-RKa"/>
             </connections>
-            <point key="canvasLocation" x="140" y="114"/>
+            <point key="canvasLocation" x="140" y="113"/>
         </tableViewCell>
     </objects>
 </document>
