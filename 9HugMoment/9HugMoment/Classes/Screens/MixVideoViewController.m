@@ -221,6 +221,7 @@
     }
     
     _videoFilterScrollView.contentSize = CGSizeMake([MixVideoViewController filters].count*60 + ([MixVideoViewController filters].count -1) *10, _videoFilterScrollView.frame.size.height);
+//    _videoFilterScrollView.contentSize = CGSizeMake(_videoFilterScrollView.frame.size.width, _videoFilterScrollView.frame.size.height);
     _videoFilterScrollView.scrollEnabled = YES;
     
     for (int i = 0;i<[MixVideoViewController filters].count;i++) {
@@ -231,7 +232,8 @@
         actionView.label.text = [MixVideoViewController titleFilter][i];
         actionView.button.tag = i;
         [actionView.button addTarget:self action:@selector(changeFilter:) forControlEvents:UIControlEventTouchUpInside];
-        actionView.frame = CGRectMake(i * 70, 0, actionView.frame.size.width, actionView.frame.size.height);
+//        actionView.frame = CGRectMake(i * 70, 0, actionView.frame.size.width, actionView.frame.size.height);
+        actionView.frame = CGRectMake(i * 70, 0, 60, 80);
         [_videoFilterScrollView addSubview:actionView];
     }
     

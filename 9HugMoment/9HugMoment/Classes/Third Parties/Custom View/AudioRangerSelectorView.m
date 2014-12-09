@@ -69,8 +69,8 @@
             old_rect.origin.x = 0;
         }
         
-        if (old_rect.origin.x >= 240-_rangeView.frame.size.width) {
-            old_rect.origin.x = 240-_rangeView.frame.size.width;
+        if (old_rect.origin.x >= CGRectGetWidth(self.waveView.frame)-_rangeView.frame.size.width) {
+            old_rect.origin.x = CGRectGetWidth(self.waveView.frame)-_rangeView.frame.size.width;
         }
         
         _rangeView.left = old_rect.origin.x;

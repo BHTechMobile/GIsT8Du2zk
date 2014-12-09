@@ -65,7 +65,19 @@
     //        [self.view bringSubviewToFront:_bottomView];
     //        [_groupView bringSubviewToFront:_doneButton];
     _videoPlayer = [PlayerView fromNib];
-    [_videoPlayer setFrame:CGRectMake(0, 0, 240, 240)];
+    
+    if (IS_IPHONE_4) {
+        [_videoPlayer setFrame:CGRectMake(0, 0, 240, 240)];
+    }else if (IS_IPHONE_5){
+        [_videoPlayer setFrame:CGRectMake(0, 0, 240, 240)];
+    }else if (IS_IPHONE_6){
+        [_videoPlayer setFrame:CGRectMake(0, 0, 295, 295)];
+    }else if (IS_IPHONE_6_PLUS){
+        [_videoPlayer setFrame:CGRectMake(0, 0, 334, 334)];
+    }
+    
+//    [_videoPlayer setFrame:CGRectMake(0, 0, CGRectGetWidth(self.playerView.frame), CGRectGetHeight(self.playerView.frame))];
+    
     [_playerView insertSubview:_videoPlayer atIndex:0];
     [_videoPlayer preparePlayWithUrl:_capturePath];
     _songNamelabel.text = [_audioItem valueForProperty:MPMediaItemPropertyTitle];
