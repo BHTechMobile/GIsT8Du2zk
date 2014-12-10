@@ -68,11 +68,34 @@
             [self showLoginFB];
         }
     }
+    
+    CGRect frameExtend2 = [_newsMomentButton frame];
+    frameExtend2.origin.y = WIDTH_BUTTON_NEW_MOMENTS;
+    frameExtend2.origin.x = CGRectGetWidth(self.view.frame)/3;
+    frameExtend2.size.width = CGRectGetWidth(self.view.frame)/3;
+    frameExtend2.size.height = HIGHT_BUTTON_NEW_MOMENTS;
+    
+    _newsMomentButton = [[UIButton alloc] initWithFrame:frameExtend2];
+    [_newsMomentButton setBackgroundColor:[UIColor lightGrayColor]];
+    _newsMomentButton.layer.cornerRadius = CORNER_RADIUS;
+    
+    [_newsMomentButton setTitle:TITLE_BUTTON_NEW_MOMENTS forState:UIControlStateNormal];
+    [_newsMomentButton.titleLabel setFont:[UIFont systemFontOfSize:TITLE_BUTTON_NEW_MOMENTS_FONT_SIZE]];
+    [_newsMomentButton addTarget:self action:@selector(callPullDownRequest:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_newsMomentButton];
+    
+    self.newsMomentButton.hidden = YES;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushNSNotifications:)
+                                                 name:CALL_PUSH_NOTIFICATIONS object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+}
+
+- (void)pushNSNotifications:(NSNotification*)notify{
+    self.newsMomentButton.hidden = NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -98,6 +121,7 @@
 }
 
 - (void)getAllMessage {
+    _newsMomentButton.hidden = YES;
     [_hud show:YES];
     [_momentModel getAllMessagesSuccess:^(id result) {
         NSLog(@"count : %lu",(unsigned long)_momentModel.messages.count);
@@ -165,6 +189,12 @@
     }
 }
 
+#pragma mark - Button New moment
+
+-(void)callPullDownRequest:(UIButton *)btn{
+    [self getAllMessage];
+}
+
 #pragma mark - DownloadVideo delegate
 - (void)downloadVideoSuccess:(MessageObject *)messageObject {
     messageObject.downloaded = YES;
@@ -187,6 +217,7 @@
     } failure:^(NSError *error) {
         [self refreshTableViewDone];
     }];
+    _newsMomentButton.hidden = YES;
 }
 
 - (void)refreshTableViewDone {

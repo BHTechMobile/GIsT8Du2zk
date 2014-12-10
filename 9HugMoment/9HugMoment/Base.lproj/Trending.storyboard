@@ -45,13 +45,16 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V3w-zv-1Xt" userLabel="Header View">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ffl-47-H3e" userLabel="Search Button">
-                                                <rect key="frame" x="9" y="9" width="25" height="25"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ffl-47-H3e" userLabel="Refresh Button">
+                                                <rect key="frame" x="9" y="11" width="19" height="19"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="25" id="Twq-Mb-SiN"/>
-                                                    <constraint firstAttribute="width" constant="25" id="lta-wq-qad"/>
+                                                    <constraint firstAttribute="height" constant="19" id="Twq-Mb-SiN"/>
+                                                    <constraint firstAttribute="width" constant="19" id="lta-wq-qad"/>
                                                 </constraints>
-                                                <state key="normal" image="search"/>
+                                                <state key="normal" image="icon_refresh"/>
+                                                <connections>
+                                                    <action selector="refreshButtonAction:" destination="9Z4-rF-abU" eventType="touchUpInside" id="fsd-nQ-Mhm"/>
+                                                </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Moments" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9aW-7V-t5H">
                                                 <rect key="frame" x="50" y="12" width="220" height="21"/>
@@ -84,10 +87,10 @@
                                             <constraint firstItem="ToM-LD-9h7" firstAttribute="top" secondItem="V3w-zv-1Xt" secondAttribute="top" constant="12" id="7ZI-kV-aVN"/>
                                             <constraint firstAttribute="height" constant="45" id="9uy-yD-fYd"/>
                                             <constraint firstAttribute="bottom" secondItem="ToM-LD-9h7" secondAttribute="bottom" constant="14" id="I7k-bV-Z9y"/>
-                                            <constraint firstAttribute="bottom" secondItem="ffl-47-H3e" secondAttribute="bottom" constant="11" id="Xi6-BO-zKm"/>
+                                            <constraint firstAttribute="bottom" secondItem="ffl-47-H3e" secondAttribute="bottom" constant="15" id="Xi6-BO-zKm"/>
                                             <constraint firstAttribute="centerX" secondItem="9aW-7V-t5H" secondAttribute="centerX" id="cqL-aO-h5c"/>
                                             <constraint firstAttribute="centerY" secondItem="9aW-7V-t5H" secondAttribute="centerY" id="myb-uh-BiB"/>
-                                            <constraint firstItem="ffl-47-H3e" firstAttribute="top" secondItem="V3w-zv-1Xt" secondAttribute="top" constant="9" id="tOG-OR-mU9"/>
+                                            <constraint firstItem="ffl-47-H3e" firstAttribute="top" secondItem="V3w-zv-1Xt" secondAttribute="top" constant="11" id="tOG-OR-mU9"/>
                                             <constraint firstItem="ffl-47-H3e" firstAttribute="leading" secondItem="V3w-zv-1Xt" secondAttribute="leading" constant="9" id="vSg-lu-DBn"/>
                                         </constraints>
                                     </view>
@@ -128,6 +131,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="addCaptureVideoButton" destination="ToM-LD-9h7" id="jAl-bw-Fbg"/>
+                        <outlet property="contentView" destination="NdO-YG-2z1" id="faX-9q-YE9"/>
                         <outlet property="messagesTableView" destination="Iw5-Sx-IO9" id="weA-9u-RJ9"/>
                         <segue destination="Sez-qI-75R" kind="push" identifier="pushCaptureVideoViewController" id="vYE-wn-f0s"/>
                         <segue destination="GmX-8D-knb" kind="push" identifier="pushMomentDetailsView" id="tzr-hL-18b"/>
@@ -246,7 +250,7 @@
                                             <constraint firstAttribute="width" constant="37" id="JYO-mi-EUu"/>
                                             <constraint firstAttribute="height" constant="37" id="wcg-oN-Koz"/>
                                         </constraints>
-                                        <state key="normal" image="camera" backgroundImage="472B0A22-F879-4967-8493-E710128DA8D4">
+                                        <state key="normal" image="camera" backgroundImage="55050288-3130-4CFC-B71D-3F34C9FB005A">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -938,7 +942,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="472B0A22-F879-4967-8493-E710128DA8D4" width="37" height="37">
+        <image name="55050288-3130-4CFC-B71D-3F34C9FB005A" width="37" height="37">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -1092,8 +1096,8 @@ AAIBAAAAAAAAAEIAAAAAAAAAAAAAAAAAAB+TA
         <image name="btn_record_camera_red" width="76" height="74"/>
         <image name="camera" width="37" height="37"/>
         <image name="close" width="37" height="37"/>
+        <image name="icon_refresh" width="28" height="28"/>
         <image name="rectangle" width="282" height="35"/>
-        <image name="search" width="22" height="22"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

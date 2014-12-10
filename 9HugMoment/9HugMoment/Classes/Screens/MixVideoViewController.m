@@ -716,6 +716,7 @@
 }
 
 - (IBAction)publicVideoButtonAction:(id)sender {
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"songsongsong" object:nil];
     [self mixVideo];
 }
 
@@ -763,6 +764,7 @@
                                     [MBProgressHUD hideHUDForView:self.view animated:YES];
                                     [self makeRequestToShareLink:[NSString stringWithFormat:@"http://www.9hug.com/message/%@",_mKey]];
                                     [UIAlertView showMessage:@"Video is uploaded!"];
+                                    [[NSNotificationCenter defaultCenter] postNotificationName:CALL_PUSH_NOTIFICATIONS object:nil];
                                     [self.navigationController popToRootViewControllerAnimated:YES];
                                 });
                             } failure:^(NSString *bodyString, NSError *error) {

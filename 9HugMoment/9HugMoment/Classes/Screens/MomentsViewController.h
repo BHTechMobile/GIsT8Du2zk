@@ -19,5 +19,7 @@
 - (IBAction)addCaptureVideoButtonAction:(id)sender;
 - (IBAction)refreshButtonAction:(id)sender;
 - (void)showLoginFB;
+@property (nonatomic, retain) UIButton *newsMomentButton;
+@property (weak, nonatomic) IBOutlet UIView *contentView;
 
 @end
