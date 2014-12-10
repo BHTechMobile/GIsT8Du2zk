@@ -159,6 +159,12 @@ typedef NS_ENUM (NSInteger, MessageType){
 // MomentsViewController
 #define HEIGHT_ROW_TABLE_VIEW_MOMENTS_VIEW_CONTROLLER 272
 #define NUMBER_OF_SECTION_TABLE_VIEW_MOMENTS_VIEW_CONTROLLER 1
+#define TITLE_BUTTON_NEW_MOMENTS @"New Moments"
+#define CORNER_RADIUS 10
+#define TITLE_BUTTON_NEW_MOMENTS_FONT_SIZE 12
+#define HIGHT_BUTTON_NEW_MOMENTS 30
+#define WIDTH_BUTTON_NEW_MOMENTS 50
+#define CALL_PUSH_NOTIFICATIONS @"songsongsong"
 
 #pragma mark - MomentsMessageTableViewCell
 

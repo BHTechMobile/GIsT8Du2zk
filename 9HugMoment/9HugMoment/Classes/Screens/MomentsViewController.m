@@ -70,35 +70,31 @@
     }
     
     CGRect frameExtend2 = [_newsMomentButton frame];
-    frameExtend2.origin.y = 50;
+    frameExtend2.origin.y = WIDTH_BUTTON_NEW_MOMENTS;
     frameExtend2.origin.x = CGRectGetWidth(self.view.frame)/3;
     frameExtend2.size.width = CGRectGetWidth(self.view.frame)/3;
-    frameExtend2.size.height = 30;
+    frameExtend2.size.height = HIGHT_BUTTON_NEW_MOMENTS;
     
     _newsMomentButton = [[UIButton alloc] initWithFrame:frameExtend2];
     [_newsMomentButton setBackgroundColor:[UIColor lightGrayColor]];
-    _newsMomentButton.layer.cornerRadius = 10;
-    [_newsMomentButton setTitle:@"New Moments" forState:UIControlStateNormal];
-    [_newsMomentButton.titleLabel setFont:[UIFont systemFontOfSize:12]];
+    _newsMomentButton.layer.cornerRadius = CORNER_RADIUS;
+    
+    [_newsMomentButton setTitle:TITLE_BUTTON_NEW_MOMENTS forState:UIControlStateNormal];
+    [_newsMomentButton.titleLabel setFont:[UIFont systemFontOfSize:TITLE_BUTTON_NEW_MOMENTS_FONT_SIZE]];
     [_newsMomentButton addTarget:self action:@selector(callPullDownRequest:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_newsMomentButton];
     
     self.newsMomentButton.hidden = YES;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(testtest:)
-                                                 name:@"songsongsong" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushNSNotifications:)
+                                                 name:CALL_PUSH_NOTIFICATIONS object:nil];
 }
-
-//- (void)viewWillDisappear:(BOOL)animated{
-//    [super viewWillDisappear:animated];
-//    [[NSNotificationCenter defaultCenter] removeObserver:self];
-//}
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
 
-- (void)testtest:(NSNotification*)notify{
+- (void)pushNSNotifications:(NSNotification*)notify{
     self.newsMomentButton.hidden = NO;
 }
 

@@ -21,8 +21,5 @@
 - (void)showLoginFB;
 @property (nonatomic, retain) UIButton *newsMomentButton;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
-@property BOOL hideButton;
-- (void)btnNewMoment;
-- (void)hiddenButton;
 
 @end
