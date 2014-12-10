@@ -11,6 +11,29 @@
 
 @interface CaptureVideoViewController ()
 
+@property(nonatomic,assign) NSInteger count;
+@property(nonatomic,assign) NSInteger duration;
+@property(nonatomic,strong) NSTimer* timer;
+@property(nonatomic,strong) NSTimer* timerCursor;
+@property(nonatomic,strong) NSString* capturePath;
+
+@property (weak, nonatomic) IBOutlet UIView *navigationCustomView;
+@property (weak, nonatomic) IBOutlet UIButton *touchMixVideoButton;
+@property (weak, nonatomic) IBOutlet UIScrollView *selectFrameScrollView;
+@property (weak, nonatomic) IBOutlet UIView *previewView;
+@property (weak, nonatomic) IBOutlet UIView *bottomView;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UIButton *removeCapturedButton;
+@property (weak, nonatomic) IBOutlet UIButton *doneCaptureButton;
+@property (weak, nonatomic) IBOutlet UIImageView *imvFrame;
+@property (weak, nonatomic) IBOutlet UIImageView *imvCapture;
+@property (weak, nonatomic) IBOutlet UIView *recordPercent;
+@property (weak, nonatomic) IBOutlet UIImageView *imvAnimationFrame;
+@property (weak, nonatomic) IBOutlet UILabel *lblTutorial;
+@property (weak, nonatomic) IBOutlet UIButton *touchDoneCapture;
+
+- (void)showAlertResumVideo;
+
 @end
 
 @implementation CaptureVideoViewController{
@@ -59,7 +82,6 @@
     unlink([_capturePath UTF8String]);
     [self createProcessView];
     [self touchResetCapturedButton:nil];
-    NSLog(@"_userToken in CaptureVideo %@",_userToken);
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -403,7 +425,6 @@
     mixVideoViewController.capturePath = [NSURL fileURLWithPath:_capturePath];
     mixVideoViewController.imgFrame = _imvFrame.image;
     mixVideoViewController.indexFrame = _imgIndex;
-    mixVideoViewController.mKey = _mKey;
     mixVideoViewController.duration = (_startCount*1.0)/100.0f;
 }
 
@@ -413,7 +434,6 @@
         mixVideoViewController.capturePath = [NSURL fileURLWithPath:_capturePath];
         mixVideoViewController.imgFrame = _imvFrame.image;
         mixVideoViewController.indexFrame = _imgIndex;
-        mixVideoViewController.mKey = _mKey;
         mixVideoViewController.duration = (_startCount*1.0)/100.0f;
     }
 }
@@ -595,7 +615,6 @@
 
 - (void)visionDidBecomeActive :(PBJVision *)vision{
     NSLog(@"%s",__PRETTY_FUNCTION__);
-    //    [self showAlertResumVideo];
 }
 
 - (void)visionDidPauseVideoCapture:(PBJVision *)vision{

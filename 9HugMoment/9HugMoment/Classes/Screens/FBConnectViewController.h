@@ -11,8 +11,17 @@
 #import <FacebookSDK/FBSession.h>
 #import "UserData.h"
 
+@class FBConnectViewController;
+
+@protocol FBConnectViewControllerDelegate <NSObject>
+
+-(void)fbConnectViewController:(FBConnectViewController*)vc didConnectFacebookSuccess:(id)response;
+
+@end
+
 @interface FBConnectViewController : UIViewController<FBLoginViewDelegate,UITextFieldDelegate,UIAlertViewDelegate>
-- (IBAction)touchLoginFaceBook:(id)sender;
 @property (weak, nonatomic) IBOutlet UIImageView *imageChange;
+@property (weak, nonatomic) id<FBConnectViewControllerDelegate> delegate;
+
 
 @end

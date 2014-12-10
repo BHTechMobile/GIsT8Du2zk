@@ -12,6 +12,30 @@
 
 @interface MixVideoViewController ()
 
+@property (nonatomic, strong) NSString *tokenAuto;
+@property (nonatomic, strong) MPMediaItem* audioItem;
+@property (nonatomic, strong) NSURL* exportUrl;
+@property (nonatomic, assign) BOOL mixed;
+@property (nonatomic, strong) NSString* message;
+@property (nonatomic, weak) NSLayoutConstraint *topPosition;
+@property (nonatomic, strong) NSDictionary *postParams;
+
+@property (weak, nonatomic) IBOutlet UIButton *touchPublicVideoButton;
+@property (weak, nonatomic) IBOutlet UIView *navigationCustomView;
+@property (strong, nonatomic) IBOutlet GPUImageView *playerView;
+@property (weak, nonatomic) IBOutlet UIImageView *imvFrame;
+@property (weak, nonatomic) IBOutlet UIButton *messageButton;
+@property (weak, nonatomic) IBOutlet UIScrollView *selectFrameScrollView;
+@property (weak, nonatomic) IBOutlet UIScrollView *videoFilterScrollView;
+@property (weak, nonatomic) IBOutlet UIButton *notificationButton;
+@property (weak, nonatomic) IBOutlet UIButton *btnPlay;
+@property (weak, nonatomic) IBOutlet UIImageView *imvPlay;
+@property (weak, nonatomic) IBOutlet UIButton *btnFrames;
+@property (weak, nonatomic) IBOutlet UIButton *btnVideoFilters;
+@property (retain, nonatomic) IBOutlet NSLayoutConstraint *hightImageViewOffsetConstraint;
+
+- (IBAction)publicVideoButtonAction:(id)sender;
+
 @end
 
 @implementation MixVideoViewController{
@@ -37,7 +61,6 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     _navigationView.titleNvgLabel.text = @"Mixing Video";
-    NSLog(@"_MKEYYYYYY %@",_mKey);
     [self hightConstraint];
 }
 
@@ -762,7 +785,7 @@
                             sussess:^(AFHTTPRequestOperation *operation, id responseObject) {
                                 dispatch_async(dispatch_get_main_queue(), ^{
                                     [MBProgressHUD hideHUDForView:self.view animated:YES];
-                                    [self makeRequestToShareLink:[NSString stringWithFormat:@"http://www.9hug.com/message/%@",_mKey]];
+                                    [self makeRequestToShareLink:[NSString stringWithFormat:@"http://www.9hug.com/message/%@",key]];
                                     [UIAlertView showMessage:@"Video is uploaded!"];
                                     [[NSNotificationCenter defaultCenter] postNotificationName:CALL_PUSH_NOTIFICATIONS object:nil];
                                     [self.navigationController popToRootViewControllerAnimated:YES];

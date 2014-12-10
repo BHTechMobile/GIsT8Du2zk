@@ -10,6 +10,12 @@
 #import "BaseServices.h"
 #import <MBProgressHUD.h>
 
+@interface FBConnectViewController()
+
+- (IBAction)touchLoginFaceBook:(id)sender;
+
+@end
+
 @implementation FBConnectViewController
 
 
@@ -82,8 +88,11 @@
             [[UserData currentAccount] setStrId:[responseObject valueForKey:@"id"]];
             [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
             [self dismissViewControllerAnimated:YES completion:NULL];
+            if (_delegate && [_delegate respondsToSelector:@selector(fbConnectViewController:didConnectFacebookSuccess:)]) {
+                [_delegate fbConnectViewController:self didConnectFacebookSuccess:nil];
+            }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [self dismissViewControllerAnimated:YES completion:NULL];
+//            [self dismissViewControllerAnimated:YES completion:NULL];
             NSLog(@"error = %@",error);
             [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         }];

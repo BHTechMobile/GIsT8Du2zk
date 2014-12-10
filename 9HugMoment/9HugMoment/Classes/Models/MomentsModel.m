@@ -36,6 +36,14 @@
             MessageObject* message = [MessageObject createMessageByDictionnary:mDict];
             [_messages addObject:message];
         }
+        
+        for (int i =0; i<_messages.count-1; ++i) {
+            for (int j=i+1; j<_messages.count; ++j) {
+                if (((MessageObject*)_messages[i]).createDated.integerValue < ((MessageObject*)_messages[j]).createDated.integerValue) {
+                    [_messages exchangeObjectAtIndex:i withObjectAtIndex:j];
+                }
+            }
+        }
         if (success) {
             success(responseObject);
         }

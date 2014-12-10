@@ -35,7 +35,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _momentModel = [[MomentsModel alloc] init];
-    [self getAllMessage];
     _downloadVideoView = [DownloadVideoView fromNib];
     CGRect downloadVideoFrame = self.view.frame;
     downloadVideoFrame.origin.y = self.messagesTableView.frame.origin.y;
@@ -63,6 +62,7 @@
                                                               NSError *error) {
                 [FBSession setActiveSession:session];
                 APP_DELEGATE.session = session;
+                [self getAllMessage];
             }];
         }else{
             [self showLoginFB];
@@ -116,6 +116,7 @@
 
 - (void)showLoginFB {
     fbConnectViewController = (FBConnectViewController *)[self.storyboard instantiateViewControllerWithIdentifier:PRESENT_TRENDING];
+    fbConnectViewController.delegate = self;
     fbConnectViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [self presentViewController:fbConnectViewController animated:YES completion:nil];
 }
@@ -137,8 +138,6 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:PUSH_CAPTURE_VIDEOVIEWCONTROLLER]) {
         captureVideoViewController = [segue destinationViewController];
-//        captureVideoViewController.userToken = [[UserData currentAccount] strUserToken];
-        captureVideoViewController.userToken = [[UserData currentAccount] strFacebookToken];
     }
     
     if ([[segue identifier] isEqualToString:@"pushMomentDetailsView"]) {
@@ -223,6 +222,12 @@
 - (void)refreshTableViewDone {
     [_refreshControl endRefreshing];
     [_messagesTableView reloadData];
+}
+
+#pragma mark - FBConnectViewController Delegate
+
+-(void)fbConnectViewController:(FBConnectViewController *)vc didConnectFacebookSuccess:(id)response{
+    [self getAllMessage];
 }
 
 @end
