@@ -716,6 +716,7 @@
 }
 
 - (IBAction)publicVideoButtonAction:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"songsongsong" object:nil];
     [self mixVideo];
 }
 

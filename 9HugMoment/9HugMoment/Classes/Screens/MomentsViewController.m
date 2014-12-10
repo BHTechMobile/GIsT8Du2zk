@@ -68,11 +68,38 @@
             [self showLoginFB];
         }
     }
+    
+    CGRect frameExtend2 = [_newsMomentButton frame];
+    frameExtend2.origin.y = 50;
+    frameExtend2.origin.x = CGRectGetWidth(self.view.frame)/3;
+    frameExtend2.size.width = CGRectGetWidth(self.view.frame)/3;
+    frameExtend2.size.height = 30;
+    
+    _newsMomentButton = [[UIButton alloc] initWithFrame:frameExtend2];
+    [_newsMomentButton setBackgroundColor:[UIColor lightGrayColor]];
+    _newsMomentButton.layer.cornerRadius = 10;
+    [_newsMomentButton setTitle:@"New Moments" forState:UIControlStateNormal];
+    [_newsMomentButton.titleLabel setFont:[UIFont systemFontOfSize:12]];
+    [_newsMomentButton addTarget:self action:@selector(callPullDownRequest:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_newsMomentButton];
+    
+    self.newsMomentButton.hidden = YES;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(testtest:)
+                                                 name:@"songsongsong" object:nil];
 }
+
+//- (void)viewWillDisappear:(BOOL)animated{
+//    [super viewWillDisappear:animated];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self];
+//}
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+}
+
+- (void)testtest:(NSNotification*)notify{
+    self.newsMomentButton.hidden = NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -98,6 +125,7 @@
 }
 
 - (void)getAllMessage {
+    _newsMomentButton.hidden = YES;
     [_hud show:YES];
     [_momentModel getAllMessagesSuccess:^(id result) {
         NSLog(@"count : %lu",(unsigned long)_momentModel.messages.count);
@@ -165,6 +193,12 @@
     }
 }
 
+#pragma mark - Button New moment
+
+-(void)callPullDownRequest:(UIButton *)btn{
+    [self getAllMessage];
+}
+
 #pragma mark - DownloadVideo delegate
 - (void)downloadVideoSuccess:(MessageObject *)messageObject {
     messageObject.downloaded = YES;
@@ -187,6 +221,7 @@
     } failure:^(NSError *error) {
         [self refreshTableViewDone];
     }];
+    _newsMomentButton.hidden = YES;
 }
 
 - (void)refreshTableViewDone {
