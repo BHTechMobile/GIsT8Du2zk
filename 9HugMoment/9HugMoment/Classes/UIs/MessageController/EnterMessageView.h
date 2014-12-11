@@ -11,16 +11,15 @@
 @class EnterMessageView;
 
 @protocol EnterMessageDelegate <NSObject>
-
--(void)enterMessageDidCancel;
--(void)enterMessage:(EnterMessageView*)enterMessageController DidEnterMessage:(NSString*)message;
+@optional
+-(void)didCancelInputMessage;
+-(void)didEnterMessage:(EnterMessageView*)enterMessageController andMessage:(NSString*)message;
 
 @end
 
 @interface EnterMessageView : UIView
+
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property(nonatomic,weak)id<EnterMessageDelegate>delegate;
-
--(void)showUpKeyboard;
 
 @end

@@ -30,8 +30,8 @@
 }
 
 - (IBAction)cancelButtonTapped:(id)sender {
-    if (_delegate && [_delegate respondsToSelector:@selector(enterMessageDidCancel)]) {
-        [_delegate enterMessageDidCancel];
+    if (_delegate && [_delegate respondsToSelector:@selector(didCancelInputMessage)]) {
+        [_delegate didCancelInputMessage];
         [_textView resignFirstResponder];
     }
 }
@@ -39,20 +39,10 @@
 - (IBAction)doneButtonTapped:(id)sender {
     
     NSString* text = _textView.text;
-//    if ([text isEqualToString:@""]) {
-//        [UIAlertView showMessage:@"Message is empty"];
-//        return;
-//    }
-    
-    if (_delegate && [_delegate respondsToSelector:@selector(enterMessage:DidEnterMessage:)]) {
-        [_delegate enterMessage:self DidEnterMessage:text];
+    if (_delegate && [_delegate respondsToSelector:@selector(didEnterMessage:andMessage:)]) {
+        [_delegate didEnterMessage:self andMessage:text];
         [_textView resignFirstResponder];
     }
     
-}
-
--(void)showUpKeyboard
-{
-    [_textView becomeFirstResponder];
 }
 @end

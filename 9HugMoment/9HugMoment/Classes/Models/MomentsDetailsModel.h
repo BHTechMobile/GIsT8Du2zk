@@ -7,7 +7,7 @@
 @class MomentsDetailsModel;
 @protocol MomentsDetailsModelDelegate <NSObject>
 @optional
-- (void)didGetMessageDetailSuccess:(MomentsDetailsModel *)momentsDetailsModel;
+- (void)didGetMessageDetailSuccess:(MomentsDetailsModel *)momentsDetailsModel withMessage:(MessageObject *)messageResponce;
 - (void)didGetMessageDetailFailed:(MomentsDetailsModel *)momentsDetailsModel withError:(NSError *)error;
 
 - (void)didVoteMessageSuccess:(MomentsDetailsModel *)momentsDetailsModel;

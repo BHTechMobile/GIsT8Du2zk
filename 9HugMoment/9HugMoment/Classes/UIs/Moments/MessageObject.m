@@ -65,9 +65,13 @@
     message.reads           = (readsFromDict!= (id)[NSNull null])?readsFromDict:@"";
     message.fullName        = (fullNameFromDict!= (id)[NSNull null])?fullNameFromDict:@"";
     message.style           = (styleFromDict!= (id)[NSNull null])?styleFromDict:@"";
-    message.votesArray      = votesArrayFromDict;
-    message.voicesArray     = voicesArrayFromDict;
-    message.photosArray     = photosArrayFromDict;
+    message.votesArray      = [[NSMutableArray alloc] init];
+    message.voicesArray     = [[NSMutableArray alloc] init];
+    message.photosArray     = [[NSMutableArray alloc] init];
+    
+    message.votesArray      = (votesArrayFromDict != (id)[NSNull null])?votesArrayFromDict:message.votesArray;
+    message.voicesArray     = (voicesArrayFromDict != (id)[NSNull null])?voicesArrayFromDict:message.votesArray;
+    message.photosArray     = (photosArrayFromDict != (id)[NSNull null])?photosArrayFromDict:message.votesArray;
     return message;
 }
 

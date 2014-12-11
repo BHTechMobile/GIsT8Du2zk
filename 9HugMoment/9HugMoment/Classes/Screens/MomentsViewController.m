@@ -35,7 +35,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _momentModel = [[MomentsModel alloc] init];
-    [self getAllMessage];
     _downloadVideoView = [DownloadVideoView fromNib];
     CGRect downloadVideoFrame = self.view.frame;
     downloadVideoFrame.origin.y = self.messagesTableView.frame.origin.y;
@@ -73,6 +72,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+    [self getAllMessage];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -122,6 +122,7 @@
         momentDetailViewController.capturePath = [NSURL fileURLWithPath:message.localVideoPath];
         momentDetailViewController.userLabel = message.fullName;
         momentDetailViewController.countVote = (![message.reads isEqualToString:@""])?message.reads:@"0";
+        momentDetailViewController.messageObject = message;
         momentDetailViewController.hidesBottomBarWhenPushed = YES;
         NSLog(@"message.localVideoPath %@",message.localVideoPath);
         NSLog(@"momentDetailViewController.capture %@",momentDetailViewController.capturePath);

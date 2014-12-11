@@ -305,18 +305,23 @@
 
 +(void)getAllMessageSussess:(SuccessBlock)success failure:(MessageBlock)failure
 {
-    NSDictionary* parameters = @{KEY_TOKEN:[UserData currentAccount].strUserToken,KEY_USER_ID:[NSUserDefaults getStringForKey:KEY_USER_SETTING_LOGGED_IN_ID]};
+    if ([UserData currentAccount].strUserToken) {
+        NSDictionary* parameters = @{KEY_TOKEN:[UserData currentAccount].strUserToken,KEY_USER_ID:[NSUserDefaults getStringForKey:KEY_USER_SETTING_LOGGED_IN_ID]};
+        
+        [BaseServices requestByMethod:@"GET" widthPath:@"message/browse?sent=0" withParameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            if (success) {
+                success(operation,responseObject);
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSString* bodyString = [operation responseString];
+            if (failure) {
+                failure(bodyString,error);
+            }
+        }];
+    }else {
+        failure(@"",nil);
+    }
     
-    [BaseServices requestByMethod:@"GET" widthPath:@"message/browse?sent=0" withParameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (success) {
-            success(operation,responseObject);
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSString* bodyString = [operation responseString];
-        if (failure) {
-            failure(bodyString,error);
-        }
-    }];
 }
 
 +(void)resetMessage:(MessageObject *)message Sussess:(SuccessBlock)success failure:(MessageBlock)failure
