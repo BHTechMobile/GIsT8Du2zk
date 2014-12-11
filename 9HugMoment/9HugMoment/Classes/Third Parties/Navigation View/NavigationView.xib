@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <objects>
@@ -42,6 +43,7 @@
                     <state key="normal" image="facebook">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <state key="highlighted" image="facebook_gray"/>
                     <connections>
                         <action selector="facebookNvgButtonAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="Hla-4u-1jR"/>
                     </connections>
@@ -52,9 +54,10 @@
                         <constraint firstAttribute="height" constant="30" id="97F-Zz-rYl"/>
                         <constraint firstAttribute="width" constant="30" id="fST-SP-SeL"/>
                     </constraints>
-                    <state key="normal" image="google_plus">
+                    <state key="normal" image="google_plus_blue2">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <state key="highlighted" image="google_plus"/>
                     <connections>
                         <action selector="ggPlusNvgButtonAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="VmG-p6-Lki"/>
                     </connections>
@@ -68,6 +71,7 @@
                     <state key="normal" image="twitter">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <state key="highlighted" image="twitter_gray"/>
                     <connections>
                         <action selector="twitterNvgButtonAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="GQM-wA-bW8"/>
                     </connections>
@@ -103,8 +107,11 @@
     <resources>
         <image name="back_icon_grey" width="17" height="17"/>
         <image name="facebook" width="23" height="23"/>
+        <image name="facebook_gray" width="23" height="23"/>
         <image name="google_plus" width="23" height="22"/>
+        <image name="google_plus_blue2" width="23" height="22"/>
         <image name="twitter" width="22" height="22"/>
+        <image name="twitter_gray" width="22" height="22"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

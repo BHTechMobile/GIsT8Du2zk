@@ -106,7 +106,7 @@
     }else if (IS_IPHONE_6){
         _hightViewOffsetConstraint.constant = 100;
     }else if (IS_IPHONE_6_PLUS){
-        _hightViewOffsetConstraint.constant = 120;
+        _hightViewOffsetConstraint.constant = 100;
     }
 }
 
