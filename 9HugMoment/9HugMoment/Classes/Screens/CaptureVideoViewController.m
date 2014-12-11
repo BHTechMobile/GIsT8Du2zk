@@ -82,6 +82,7 @@
     unlink([_capturePath UTF8String]);
     [self createProcessView];
     [self touchResetCapturedButton:nil];
+    [self hightButtonCaptureConstraint];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -97,6 +98,17 @@
     [super didReceiveMemoryWarning];
 }
 
+- (void)hightButtonCaptureConstraint{
+    if (IS_IPHONE_4) {
+        _hightViewOffsetConstraint.constant = 60;
+    }else if (IS_IPHONE_5){
+        _hightViewOffsetConstraint.constant = 80;
+    }else if (IS_IPHONE_6){
+        _hightViewOffsetConstraint.constant = 100;
+    }else if (IS_IPHONE_6_PLUS){
+        _hightViewOffsetConstraint.constant = 120;
+    }
+}
 
 #pragma mark - Navigation Custom View
 
