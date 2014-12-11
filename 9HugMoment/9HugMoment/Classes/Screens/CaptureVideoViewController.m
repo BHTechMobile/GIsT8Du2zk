@@ -149,20 +149,20 @@
     NSLog(@"%s,%d,%@",__PRETTY_FUNCTION__,_imgIndex,[frameNames objectAtIndex:_imgIndex]);
     int direction = (yesOrNo)?1.0:-1.0;
     _imvAnimationFrame.hidden = NO;
-    [_imvAnimationFrame setFrame:CGRectMake(direction*320.0, 44, 320.0, 320.0)];
+    [_imvAnimationFrame setFrame:CGRectMake(direction*CGRectGetWidth(self.view.frame), 44, CGRectGetWidth(self.view.frame), CGRectGetWidth(self.view.frame))];
     _imvAnimationFrame.image = [UIImage imageNamed:[frameNames objectAtIndex:_imgIndex]];
     [UIView animateWithDuration:0.33f
                           delay:0.0f
                         options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction
                      animations:^{
-                         [_imvFrame setFrame:CGRectMake(direction*-320, 44, 320, 320)];
-                         [_imvAnimationFrame setFrame:CGRectMake(0.0, 44, 320.0, 320.0)];
+                         [_imvFrame setFrame:CGRectMake(direction*-CGRectGetWidth(self.view.frame), 44, CGRectGetWidth(self.view.frame), CGRectGetWidth(self.view.frame))];
+                         [_imvAnimationFrame setFrame:CGRectMake(0.0, 44, CGRectGetWidth(self.view.frame), CGRectGetWidth(self.view.frame))];
                          
                      }
                      completion:^(BOOL finished){
                          dispatch_async(dispatch_get_main_queue(), ^{
                              _imvFrame.image = _imvAnimationFrame.image;
-                             [_imvFrame setFrame:CGRectMake(0, 44, 320, 320)];
+                             [_imvFrame setFrame:CGRectMake(0, 44, CGRectGetWidth(self.view.frame), CGRectGetWidth(self.view.frame))];
                              _imvAnimationFrame.hidden = YES;
                          });
                      }];
@@ -281,7 +281,7 @@
 - (void)addSpeacetors{
     if(CGRectGetMinX(_cursorImageView.frame)>0)
         [_recordPercent insertSubview:[Utilities viewSpace:CGRectGetMinX(_cursorImageView.frame)] aboveSubview:_viewCurrentProgress];
-    float durations = CGRectGetMinX(_cursorImageView.frame)*_count/320.0;
+    float durations = CGRectGetMinX(_cursorImageView.frame)*_count/CGRectGetWidth(self.view.frame);
     NSMutableDictionary *_dicViewSpeacator = [NSMutableDictionary dictionaryWithObject:[NSNumber numberWithFloat:durations] forKey:KEY_DISTANCE];
     [_arrayViewSpeacators addObject:_dicViewSpeacator];
     
