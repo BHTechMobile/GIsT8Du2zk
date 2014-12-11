@@ -117,17 +117,10 @@
     [_locationManagement.locationManager stopUpdatingLocation];
 }
 
-/*=============================*/
-
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
     currentLocation = newLocation;
-    NSLog(@"found latitude %f",newLocation.coordinate.latitude);
-    NSLog(@"found longitude %f",newLocation.coordinate.longitude);
-    NSLog(@"found latitude 2 %f",currentLocation.coordinate.latitude);
-    NSLog(@"found longitude 2 %f",currentLocation.coordinate.longitude);
     [_locationManagement.locationManager stopUpdatingLocation];
-//    [self beginFeelingUpload];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
@@ -151,6 +144,11 @@
             NSLog(@"kCLAuthorizationStatusAuthorizedWhenInUse");
             break;
     }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"didFailWithError: %@", error);
 }
 
 #pragma mark - NSLayoutConstraint
