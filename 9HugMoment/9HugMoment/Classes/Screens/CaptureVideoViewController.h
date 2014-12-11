@@ -29,4 +29,6 @@
     NavigationView *navigationView;
 }
 
+@property (retain, nonatomic) IBOutlet NSLayoutConstraint *hightViewOffsetConstraint;
+
 @end
