@@ -56,18 +56,18 @@
     imageChoose = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 60, 60)];
     imageChoose.image = [UIImage imageNamed:@"play-icon"];
     [self hightConstraint];
-}
-
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    _navigationView.titleNvgLabel.text = @"Mixing Video";
-    [self hightConstraint];
     
     _locationManagement = [LocationManagement shareLocation];
     _locationManagement.locationManager.delegate = self;
     [_locationManagement getCurrentLocation];
     
     NSLog(@"lat = %f",currentLocation.coordinate.latitude);
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    _navigationView.titleNvgLabel.text = @"Mixing Video";
+    [self hightConstraint]; 
 }
 
 - (void)didReceiveMemoryWarning {
