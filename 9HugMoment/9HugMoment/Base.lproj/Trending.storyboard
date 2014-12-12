@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="M0H-6t-lG7">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="M0H-6t-lG7">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
@@ -162,28 +162,24 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nmz-Hp-eXW" userLabel="Content View">
                                 <rect key="frame" x="0.0" y="44" width="320" height="320"/>
-                                <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="swipe to change frames" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="25Z-Ev-l4p">
-                                        <rect key="frame" x="93" y="305" width="133" height="15"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="133" id="2NI-n7-bKX"/>
-                                            <constraint firstAttribute="height" constant="15" id="AYZ-Vm-Eau"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="25Z-Ev-l4p" secondAttribute="bottom" id="fix-IW-BtJ"/>
-                                    <constraint firstAttribute="centerX" secondItem="25Z-Ev-l4p" secondAttribute="centerX" constant="0.5" id="rPL-C7-HAn"/>
                                     <constraint firstAttribute="width" secondItem="nmz-Hp-eXW" secondAttribute="height" multiplier="1:1" id="x0R-D6-gkM"/>
                                 </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="27v-1N-bbG" userLabel="Image View 1">
                                 <rect key="frame" x="0.0" y="44" width="320" height="320"/>
                             </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="swipe to change frames" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="25Z-Ev-l4p">
+                                <rect key="frame" x="93" y="343" width="133" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="133" id="GwB-aS-XBV"/>
+                                    <constraint firstAttribute="height" constant="15" id="tiW-Ao-3KD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view alpha="0.10000000149011612" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YDf-Cw-Wgb" userLabel="View Time">
                                 <rect key="frame" x="0.0" y="44" width="320" height="31"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -257,7 +253,7 @@
                                             <constraint firstAttribute="height" constant="37" id="4ep-dk-Mk0"/>
                                             <constraint firstAttribute="width" constant="37" id="8PS-bf-eRR"/>
                                         </constraints>
-                                        <state key="normal" image="camera" backgroundImage="40506658-069F-41AE-A08A-D8D804622686">
+                                        <state key="normal" image="camera" backgroundImage="31B72019-2E0C-4A01-8673-E505333893F4">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -291,6 +287,7 @@
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                         <constraints>
+                            <constraint firstAttribute="centerX" secondItem="25Z-Ev-l4p" secondAttribute="centerX" constant="0.5" id="3Sv-ZE-fw0"/>
                             <constraint firstItem="YDf-Cw-Wgb" firstAttribute="leading" secondItem="2vm-M5-BTQ" secondAttribute="leading" id="7lk-pU-RbN"/>
                             <constraint firstItem="H5V-s3-DWj" firstAttribute="leading" secondItem="2vm-M5-BTQ" secondAttribute="leading" id="Bj9-UX-SRH"/>
                             <constraint firstAttribute="bottom" secondItem="H5V-s3-DWj" secondAttribute="bottom" id="C9f-qQ-dgV"/>
@@ -305,6 +302,7 @@
                             <constraint firstItem="YDf-Cw-Wgb" firstAttribute="centerX" secondItem="Tha-hn-d1C" secondAttribute="centerX" id="XqB-gN-mDb"/>
                             <constraint firstItem="rXG-JK-OZl" firstAttribute="centerY" secondItem="nmz-Hp-eXW" secondAttribute="centerY" id="YLs-6q-5ew"/>
                             <constraint firstItem="YDf-Cw-Wgb" firstAttribute="top" secondItem="2KR-od-4TU" secondAttribute="top" constant="44" id="ZBP-kS-yQz"/>
+                            <constraint firstItem="1PM-d9-8Jn" firstAttribute="top" secondItem="25Z-Ev-l4p" secondAttribute="bottom" constant="6" id="bIz-qR-Mk1"/>
                             <constraint firstItem="27v-1N-bbG" firstAttribute="height" secondItem="nmz-Hp-eXW" secondAttribute="height" id="cpf-3q-W0Z"/>
                             <constraint firstItem="rXG-JK-OZl" firstAttribute="height" secondItem="nmz-Hp-eXW" secondAttribute="height" id="eC0-32-O5w"/>
                             <constraint firstAttribute="trailing" secondItem="YDf-Cw-Wgb" secondAttribute="trailing" id="gsX-69-8MD"/>
@@ -335,6 +333,7 @@
                         <outlet property="navigationCustomView" destination="2KR-od-4TU" id="NOE-MO-lNn"/>
                         <outlet property="previewView" destination="nmz-Hp-eXW" id="tWw-72-tZ2"/>
                         <outlet property="recordPercent" destination="w62-Nl-0rd" id="S5k-HJ-Ss1"/>
+                        <outlet property="swipeLabel" destination="25Z-Ev-l4p" id="F9e-E5-qNi"/>
                         <outlet property="timeLabel" destination="Tha-hn-d1C" id="l9U-R2-jKe"/>
                         <outlet property="touchMixVideoButton" destination="lC3-G4-sK6" id="TLc-PJ-NEY"/>
                         <segue destination="sYR-Tl-Vz2" kind="push" identifier="pushMixVideoViewController" id="Y3W-df-arb"/>
@@ -957,7 +956,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="40506658-069F-41AE-A08A-D8D804622686" width="37" height="37">
+        <image name="31B72019-2E0C-4A01-8673-E505333893F4" width="37" height="37">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

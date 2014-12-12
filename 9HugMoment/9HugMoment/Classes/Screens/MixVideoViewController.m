@@ -56,12 +56,18 @@
     imageChoose = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 60, 60)];
     imageChoose.image = [UIImage imageNamed:@"play-icon"];
     [self hightConstraint];
+    
+    _locationManagement = [LocationManagement shareLocation];
+    _locationManagement.locationManager.delegate = self;
+    [_locationManagement getCurrentLocation];
+    
+    NSLog(@"lat = %f",currentLocation.coordinate.latitude);
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     _navigationView.titleNvgLabel.text = @"Mixing Video";
-    [self hightConstraint];
+    [self hightConstraint]; 
 }
 
 - (void)didReceiveMemoryWarning {
@@ -75,6 +81,74 @@
         // Custom initialization
     }
     return self;
+}
+
+
+#pragma mark - Location Management
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+    // Notification when application close or reopen.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActiveNotification:) name:UIApplicationDidBecomeActiveNotification object:[UIApplication sharedApplication]];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidFinishLaunchingNotification:) name:UIApplicationDidFinishLaunchingNotification object:[UIApplication sharedApplication]];
+    
+    _locationManagement = [LocationManagement shareLocation];
+    _locationManagement.locationManager.delegate = self;
+    [_locationManagement requestTurnOnLocationServices];
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    
+    // Remove Notification.
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:[UIApplication sharedApplication]];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidFinishLaunchingNotification object:[UIApplication sharedApplication]];
+    
+    [_locationManagement.locationManager stopUpdatingLocation];
+}
+
+- (void)applicationDidBecomeActiveNotification:(NSNotification *)notification {
+    _locationManagement = [LocationManagement shareLocation];
+    [_locationManagement requestTurnOnLocationServices];
+}
+
+- (void)applicationDidFinishLaunchingNotification:(NSNotification *)notification{
+    [_locationManagement.locationManager stopUpdatingLocation];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    currentLocation = newLocation;
+    [_locationManagement.locationManager stopUpdatingLocation];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    switch (status) {
+        case kCLAuthorizationStatusAuthorized:
+            NSLog(@"kCLAuthorizationStatusAuthorized");
+            // Re-enable the post button if it was disabled before.
+            [_locationManagement.locationManager startUpdatingLocation];
+            break;
+        case kCLAuthorizationStatusDenied:
+            NSLog(@"kCLAuthorizationStatusDenied");
+            break;
+        case kCLAuthorizationStatusNotDetermined:
+            NSLog(@"kCLAuthorizationStatusNotDetermined");
+            break;
+        case kCLAuthorizationStatusRestricted:
+            NSLog(@"kCLAuthorizationStatusRestricted");
+            break;
+        case kCLAuthorizationStatusAuthorizedWhenInUse:
+            NSLog(@"kCLAuthorizationStatusAuthorizedWhenInUse");
+            break;
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"didFailWithError: %@", error);
 }
 
 #pragma mark - NSLayoutConstraint
@@ -776,26 +850,30 @@
 -(void)uploadWithImage:(UIImage*)image{
     [BaseServices createMomentForUser:[[UserData currentAccount] strId] withType:@"1" success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString* key = [[responseObject firstObject] valueForKey:@"key"];
+        NSString *latitudeLocal = [NSString stringWithFormat:@"%f", currentLocation.coordinate.latitude];
+        NSString *longitudeLocal = [NSString stringWithFormat:@"%f", currentLocation.coordinate.longitude];
         [BaseServices updateMessage:_message?_message:@""
-                                key:key
-                              frame:@"1"
-                               path:_exportUrl
-                       notification:_notificationButton.selected
-                          thumbnail:image
-                            sussess:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                dispatch_async(dispatch_get_main_queue(), ^{
-                                    [MBProgressHUD hideHUDForView:self.view animated:YES];
-                                    [self makeRequestToShareLink:[NSString stringWithFormat:@"http://www.9hug.com/message/%@",key]];
-                                    [UIAlertView showMessage:@"Video is uploaded!"];
-                                    [[NSNotificationCenter defaultCenter] postNotificationName:CALL_PUSH_NOTIFICATIONS object:nil];
-                                    [self.navigationController popToRootViewControllerAnimated:YES];
-                                });
-                            } failure:^(NSString *bodyString, NSError *error) {
-                                dispatch_async(dispatch_get_main_queue(), ^{
-                                    [MBProgressHUD hideHUDForView:self.view animated:YES];
-                                });
-                                _mixed = NO;
-                            }];
+                               key:key
+                             frame:@"1"
+                              path:_exportUrl
+                          latitude:latitudeLocal
+                         longitude:longitudeLocal
+                      notification:_notificationButton.selected
+                         thumbnail:image
+                           sussess:^(AFHTTPRequestOperation *operation, id responseObject) {
+                               dispatch_async(dispatch_get_main_queue(), ^{
+                                   [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                   [self makeRequestToShareLink:[NSString stringWithFormat:@"http://www.9hug.com/message/%@",key]];
+                                   [UIAlertView showMessage:@"Video is uploaded!"];
+                                   [[NSNotificationCenter defaultCenter] postNotificationName:CALL_PUSH_NOTIFICATIONS object:nil];
+                                   [self.navigationController popToRootViewControllerAnimated:YES];
+                               });
+                           } failure:^(NSString *bodyString, NSError *error) {
+                               dispatch_async(dispatch_get_main_queue(), ^{
+                                   [MBProgressHUD hideHUDForView:self.view animated:YES];
+                               });
+                               _mixed = NO;
+                           }];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"error %@",error);
     }];

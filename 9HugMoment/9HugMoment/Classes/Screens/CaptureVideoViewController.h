@@ -30,5 +30,6 @@
 }
 
 @property (retain, nonatomic) IBOutlet NSLayoutConstraint *hightViewOffsetConstraint;
+@property (weak, nonatomic) IBOutlet UILabel *swipeLabel;
 
 @end

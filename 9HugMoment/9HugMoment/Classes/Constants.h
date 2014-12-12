@@ -17,7 +17,8 @@
 #define HALF_OF(x) (x/2)
 
 #import <AFNetworking.h>
-
+#import <CoreLocation/CoreLocation.h>
+#import "LocationManagement.h"
 #import "BaseServices.h"
 
 #import "Utilities.h"

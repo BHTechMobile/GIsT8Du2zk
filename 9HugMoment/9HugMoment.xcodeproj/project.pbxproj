@@ -12,6 +12,8 @@
 		51A6E3071A31BC3C00BE3039 /* JTTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A6E3031A31BC3C00BE3039 /* JTTabBarController.m */; };
 		51A6E3081A31BC3C00BE3039 /* JTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A6E3051A31BC3C00BE3039 /* JTViewController.m */; };
 		9F0671E61A2716AA0077F66B /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F0671E51A2716AA0077F66B /* Utilities.m */; };
+		9F43F4941A398DD2001F28A5 /* LocationManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F43F4931A398DD2001F28A5 /* LocationManagement.m */; };
+		9F43F4961A39902A001F28A5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F43F4951A39902A001F28A5 /* CoreLocation.framework */; };
 		9F8D55EC1A3694A700735634 /* PlayerViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8D55EA1A3694A700735634 /* PlayerViewTableViewCell.m */; };
 		9F8D55ED1A3694A700735634 /* PlayerViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F8D55EB1A3694A700735634 /* PlayerViewTableViewCell.xib */; };
 		9F8D55F11A36952D00735634 /* UserInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8D55EF1A36952D00735634 /* UserInfoTableViewCell.m */; };
@@ -110,6 +112,9 @@
 		9F0671D81A26CB7F0077F66B /* 9HugMoment-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "9HugMoment-Prefix.pch"; sourceTree = "<group>"; };
 		9F0671E41A2716AA0077F66B /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		9F0671E51A2716AA0077F66B /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
+		9F43F4921A398DD2001F28A5 /* LocationManagement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManagement.h; sourceTree = "<group>"; };
+		9F43F4931A398DD2001F28A5 /* LocationManagement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManagement.m; sourceTree = "<group>"; };
+		9F43F4951A39902A001F28A5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		9F8D55E91A3694A700735634 /* PlayerViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerViewTableViewCell.h; sourceTree = "<group>"; };
 		9F8D55EA1A3694A700735634 /* PlayerViewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerViewTableViewCell.m; sourceTree = "<group>"; };
 		9F8D55EB1A3694A700735634 /* PlayerViewTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerViewTableViewCell.xib; sourceTree = "<group>"; };
@@ -236,6 +241,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F43F4961A39902A001F28A5 /* CoreLocation.framework in Frameworks */,
 				50122DC05EA6BE8B2C84D3E2 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -504,6 +510,8 @@
 		CECCB7821A2344D300C1220C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9F43F4921A398DD2001F28A5 /* LocationManagement.h */,
+				9F43F4931A398DD2001F28A5 /* LocationManagement.m */,
 				D23BA4781A357FFB000EDE47 /* MomentsModel.h */,
 				D23BA4791A357FFB000EDE47 /* MomentsModel.m */,
 				9FA12BFD1A35D87600CE737C /* MomentsDetailsModel.h */,
@@ -598,6 +606,7 @@
 		E7660F4C4E32C4269FA4AF84 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9F43F4951A39902A001F28A5 /* CoreLocation.framework */,
 				7C244774540907ADC2E89DBF /* libPods.a */,
 			);
 			name = Frameworks;
@@ -778,6 +787,7 @@
 				CECCB7A61A2347B200C1220C /* MixAudioViewController.m in Sources */,
 				51A6E3081A31BC3C00BE3039 /* JTViewController.m in Sources */,
 				D23BA4681A357F75000EDE47 /* MomentsMessageTableViewCell.m in Sources */,
+				9F43F4941A398DD2001F28A5 /* LocationManagement.m in Sources */,
 				D23BA4741A357FA0000EDE47 /* NSDate+Helpers.m in Sources */,
 				CECCB7971A23472E00C1220C /* CaptureVideoViewController.m in Sources */,
 				D23BA4771A357FA0000EDE47 /* UIColor+Helpers.m in Sources */,
@@ -959,7 +969,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c2cebeee-961f-46e9-8310-836e454acdb3";
+				PROVISIONING_PROFILE = "833a1cd4-bc22-4d27-93bd-0feeacc88734";
 			};
 			name = Debug;
 		};
@@ -975,7 +985,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c2cebeee-961f-46e9-8310-836e454acdb3";
+				PROVISIONING_PROFILE = "833a1cd4-bc22-4d27-93bd-0feeacc88734";
 			};
 			name = Release;
 		};
