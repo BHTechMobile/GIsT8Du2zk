@@ -30,8 +30,8 @@
 
 - (void)setMessageWithMessage:(MessageObject *)message {
     _userNameLabel.text = message.fullName;
-    _numberReadsLabel.text = (![message.reads isEqualToString:@""])?message.reads:@"0";
-    
+    NSString *numberOfVote = message.totalVotes;
+    _numberCountsLabel.text = numberOfVote;
     [_attachment2ImageView setImageWithURL:[NSURL URLWithString:message.attachement2]
                         placeholderImage:[UIImage imageNamed:IMAGE_NAME_ATTACHMENT_2_DEFAULT]
                                  options:SDWebImageProgressiveDownload

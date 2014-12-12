@@ -35,6 +35,7 @@
 }
 
 - (NSString *)strUserToken{
+    NSLog(@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:USERCTOKEN]);
     return [[NSUserDefaults standardUserDefaults] valueForKey:USERCTOKEN];
 }
 
