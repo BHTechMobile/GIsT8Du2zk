@@ -8,30 +8,27 @@
 #import "PlayerView.h"
 #import "EnterMessageView.h"
 #import "MomentsDetailsModel.h"
+#import "UserDetailsObject.h"
+#import "UserInfoTableViewCell.h"
+#import "MomentsModel.h"
+#import "CommentHeaderTableViewCell.h"
+#import "CommentMessageTableViewCell.h"
+#import "UpvoteMessageTableViewCell.h"
+#import "PlayerViewTableViewCell.h"
 
-@interface MomentDetailViewController : UIViewController<DownloadVideoDelegate,EnterMessageDelegate,UITableViewDataSource,UITableViewDelegate, MomentsDetailsModelDelegate>
+@interface MomentDetailViewController : UIViewController<DownloadVideoDelegate,EnterMessageDelegate,UITableViewDataSource,UITableViewDelegate, MomentsDetailsModelDelegate, CommentHeaderTableViewCellDelegate, UserInfoTableViewCellDelegate>
 
-@property (weak, nonatomic) IBOutlet UISegmentedControl *momentSegmentController;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
-@property (weak, nonatomic) IBOutlet UIButton *addVideoButton;
-@property (weak, nonatomic) IBOutlet UIScrollView *contentScrollView;
+@property (weak, nonatomic) IBOutlet UITableView *messageContentTableView;
 
-@property (strong, nonatomic) IBOutlet UIView *extendView;
-@property (strong, nonatomic) IBOutlet UIView *playerView;
-@property(nonatomic,strong) PlayerView* videoPlayer;
-@property (weak, nonatomic) EnterMessageView *enterMessageView;
+@property (nonatomic,strong) PlayerView* videoPlayer;
 @property (weak, nonatomic) NSLayoutConstraint *topPosition;
-@property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 
 @property (nonatomic, strong) NSURL *capturePath;
 @property (nonatomic, strong) NSString *userLabel;
-@property (nonatomic, strong) NSString *countVote;
-@property (weak, nonatomic) IBOutlet UIButton *voteButton;
-@property (weak, nonatomic) IBOutlet UITableView *messageContentTableView;
+@property (nonatomic, strong) MessageObject *messageObject;
+//@property (nonatomic, strong) UserDetailsObject *userDetailsObject;
 
-- (IBAction)addVideoButtonAction:(id)sender;
 - (IBAction)backButtonAction:(id)sender;
-- (IBAction)momentSegmentControllerAction:(id)sender;
-- (IBAction)voteButtonAction:(id)sender;
 
 @end

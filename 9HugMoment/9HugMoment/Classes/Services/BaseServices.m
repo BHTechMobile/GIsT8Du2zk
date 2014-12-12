@@ -398,5 +398,26 @@
     return [NSJSONSerialization JSONObjectWithData:[string dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableLeaves error:error];
 }
 
++ (void)downloadUserImageWithFacebookID:(NSString *)facebookID success:(SuccessBlock)success failure:(FailureBlock)failure {
+    NSURL *imageURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square",facebookID]];
+    [[SDWebImageManager sharedManager] downloadImageWithURL:imageURL options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize){
+    }completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL){
+        if (!error) {
+            if (success) {
+                UIImage *defaultUserCommentPhoto = [UIImage imageNamed:IMAGE_NAME_THUMB_PLACE_HOLDER];
+                if (image) {
+                    success(nil, image);
+                }else {
+                    success(nil, defaultUserCommentPhoto);
+                }
+            }
+        }else {
+            if (failure) {
+                failure(nil, error);
+            }
+        }
+    }];
+}
+
 
 @end

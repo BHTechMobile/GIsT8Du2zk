@@ -143,8 +143,7 @@
     if ([[segue identifier] isEqualToString:@"pushMomentDetailsView"]) {
         momentDetailViewController = [segue destinationViewController];
         momentDetailViewController.capturePath = [NSURL fileURLWithPath:message.localVideoPath];
-        momentDetailViewController.userLabel = message.fullName;
-        momentDetailViewController.countVote = (![message.reads isEqualToString:@""])?message.reads:@"0";
+        momentDetailViewController.messageObject = message;
         momentDetailViewController.hidesBottomBarWhenPushed = YES;
         NSLog(@"message.localVideoPath %@",message.localVideoPath);
         NSLog(@"momentDetailViewController.capture %@",momentDetailViewController.capturePath);

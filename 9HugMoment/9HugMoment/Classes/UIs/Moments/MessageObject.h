@@ -30,6 +30,7 @@
 @property (nonatomic, strong) NSString *reads;
 @property (nonatomic, strong) NSString *fullName;
 @property (nonatomic, assign) BOOL downloaded;
+@property (nonatomic, strong) NSString *userFacebookID;
 
 @property (nonatomic, strong) NSString *style;
 @property (nonatomic, strong) NSMutableArray *votesArray;

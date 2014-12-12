@@ -14,6 +14,7 @@
 #define SYSTEM_PASSWORD @"Gfix0hVBUCNPf9wyKGiQ"
 #define UPLOAD_VIDEO @"http://ws.9hug.com/api/message/update"
 #define URL_GET_FOLLOW_ENDPOINT @"http://ws.9hug.com/api/client/login"
+#define HALF_OF(x) (x/2)
 
 #import <AFNetworking.h>
 
@@ -60,10 +61,19 @@
 #pragma mark - Enums
 //Enum
 typedef NS_ENUM (NSInteger, MessageType){
-    MessageTypeVote = 0,
-    MessageTypeVoice,
+    MessageTypeComment = 1,
     MessageTypePhoto,
-    MessageTypeComment
+    MessageTypeVote,
+    MessageTypeVoice
+};
+
+typedef NS_ENUM(NSInteger, MomentDetailCellType)
+{
+    MomentDetailCellTypePlayer = 0,
+    MomentDetailCellTypeUserInfo,
+    MomentDetailCellTypeUpvoteMessage,
+    MomentDetailCellTypeCommentHeader,
+    MomentDetailCellTypeCommentMessage
 };
 
 #pragma mark - KEYS
@@ -88,6 +98,7 @@ typedef NS_ENUM (NSInteger, MessageType){
 #define KEY_CREATE_DATED @"createdated"
 #define KEY_SCHEDULED @"scheduled"
 #define KEY_SENT_DATE @"sentdate"
+#define KEY_SENT_DATE_2 @"sent_date"
 #define KEY_RECEIVER_ID @"receiverid"
 #define KEY_RECEIVER_DATE @"receiveddate"
 #define KEY_READS @"reads"
@@ -103,7 +114,13 @@ typedef NS_ENUM (NSInteger, MessageType){
 #define KEY_VOICES @"voices"
 #define KEY_PHOTOS @"photos"
 #define KEY_COMMENTS @"comments"
-
+#define KEY_NICK_NAME @"nickname"
+#define KEY_FACEBOOK_ID @"facebookid"
+#define KEY_FACEBOOK_TOKEN @"facebook_token"
+#define KEY_MOBILE @"mobile"
+#define KEY_EMAIL @"email"
+#define KEY_PASSWORD @"password"
+#define KEY_CREATED_DATE @"createddate"
 //User setting key
 #define KEY_USER_SETTING_LOGGED_IN_ID @"userSettingLoggedInID"
 #define KEY_USER_SETTING_LOGGED_IN_TOKEN @"userSettingLoggedInToken"
@@ -120,6 +137,14 @@ typedef NS_ENUM (NSInteger, MessageType){
 #pragma mark - Identifier TableViewCell
 // Identifier TableViewCell
 #define IDENTIFIER_MOMENTS_MESSAGE_TABLE_VIEW_CELL @"identifierMomentsMessageTableViewCell"
+#define IDENTIFIER_PLAYER_VIEW_TABLE_VIEW_CELL @"identifierPlayerViewTableViewCell"
+#define IDENTIFIER_UP_VOTE_MESSAGE_TABLE_VIEW_CELL @"identifierUpvoteMessageTableViewCell"
+#define IDENTIFIER_COMMENT_HEADER_TABLE_VIEW_CELL @"identifierCommentHeaderTableViewCell"
+#define IDENTIFIER_COMMENT_MESSAGE_TABLE_VIEW_CELL @"identifierCommentMessageTableViewCell"
+#define IDENTIFIER_USER_INFO_TABLE_VIEW_CELL @"identifierUserInfoTableViewCell"
+
+#pragma mark - Fonts & Sizes
+#define FONT_SIZE_DEFAULT_HUD [UIFont fontWithName:@"HelveticaNeue" size:14.0];
 
 #pragma mark - FBConnectViewController
 /*FBConnectViewController*/
@@ -166,31 +191,32 @@ typedef NS_ENUM (NSInteger, MessageType){
 #define WIDTH_BUTTON_NEW_MOMENTS 50
 #define CALL_PUSH_NOTIFICATIONS @"songsongsong"
 
-#pragma mark - MomentsMessageTableViewCell
-
+#pragma mark - MomentsDetailViewController
 // MomentsDetailViewController
+#define SIZE_ENTER_MESSAGE_MOMENT_DETAIL_VIEW_CONTROLLER CGSizeMake(280, 200)
+#define HEIGHT_USER_INFO_CELL_MOMENT_DETAIL_VIEW_CONTROLLER 90
+#define HEIGHT_UP_VOTE_MESSAGE_DEFAULT_CELL_MOMENT_DETAIL_VIEW_CONTROLLER 70
+#define HEIGHT_UP_VOTE_MESSAGE_NO_VOTE_CELL_MOMENT_DETAIL_VIEW_CONTROLLER 20
+#define HEIGHT_COMMENT_HEADER_CELL_MOMENT_DETAIL_VIEW_CONTROLLER 30
+#define HEIGHT_COMMENT_MESSAGE_CELL_MOMENT_DETAIL_VIEW_CONTROLLER 80
 
-#define HEIGHT_ROW_TABLE_VIEW_MOMENTS_DETAILS_VIEW_CONTROLLER 30
-#define NUMBER_OF_ROW_TABLE_VIEW_MOMENTS_DETAILS_VIEW_CONTROLLER 4
-#define ROW_IN_SECTION 0
-#define ROW_IN_SECTION_ 1
-#define ROW_IN_SECTION__ 2
-#define ROW_IN_SECTION___ 3
+#define TIME_TO_SHOW_ENTER_MESSAGE_VIEW 0.3
 
-#define HEIGHT_ROW_1_TABLE_VIEW_MOMENTS_DETAILS_VIEW_CONTROLLER 87
-#define HEIGHT_ROW_2_TABLE_VIEW_MOMENTS_DETAILS_VIEW_CONTROLLER 63
-#define HEIGHT_ROW_3_TABLE_VIEW_MOMENTS_DETAILS_VIEW_CONTROLLER 30
-#define HEIGHT_ROW_4_TABLE_VIEW_MOMENTS_DETAILS_VIEW_CONTROLLER 60
-
-#define PLAYER_VIEW_CELL_INDETIFIER @"PlayerViewTableViewCell"
-#define USER_VIEW_CELL_INDETIFIER @"UserInfoTableViewCell"
-#define UPVOTE_VIEW_CELL_INDETIFIER @"UpvoteMessageTableViewCell"
-#define COMMENT_VIEW_CELL_INDETIFIER @"CommentHeaderTableViewCell"
-#define COMMENT_MESSAGE_VIEW_CELL_INDETIFIER @"CommentMessageTableViewCell"
-
+#pragma mark - MomentsMessageTableViewCell
 // MomentsMessageTableViewCell
 #define WIGHT_RESET_BUTTON_MOMENTS_MESSAGE_TABLE_VIEW_CELL 65
 #define TIME_TO_SHOW_RESET_BUTTON_MOMENTS_MESSAGE_TABLE_VIEW_CELL 0.3
 #define NUMBER_OF_TOUCH_SWIPE_MOMENTS_MESSAGE_TABLE_VIEW_CELL 1
+
+#pragma mark - UpvoteMessageTableViewCell
+// UpvoteMessageTableViewCell
+#define MARGIN_LEFT_DEFAULT_UP_VOTE_MESSAGE_TABLE_VIEW_CELL 20
+
+#pragma mark - UserPhotoView
+// UserPhotoView
+#define HEIGHT_DEFAULT_USER_PHOTO_VIEW 40
+#define WIDTH_DEFAULT_USER_PHOTO_VIEW 40
+#define MARGIN_RIGHT_DEFAULT_USER_PHOTO_VIEW 5
+#define MARGIN_TOP_DEFAULT_USER_PHOTO_VIEW 5
 
 #endif

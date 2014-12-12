@@ -36,6 +36,7 @@
     NSString *receivedDateFromDict  = [dict stringForKey:KEY_RECEIVER_DATE];
     NSString *readsFromDict     = [dict stringForKey:KEY_READS];
     NSString *fullNameFromDict  = [dict stringForKey:KEY_FULL_NAME];
+    NSString *userFacebookID    = [dict stringForKey:KEY_FACEBOOK_ID];
     
     NSString *styleFromDict  = [dict stringForKey:KEY_STYLE];
     NSMutableArray *votesArrayFromDict = (NSMutableArray *)[dict stringForKey:KEY_VOTES];
@@ -65,9 +66,14 @@
     message.reads           = (readsFromDict!= (id)[NSNull null])?readsFromDict:@"";
     message.fullName        = (fullNameFromDict!= (id)[NSNull null])?fullNameFromDict:@"";
     message.style           = (styleFromDict!= (id)[NSNull null])?styleFromDict:@"";
-    message.votesArray      = votesArrayFromDict;
-    message.voicesArray     = voicesArrayFromDict;
-    message.photosArray     = photosArrayFromDict;
+    message.userFacebookID  = (userFacebookID != (id)[NSNull null])?userFacebookID:@"";
+    message.votesArray      = [[NSMutableArray alloc] init];
+    message.voicesArray     = [[NSMutableArray alloc] init];
+    message.photosArray     = [[NSMutableArray alloc] init];
+    
+    message.votesArray      = (votesArrayFromDict != (id)[NSNull null])?votesArrayFromDict:message.votesArray;
+    message.voicesArray     = (voicesArrayFromDict != (id)[NSNull null])?voicesArrayFromDict:message.votesArray;
+    message.photosArray     = (photosArrayFromDict != (id)[NSNull null])?photosArrayFromDict:message.votesArray;
     return message;
 }
 
