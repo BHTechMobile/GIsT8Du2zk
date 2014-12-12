@@ -111,12 +111,17 @@ NSString * const kTrackEventVideoComplete = @"Video Complete";
 
 - (void)removeObserversFromVideoPlayerItem
 {
-    [self.videoPlayer.currentItem removeObserver:self forKeyPath:@"status"];
-    [self.videoPlayer.currentItem removeObserver:self forKeyPath:@"playbackBufferEmpty"];
-    [self.videoPlayer.currentItem removeObserver:self forKeyPath:@"playbackLikelyToKeepUp"];
-    [self.videoPlayer.currentItem removeObserver:self forKeyPath:@"loadedTimeRanges"];
-    [_videoPlayer removeObserver:self forKeyPath:@"externalPlaybackActive"];
-    [_videoPlayer removeObserver:self forKeyPath:@"airPlayVideoActive"];
+    @try {
+        [self.videoPlayer.currentItem removeObserver:self forKeyPath:@"status"];
+        [self.videoPlayer.currentItem removeObserver:self forKeyPath:@"playbackBufferEmpty"];
+        [self.videoPlayer.currentItem removeObserver:self forKeyPath:@"playbackLikelyToKeepUp"];
+        [self.videoPlayer.currentItem removeObserver:self forKeyPath:@"loadedTimeRanges"];
+        [_videoPlayer removeObserver:self forKeyPath:@"externalPlaybackActive"];
+        [_videoPlayer removeObserver:self forKeyPath:@"airPlayVideoActive"];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"removeObserversFromVideoPlayerItem Error: %@",exception);
+    }
 }
 
 - (void)loadView

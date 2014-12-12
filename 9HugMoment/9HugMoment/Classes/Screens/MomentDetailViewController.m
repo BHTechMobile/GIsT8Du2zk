@@ -28,6 +28,7 @@ static NSDateFormatter *_dateFormatter;
     _momentsDetailsModel.message = _messageObject;
     [self initProgressHUD];
     [self initDateFormat];
+    [self initInputMessageView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -37,14 +38,21 @@ static NSDateFormatter *_dateFormatter;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self initInputMessageView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [self requestMessage];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter]removeObserver:self];
+    [_videoPlayer pause];
+    _videoPlayer = nil;
+    
 }
 
 #pragma mark - Custom Methods
@@ -109,7 +117,6 @@ static NSDateFormatter *_dateFormatter;
             [self setDefaultFrameInputMessageView];
         }];
     }
-    
 }
 
 - (void)initProgressHUD
@@ -191,13 +198,13 @@ static NSDateFormatter *_dateFormatter;
     if (!cell) {
         [tableView registerNib:[UINib nibWithNibName:[[PlayerViewTableViewCell class] description] bundle:nil] forCellReuseIdentifier:IDENTIFIER_PLAYER_VIEW_TABLE_VIEW_CELL];
         cell = [tableView dequeueReusableCellWithIdentifier:IDENTIFIER_PLAYER_VIEW_TABLE_VIEW_CELL];
-        if (!_videoPlayer) {
-            [self initVideoPlayer];
-            [_videoPlayer playWithUrl:_capturePath];
-        }
-        [_videoPlayer removeFromSuperview];
-        [cell.playerViewCell addSubview:_videoPlayer];
+        
     }
+    if (!_videoPlayer) {
+        [self initVideoPlayer];
+        [_videoPlayer playWithUrl:_capturePath];
+    }
+    [cell.playerViewCell addSubview:_videoPlayer];
     return cell;
 }
 
