@@ -62,6 +62,10 @@
     [super viewWillAppear:animated];
     _navigationView.titleNvgLabel.text = @"Mixing Video";
     [self hightConstraint];
+    
+    _locationManagement = [LocationManagement shareLocation];
+    _locationManagement.locationManager.delegate = self;
+    [_locationManagement getCurrentLocation];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -76,6 +80,79 @@
     }
     return self;
 }
+
+#pragma mark - Location Management
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+    // Notification when application close or reopen.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActiveNotification:) name:UIApplicationDidBecomeActiveNotification object:[UIApplication sharedApplication]];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidFinishLaunchingNotification:) name:UIApplicationDidFinishLaunchingNotification object:[UIApplication sharedApplication]];
+    
+    _locationManagement = [LocationManagement shareLocation];
+    _locationManagement.locationManager.delegate = self;
+    [_locationManagement requestTurnOnLocationServices];
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    
+    // Remove Notification.
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:[UIApplication sharedApplication]];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidFinishLaunchingNotification object:[UIApplication sharedApplication]];
+    
+    [_locationManagement.locationManager stopUpdatingLocation];
+}
+
+- (void)applicationDidBecomeActiveNotification:(NSNotification *)notification {
+    _locationManagement = [LocationManagement shareLocation];
+    [_locationManagement requestTurnOnLocationServices];
+    //    [_locationManagement.locationManager startUpdatingLocation];
+}
+
+- (void)applicationDidFinishLaunchingNotification:(NSNotification *)notification{
+    [_locationManagement.locationManager stopUpdatingLocation];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    currentLocation = newLocation;
+    NSLog(@"found %f",newLocation.coordinate.latitude);
+    NSLog(@"found currentLocation %f",currentLocation.coordinate.latitude);
+    [_locationManagement.locationManager stopUpdatingLocation];
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    switch (status) {
+        case kCLAuthorizationStatusAuthorized:
+            NSLog(@"kCLAuthorizationStatusAuthorized");
+            [_locationManagement.locationManager startUpdatingLocation];
+            break;
+        case kCLAuthorizationStatusDenied:
+            NSLog(@"kCLAuthorizationStatusDenied");
+            break;
+        case kCLAuthorizationStatusNotDetermined:
+            NSLog(@"kCLAuthorizationStatusNotDetermined");
+            break;
+        case kCLAuthorizationStatusRestricted:
+            NSLog(@"kCLAuthorizationStatusRestricted");
+            break;
+        case kCLAuthorizationStatusAuthorizedWhenInUse:
+            NSLog(@"kCLAuthorizationStatusAuthorizedWhenInUse");
+            break;
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"didFailWithError: %@", error);
+    [_locationManagement.locationManager stopUpdatingLocation];
+}
+
 
 #pragma mark - NSLayoutConstraint
 
@@ -548,8 +625,8 @@
         case AVAssetExportSessionStatusFailed:
         {
             _mixed = NO;
-            break;
             [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+            break;
         }
         case AVAssetExportSessionStatusCompleted:
         {
@@ -776,10 +853,16 @@
 -(void)uploadWithImage:(UIImage*)image{
     [BaseServices createMomentForUser:[[UserData currentAccount] strId] withType:@"1" success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString* key = [[responseObject firstObject] valueForKey:@"key"];
+        NSString *latitudeLocal = [NSString stringWithFormat:@"%f", currentLocation.coordinate.latitude];
+        NSString *longitudeLocal = [NSString stringWithFormat:@"%f", currentLocation.coordinate.longitude];
+        NSLog(@"latitudeLocal %f ",currentLocation.coordinate.latitude);
+        NSLog(@"longitudeLocal %f ",currentLocation.coordinate.longitude);
         [BaseServices updateMessage:_message?_message:@""
                                 key:key
                               frame:@"1"
                                path:_exportUrl
+                           latitude:latitudeLocal
+                          longitude:longitudeLocal
                        notification:_notificationButton.selected
                           thumbnail:image
                             sussess:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -799,8 +882,6 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"error %@",error);
     }];
-    
-    
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
