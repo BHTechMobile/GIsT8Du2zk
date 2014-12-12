@@ -27,6 +27,7 @@
     MessageObject *message;
     ODRefreshControl *_refreshControl;
     MBProgressHUD *_hud;
+    NSCache *_avatarCache;
 }
 @synthesize _facebookManager;
 
@@ -35,6 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _momentModel = [[MomentsModel alloc] init];
+    _avatarCache = [[NSCache alloc] init];
     _downloadVideoView = [DownloadVideoView fromNib];
     CGRect downloadVideoFrame = self.view.frame;
     downloadVideoFrame.origin.y = self.messagesTableView.frame.origin.y;
@@ -143,8 +145,7 @@
     if ([[segue identifier] isEqualToString:@"pushMomentDetailsView"]) {
         momentDetailViewController = [segue destinationViewController];
         momentDetailViewController.capturePath = [NSURL fileURLWithPath:message.localVideoPath];
-        momentDetailViewController.userLabel = message.fullName;
-        momentDetailViewController.countVote = (![message.reads isEqualToString:@""])?message.reads:@"0";
+        momentDetailViewController.messageObject = message;
         momentDetailViewController.hidesBottomBarWhenPushed = YES;
         NSLog(@"message.localVideoPath %@",message.localVideoPath);
         NSLog(@"momentDetailViewController.capture %@",momentDetailViewController.capturePath);
@@ -172,6 +173,17 @@
     }
     MessageObject *mymessage = (MessageObject *)[_momentModel.messages objectAtIndex:indexPath.row];
     [cell setMessageWithMessage:mymessage];
+    UIImage *userAvatar = [_avatarCache objectForKey:mymessage.userFacebookID];
+    if (!userAvatar) {
+        [BaseServices downloadUserImageWithFacebookID:mymessage.userFacebookID success:^(AFHTTPRequestOperation *operation, id responseObject){
+            cell.thumbnailImageView.image = responseObject;
+            [_avatarCache setObject:responseObject forKey:mymessage.userFacebookID];
+        }failure:^(AFHTTPRequestOperation *operation, NSError *error){
+            NSLog(@"Error get user image from facebook: %@",error);
+        }];
+    }else {
+        cell.thumbnailImageView.image = userAvatar;
+    }
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     return cell;
 }

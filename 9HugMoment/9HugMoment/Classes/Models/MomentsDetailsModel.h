@@ -7,7 +7,7 @@
 @class MomentsDetailsModel;
 @protocol MomentsDetailsModelDelegate <NSObject>
 @optional
-- (void)didGetMessageDetailSuccess:(MomentsDetailsModel *)momentsDetailsModel;
+- (void)didGetMessageDetailSuccess:(MomentsDetailsModel *)momentsDetailsModel withMessage:(MessageObject *)messageResponce;
 - (void)didGetMessageDetailFailed:(MomentsDetailsModel *)momentsDetailsModel withError:(NSError *)error;
 
 - (void)didVoteMessageSuccess:(MomentsDetailsModel *)momentsDetailsModel;
@@ -25,15 +25,16 @@
 
 @interface MomentsDetailsModel : NSObject
 
-@property (nonatomic, strong) NSMutableArray *messagesDetails;
 @property (nonatomic, strong) MessageObject *message;
 @property (nonatomic, weak) id<MomentsDetailsModelDelegate> delegate;
+@property (nonatomic, strong) NSMutableArray *userFacebookIDVoted;
 
-- (void)getAllDetailSuccess;
 - (void)getMessageByKey:(NSString *)keyMessage;
 - (void)voteMessage;
 - (void)commentVoiceMessage:(NSString *)mediaLink;
 - (void)commentPhotoMessage:(NSString *)mediaLink;
 - (void)commentTextMessage:(NSString *)messageString;
+- (NSString *)getNumberOfVoteWithMessage:(MessageObject *)messageResponce;
+- (BOOL)isUserVotedWithUserID:(NSString *)userID;
 
 @end

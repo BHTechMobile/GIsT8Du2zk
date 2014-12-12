@@ -7,6 +7,7 @@
 #import "AFHTTPRequestOperation.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "MessageObject.h"
+#import "UIImageView+WebCache.h"
 
 typedef void (^SuccessBlock)(AFHTTPRequestOperation *operation, id responseObject);
 typedef void (^FailureBlock)(AFHTTPRequestOperation *operation, NSError *error);
@@ -49,5 +50,7 @@ typedef void (^DownloadResponseBlock)(float progress);
 + (void)generateImage:(NSURL*)url success:(void(^)(UIImage* image))success failure:(void(^)(NSError* error))failure;
 
 + (void)responseMessage:(NSDictionary *)dicParam success:(SuccessBlock)success failure:(FailureBlock)failure;
+
++ (void)downloadUserImageWithFacebookID:(NSString *)facebookID success:(SuccessBlock)success failure:(FailureBlock)failure;
 
 @end

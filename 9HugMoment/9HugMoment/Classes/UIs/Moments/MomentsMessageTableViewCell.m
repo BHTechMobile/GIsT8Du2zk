@@ -16,6 +16,8 @@
     if (self) {
         // Initialization code
         self = [[[NSBundle mainBundle] loadNibNamed:[[self class] description] owner:self options:nil] objectAtIndex:0];
+        [_thumbnailImageView.layer setMasksToBounds:YES];
+        [_thumbnailImageView.layer setCornerRadius:HALF_OF(_thumbnailImageView.frame.size.width)];
     }
     return self;
 }
@@ -38,16 +40,6 @@
                                        NSLog(@"Error: Image not found");
                                    }
                                }];
-    
-    NSString *thumbnailURL = [NSString stringWithFormat:@"%@%@",URL_MESSAGE_GRCODE_BY_KEY,message.key];
-    [_thumbnailImageView setImageWithURL:[NSURL URLWithString:thumbnailURL]
-                        placeholderImage:[UIImage imageNamed:IMAGE_NAME_THUMB_PLACE_HOLDER]
-                                 options:SDWebImageProgressiveDownload
-                               completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        if(error){
-            NSLog(@"Error: Image not found");
-        }
-    }];
 }
 
 @end

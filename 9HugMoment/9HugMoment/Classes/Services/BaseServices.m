@@ -208,7 +208,7 @@
 #pragma mark - Message Services
 
 + (void)getMessageByKey:(NSString*)key sussess:(SuccessBlock)success failure:(MessageBlock)failure{
-    NSDictionary* parameters = @{@"key":key};
+    NSDictionary* parameters = @{KEY_KEY:key, KEY_REFRESH_REQUEST:@"1"};
     //@"token":@"9813bd3a1c9056f8b1449659299205f5"};
     [[BaseServices sharedManager].requestSerializer setTimeoutInterval:30];
     
@@ -396,6 +396,27 @@
     NSString *string=[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     string= [string stringByReplacingOccurrencesOfString:@":null" withString:@":\"\""];
     return [NSJSONSerialization JSONObjectWithData:[string dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableLeaves error:error];
+}
+
++ (void)downloadUserImageWithFacebookID:(NSString *)facebookID success:(SuccessBlock)success failure:(FailureBlock)failure {
+    NSURL *imageURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square",facebookID]];
+    [[SDWebImageManager sharedManager] downloadImageWithURL:imageURL options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize){
+    }completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL){
+        if (!error) {
+            if (success) {
+                UIImage *defaultUserCommentPhoto = [UIImage imageNamed:IMAGE_NAME_THUMB_PLACE_HOLDER];
+                if (image) {
+                    success(nil, image);
+                }else {
+                    success(nil, defaultUserCommentPhoto);
+                }
+            }
+        }else {
+            if (failure) {
+                failure(nil, error);
+            }
+        }
+    }];
 }
 
 
