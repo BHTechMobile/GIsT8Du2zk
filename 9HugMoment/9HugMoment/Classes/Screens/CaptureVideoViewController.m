@@ -83,6 +83,7 @@
     [self createProcessView];
     [self touchResetCapturedButton:nil];
     [self hightButtonCaptureConstraint];
+    [self.swipeFrameLabel bringSubviewToFront:self.view];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
