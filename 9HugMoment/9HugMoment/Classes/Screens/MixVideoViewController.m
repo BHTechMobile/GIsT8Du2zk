@@ -761,6 +761,36 @@
         }
     }];
 }
+-(void)uploadWithVideoFB{
+    NSLog(@"Post video called");
+    
+//    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"simple" ofType:@"mp4"];
+    NSURL *filePath =_exportUrl;
+    NSData *videoData = [NSData dataWithContentsOfFile:filePath];
+    NSString* videoName = [filePath lastPathComponent];
+//    NSLog(@"%@",_exportUrl);
+    NSDictionary *videoObject = @{
+                                  @"title": @"VideoUploader By 9Hug",
+                                  @"description": @"Video Uploaded",
+                                  videoName: videoData,
+                                  @"contentType": @"video/mp4"
+                                  };
+    if (APP_DELEGATE.session.isOpen) {
+        FBRequest *uploadRequest = [FBRequest requestWithGraphPath:@"me/videos"
+                                                        parameters:videoObject
+                                                        HTTPMethod:@"POST"];
+        uploadRequest.session = APP_DELEGATE.session;
+        //start video upload
+        [uploadRequest startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error){
+            if(!error){
+                [UIAlertView showMessage:@"Upload Video to facebook successfuly !"];
+                NSLog(@"Video Done: %@", result);
+                NSLog(@"https://www.facebook.com/video.php?v=%@",[result ID]);
+                
+            }
+        }];
+    }
+}
 
 #pragma mark - Upload video
 
@@ -786,7 +816,8 @@
                                 dispatch_async(dispatch_get_main_queue(), ^{
                                     [MBProgressHUD hideHUDForView:self.view animated:YES];
                                     [self makeRequestToShareLink:[NSString stringWithFormat:@"http://www.9hug.com/message/%@",key]];
-                                    [UIAlertView showMessage:@"Video is uploaded!"];
+                                    [self uploadWithVideoFB];
+//                                    [UIAlertView showMessage:@"Video is uploaded!"];
                                     [[NSNotificationCenter defaultCenter] postNotificationName:CALL_PUSH_NOTIFICATIONS object:nil];
                                     [self.navigationController popToRootViewControllerAnimated:YES];
                                 });
@@ -802,6 +833,8 @@
     
     
 }
+
+
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     [self.navigationController popToRootViewControllerAnimated:YES];
