@@ -50,6 +50,8 @@
 		9FADF12F1A2C5226007FFCFF /* BaseServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FADF12E1A2C5226007FFCFF /* BaseServices.m */; };
 		9FB03B291A27905C00370885 /* NavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FB03B281A27905C00370885 /* NavigationView.m */; };
 		9FB03B2B1A27909400370885 /* NavigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FB03B2A1A27909400370885 /* NavigationView.xib */; };
+		9FD2AB171A3AFF0200275FDC /* LocationManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FD2AB161A3AFF0200275FDC /* LocationManagement.m */; };
+		9FD2AB191A3B00FB00275FDC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FD2AB181A3B00FB00275FDC /* CoreLocation.framework */; };
 		9FFFDDC21A2CD10E0081ADC9 /* FacebookManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFFDDBF1A2CD10E0081ADC9 /* FacebookManager.m */; };
 		9FFFDDC31A2CD10E0081ADC9 /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFFDDC11A2CD10E0081ADC9 /* UserData.m */; };
 		CE3E23431A233CDF00008D27 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3E23421A233CDF00008D27 /* main.m */; };
@@ -166,6 +168,9 @@
 		9FB03B271A27905C00370885 /* NavigationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationView.h; sourceTree = "<group>"; };
 		9FB03B281A27905C00370885 /* NavigationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationView.m; sourceTree = "<group>"; };
 		9FB03B2A1A27909400370885 /* NavigationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavigationView.xib; sourceTree = "<group>"; };
+		9FD2AB151A3AFF0200275FDC /* LocationManagement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManagement.h; sourceTree = "<group>"; };
+		9FD2AB161A3AFF0200275FDC /* LocationManagement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManagement.m; sourceTree = "<group>"; };
+		9FD2AB181A3B00FB00275FDC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		9FFFDDBE1A2CD10E0081ADC9 /* FacebookManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookManager.h; sourceTree = "<group>"; };
 		9FFFDDBF1A2CD10E0081ADC9 /* FacebookManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookManager.m; sourceTree = "<group>"; };
 		9FFFDDC01A2CD10E0081ADC9 /* UserData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserData.h; sourceTree = "<group>"; };
@@ -236,6 +241,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FD2AB191A3B00FB00275FDC /* CoreLocation.framework in Frameworks */,
 				50122DC05EA6BE8B2C84D3E2 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -504,6 +510,8 @@
 		CECCB7821A2344D300C1220C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9FD2AB151A3AFF0200275FDC /* LocationManagement.h */,
+				9FD2AB161A3AFF0200275FDC /* LocationManagement.m */,
 				D23BA4781A357FFB000EDE47 /* MomentsModel.h */,
 				D23BA4791A357FFB000EDE47 /* MomentsModel.m */,
 				9FA12BFD1A35D87600CE737C /* MomentsDetailsModel.h */,
@@ -598,6 +606,7 @@
 		E7660F4C4E32C4269FA4AF84 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9FD2AB181A3B00FB00275FDC /* CoreLocation.framework */,
 				7C244774540907ADC2E89DBF /* libPods.a */,
 			);
 			name = Frameworks;
@@ -780,6 +789,7 @@
 				D23BA4681A357F75000EDE47 /* MomentsMessageTableViewCell.m in Sources */,
 				D23BA4741A357FA0000EDE47 /* NSDate+Helpers.m in Sources */,
 				CECCB7971A23472E00C1220C /* CaptureVideoViewController.m in Sources */,
+				9FD2AB171A3AFF0200275FDC /* LocationManagement.m in Sources */,
 				D23BA4771A357FA0000EDE47 /* UIColor+Helpers.m in Sources */,
 				D23BA4671A357F75000EDE47 /* MessageObject.m in Sources */,
 				CE3E23461A233CDF00008D27 /* AppDelegate.m in Sources */,

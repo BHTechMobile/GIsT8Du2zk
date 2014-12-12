@@ -252,19 +252,16 @@
     
 }
 
-+ (void)updateMessage:(NSString*)message
-                  key:(NSString*)key
-                frame:(NSString*)frame
-                 path:(NSURL*)videoPath
-         notification:(BOOL)notiF
-            thumbnail:(UIImage*)image
-              sussess:(SuccessBlock)success
-              failure:(MessageBlock)failure
++ (void)updateMessage:(NSString*)message key:(NSString*)key frame:(NSString*)frame path:(NSURL*)videoPath
+             latitude:(NSString*)latitude longitude:(NSString *)longitude
+         notification:(BOOL)notiF thumbnail:(UIImage*)image sussess:(SuccessBlock)success failure:(MessageBlock)failure;
 {
     NSDictionary* dict;
     dict = @{@"key":key,
              @"text":message,
              @"frameid":frame,
+             @"latitude":latitude,
+             @"longitude":longitude,
              @"notification":@(notiF),
              @"userid":[[UserData currentAccount] strId]
              };

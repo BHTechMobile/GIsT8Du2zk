@@ -32,7 +32,9 @@ typedef void (^DownloadResponseBlock)(float progress);
 
 + (void)getMessageByKey:(NSString*)key sussess:(SuccessBlock)success failure:(MessageBlock)failure;
 
-+ (void)updateMessage:(NSString*)message key:(NSString*)key frame:(NSString*)frame path:(NSURL*)videoPath notification:(BOOL)notiF thumbnail:(UIImage*)image sussess:(SuccessBlock)success failure:(MessageBlock)failure;
++ (void)updateMessage:(NSString*)message key:(NSString*)key frame:(NSString*)frame path:(NSURL*)videoPath
+             latitude:(NSString*)latitude longitude:(NSString *)longitude
+         notification:(BOOL)notiF thumbnail:(UIImage*)image sussess:(SuccessBlock)success failure:(MessageBlock)failure;
 
 +(void)getAllMessageSussess:(SuccessBlock)success failure:(MessageBlock)failure;
 

@@ -10,7 +10,7 @@
 #import "NavigationView.h"
 #import "MixAudioViewController.h"
 
-@interface MixVideoViewController : UIViewController<MPMediaPickerControllerDelegate,UIAlertViewDelegate,AVAudioPlayerDelegate,GPUImageMovieDelegate,NavigationCustomViewDelegate,MixAudioViewControllerDelegate>{
+@interface MixVideoViewController : UIViewController<MPMediaPickerControllerDelegate,UIAlertViewDelegate,AVAudioPlayerDelegate,GPUImageMovieDelegate,NavigationCustomViewDelegate,MixAudioViewControllerDelegate,CLLocationManagerDelegate>{
     NSArray * changeFrameButtons;
     NSArray *qrCode;
     GPUImageMovie *movieFile;
@@ -21,7 +21,13 @@
     BOOL _isPlaying;
     NSString *_currentFilterClassString;
     NavigationView *_navigationView;
+    
+    CLLocation *currentLocation;
 }
+
+@property (nonatomic, assign) CLLocationCoordinate2D currenLocations;
+@property (strong, nonatomic) LocationManagement *locationManagement;
+-(void)locationManager: (CLLocationManager *)manager didChangeAuthorizationStatus: (CLAuthorizationStatus)status;
 
 @property (nonatomic, strong) NSURL *capturePath;
 @property (nonatomic, strong) UIImage* imgFrame;
