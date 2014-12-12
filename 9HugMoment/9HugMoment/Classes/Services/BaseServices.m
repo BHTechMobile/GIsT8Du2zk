@@ -208,7 +208,7 @@
 #pragma mark - Message Services
 
 + (void)getMessageByKey:(NSString*)key sussess:(SuccessBlock)success failure:(MessageBlock)failure{
-    NSDictionary* parameters = @{@"key":key};
+    NSDictionary* parameters = @{KEY_KEY:key, KEY_REFRESH_REQUEST:@"1"};
     //@"token":@"9813bd3a1c9056f8b1449659299205f5"};
     [[BaseServices sharedManager].requestSerializer setTimeoutInterval:30];
     
