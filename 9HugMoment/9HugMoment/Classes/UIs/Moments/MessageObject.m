@@ -40,6 +40,7 @@
     
     NSString *styleFromDict  = [dict stringForKey:KEY_STYLE];
     NSMutableArray *votesArrayFromDict = (NSMutableArray *)[dict stringForKey:KEY_VOTES];
+    NSString *totalVotesFromDict = [dict stringForKey:KEY_TOTAL_VOTES];
     NSMutableArray *voicesArrayFromDict = (NSMutableArray *)[dict stringForKey:KEY_VOICES];
     NSMutableArray *photosArrayFromDict = (NSMutableArray *)[dict stringForKey:KEY_PHOTOS];
     
@@ -72,6 +73,7 @@
     message.photosArray     = [[NSMutableArray alloc] init];
     
     message.votesArray      = (votesArrayFromDict != (id)[NSNull null])?votesArrayFromDict:message.votesArray;
+    message.totalVotes      = (totalVotesFromDict != (id)[NSNull null])?totalVotesFromDict:message.totalVotes;
     message.voicesArray     = (voicesArrayFromDict != (id)[NSNull null])?voicesArrayFromDict:message.votesArray;
     message.photosArray     = (photosArrayFromDict != (id)[NSNull null])?photosArrayFromDict:message.votesArray;
     return message;

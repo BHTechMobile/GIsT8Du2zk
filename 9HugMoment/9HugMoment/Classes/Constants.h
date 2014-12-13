@@ -112,6 +112,7 @@ typedef NS_ENUM(NSInteger, MomentDetailCellType)
 #define KEY_MESSAGE_STRING @"message"
 #define KEY_MEDIA_LINK @"media_link"
 #define KEY_VOTES @"votes"
+#define KEY_TOTAL_VOTES @"totalvotes"
 #define KEY_VOICES @"voices"
 #define KEY_PHOTOS @"photos"
 #define KEY_COMMENTS @"comments"

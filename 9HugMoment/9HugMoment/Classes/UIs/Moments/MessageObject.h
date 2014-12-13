@@ -34,8 +34,10 @@
 
 @property (nonatomic, strong) NSString *style;
 @property (nonatomic, strong) NSMutableArray *votesArray;
+@property (nonatomic, strong) NSString *totalVotes;
 @property (nonatomic, strong) NSMutableArray *voicesArray;
 @property (nonatomic, strong) NSMutableArray *photosArray;
+@property (nonatomic, strong) NSMutableArray *userFacebookIDVoted;
 
 + (MessageObject *)createMessageByDictionnary:(NSDictionary *)dict;
 - (NSString*)localVideoPath;

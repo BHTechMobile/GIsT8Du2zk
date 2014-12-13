@@ -12,10 +12,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *gpsIconImageView;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
-@property (weak, nonatomic) IBOutlet UILabel *numberReadsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *numberCountsLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftSpaceDataViewConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightSpaceDataViewConstraint;
-@property (weak, nonatomic) IBOutlet UIButton *resetButton;
 @property (weak, nonatomic) IBOutlet UIImageView *attachment2ImageView;
 
 - (void)setMessageWithMessage:(MessageObject *)message;

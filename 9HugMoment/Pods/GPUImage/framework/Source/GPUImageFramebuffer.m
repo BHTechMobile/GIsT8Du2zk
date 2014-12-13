@@ -153,7 +153,7 @@ void dataProviderUnlockCallback (void *info, const void *data, size_t size);
             if (err)
             {
                 NSLog(@"FBO size: %f, %f", _size.width, _size.height);
-                NSAssert(NO, @"Error at CVPixelBufferCreate %d", err);
+//                NSAssert(NO, @"Error at CVPixelBufferCreate %d", err);
             }
             
             err = CVOpenGLESTextureCacheCreateTextureFromImage (kCFAllocatorDefault, coreVideoTextureCache, renderTarget,
@@ -168,7 +168,7 @@ void dataProviderUnlockCallback (void *info, const void *data, size_t size);
                                                                 &renderTexture);
             if (err)
             {
-                NSAssert(NO, @"Error at CVOpenGLESTextureCacheCreateTextureFromImage %d", err);
+//                NSAssert(NO, @"Error at CVOpenGLESTextureCacheCreateTextureFromImage %d", err);
             }
             
             CFRelease(attrs);
@@ -194,7 +194,7 @@ void dataProviderUnlockCallback (void *info, const void *data, size_t size);
         
         #ifndef NS_BLOCK_ASSERTIONS
         GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
-        NSAssert(status == GL_FRAMEBUFFER_COMPLETE, @"Incomplete filter FBO: %d", status);
+//        NSAssert(status == GL_FRAMEBUFFER_COMPLETE, @"Incomplete filter FBO: %d", status);
         #endif
         
         glBindTexture(GL_TEXTURE_2D, 0);
@@ -266,7 +266,7 @@ void dataProviderUnlockCallback (void *info, const void *data, size_t size);
         return;
     }
 
-    NSAssert(framebufferReferenceCount > 0, @"Tried to overrelease a framebuffer, did you forget to call -useNextFrameForImageCapture before using -imageFromCurrentFramebuffer?");
+//    NSAssert(framebufferReferenceCount > 0, @"Tried to overrelease a framebuffer, did you forget to call -useNextFrameForImageCapture before using -imageFromCurrentFramebuffer?");
     framebufferReferenceCount--;
     if (framebufferReferenceCount < 1)
     {
@@ -309,8 +309,8 @@ void dataProviderUnlockCallback (void *info, const void *data, size_t size)
 - (CGImageRef)newCGImageFromFramebufferContents;
 {
     // a CGImage can only be created from a 'normal' color texture
-    NSAssert(self.textureOptions.internalFormat == GL_RGBA, @"For conversion to a CGImage the output texture format for this filter must be GL_RGBA.");
-    NSAssert(self.textureOptions.type == GL_UNSIGNED_BYTE, @"For conversion to a CGImage the type of the output texture of this filter must be GL_UNSIGNED_BYTE.");
+//    NSAssert(self.textureOptions.internalFormat == GL_RGBA, @"For conversion to a CGImage the output texture format for this filter must be GL_RGBA.");
+//    NSAssert(self.textureOptions.type == GL_UNSIGNED_BYTE, @"For conversion to a CGImage the type of the output texture of this filter must be GL_UNSIGNED_BYTE.");
     
     __block CGImageRef cgImageFromBytes;
     
@@ -401,7 +401,7 @@ void dataProviderUnlockCallback (void *info, const void *data, size_t size)
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     if ([GPUImageContext supportsFastTextureUpload])
     {
-        NSAssert(readLockCount > 0, @"Unbalanced call to -[GPUImageFramebuffer unlockAfterReading]");
+//        NSAssert(readLockCount > 0, @"Unbalanced call to -[GPUImageFramebuffer unlockAfterReading]");
         readLockCount--;
         if (readLockCount == 0)
         {
