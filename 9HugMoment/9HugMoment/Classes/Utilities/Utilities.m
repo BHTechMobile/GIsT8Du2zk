@@ -292,4 +292,22 @@
             ] lowercaseString];
 }
 
++ (void)geocodeLocation:(CLLocation*)location success:(void (^)(NSString* address, CLLocation* requestLocation))success failure:(void(^)(NSError* error))failure{
+    CLGeocoder* geocoder = [[CLGeocoder alloc] init];
+    __block CLLocation* blockLocation = location;
+    [geocoder reverseGeocodeLocation:blockLocation completionHandler:^(NSArray* placemarks, NSError* error){
+        if (error||[placemarks count]==0) {
+            if (failure) {
+                failure(error);
+            }
+        }
+        else{
+            CLPlacemark * placemark = [placemarks firstObject];
+            if (success) {
+                success([NSString stringWithFormat:@"%@, %@, %@, %@",(placemark.name == nil)?@"":placemark.name,(placemark.thoroughfare == nil)?@"":placemark.thoroughfare,(placemark.locality == nil)?@"":placemark.locality,(placemark.country == nil)?@"":placemark.country],blockLocation);
+            }
+        }
+    }];
+}
+
 @end

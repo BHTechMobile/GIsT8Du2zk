@@ -302,7 +302,9 @@
 
 +(void)getAllMessageSussess:(SuccessBlock)success failure:(MessageBlock)failure
 {
-    NSDictionary* parameters = @{KEY_TOKEN:[UserData currentAccount].strUserToken,@"idisplaylength":@999};
+    NSDictionary* parameters = @{KEY_TOKEN:[UserData currentAccount].strUserToken,
+                                 @"idisplaylength":@999,
+                                 @"refresh":@1};
     
     [BaseServices requestByMethod:@"GET" widthPath:@"message/browse" withParameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {

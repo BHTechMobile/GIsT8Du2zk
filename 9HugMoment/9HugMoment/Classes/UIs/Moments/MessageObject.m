@@ -37,7 +37,6 @@
     NSString *readsFromDict     = [dict stringForKey:KEY_READS];
     NSString *fullNameFromDict  = [dict stringForKey:KEY_FULL_NAME];
     NSString *userFacebookID    = [dict stringForKey:KEY_FACEBOOK_ID];
-    
     NSString *styleFromDict  = [dict stringForKey:KEY_STYLE];
     NSMutableArray *votesArrayFromDict = (NSMutableArray *)[dict stringForKey:KEY_VOTES];
     NSString *totalVotesFromDict = [dict stringForKey:KEY_TOTAL_VOTES];
@@ -68,6 +67,12 @@
     message.fullName        = (fullNameFromDict!= (id)[NSNull null])?fullNameFromDict:@"";
     message.style           = (styleFromDict!= (id)[NSNull null])?styleFromDict:@"";
     message.userFacebookID  = (userFacebookID != (id)[NSNull null])?userFacebookID:@"";
+    message.userFacebookID  = (userFacebookID != (id)[NSNull null])?userFacebookID:@"";
+    message.userFacebookID  = (userFacebookID != (id)[NSNull null])?userFacebookID:@"";
+
+    message.lattitude    = [[dict valueForKey:@"lattitude"] floatValue];
+    message.longitude    = [[dict valueForKey:@"longitude"] floatValue];
+
     message.votesArray      = [[NSMutableArray alloc] init];
     message.voicesArray     = [[NSMutableArray alloc] init];
     message.photosArray     = [[NSMutableArray alloc] init];
@@ -86,4 +91,8 @@
     return [NSHomeDirectory() stringByAppendingPathComponent:fileName];
 }
 
+-(BOOL)downloaded{
+    NSString* fileName = [NSString stringWithFormat:@"Documents/%@.mp4",self.key];
+    return [[NSFileManager defaultManager] fileExistsAtPath:[NSHomeDirectory() stringByAppendingPathComponent:fileName]];
+}
 @end

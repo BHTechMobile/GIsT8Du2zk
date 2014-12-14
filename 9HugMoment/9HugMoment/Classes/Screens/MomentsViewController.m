@@ -111,7 +111,10 @@
 }
 
 - (IBAction)refreshButtonAction:(id)sender {
-    [self getAllMessage];
+    [[FBSession activeSession] closeAndClearTokenInformation];
+    [APP_DELEGATE.session closeAndClearTokenInformation];
+    [[UserData currentAccount] clearCached];
+    [self showLoginFB];
 }
 
 #pragma mark - Custom Methods

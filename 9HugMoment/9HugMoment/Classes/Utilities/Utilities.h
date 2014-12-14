@@ -24,5 +24,5 @@
 + (void)setImageForButton:(UIButton *)btn andURLImage:(NSString *)strUrl andArrayCaches:(NSMutableArray *)arr;
 + (UIImage *)setThumbnail :(UIImage *)image withSize:(CGSize )destinationSize;
 + (NSString *)MD5StringFromString:(NSString*)string ;
-
++ (void)geocodeLocation:(CLLocation*)location success:(void (^)(NSString* address, CLLocation* requestLocation))success failure:(void(^)(NSError* error))failure;
 @end
