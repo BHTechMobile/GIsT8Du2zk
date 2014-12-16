@@ -27,19 +27,26 @@
     NSString *numberOfVote = message.totalVotes;
     _numberCountsLabel.text = numberOfVote;
     [_attachment2ImageView sd_setImageWithURL:[NSURL URLWithString:message.attachement2] placeholderImage:[UIImage imageNamed:IMAGE_NAME_ATTACHMENT_2_DEFAULT] options:SDWebImageProgressiveDownload completed:NULL];
-    _locationLabel.text = @"...";
-    if (message.lattitude==0 && message.longitude==0) {
+    if (message.latitude==0 && message.longitude==0) {
         _locationLabel.text = @"Private";
+    }else if ([message.location isEqualToString:@""] || !message.location) {
+        _locationLabel.text = @"...";
+    }else {
+        _locationLabel.text = message.location;
     }
-    else{
-        [Utilities geocodeLocation:[[CLLocation alloc] initWithLatitude:message.lattitude longitude:message.longitude] success:^(NSString *address, CLLocation *requestLocation) {
-            if (requestLocation.coordinate.latitude == message.lattitude && requestLocation.coordinate.longitude==message.longitude) {
-                _locationLabel.text = address;
-            }
-        } failure:^(NSError *error) {
-            NSLog(@"%@",error);
-        }];
-    }
+    
+//    if (message.latitude==0 && message.longitude==0) {
+//        _locationLabel.text = @"Private";
+//    }
+//    else{
+//        [Utilities geocodeLocation:[[CLLocation alloc] initWithLatitude:message.latitude longitude:message.longitude] success:^(NSString *address, CLLocation *requestLocation) {
+//            if (requestLocation.coordinate.latitude == message.latitude && requestLocation.coordinate.longitude==message.longitude) {
+//                _locationLabel.text = address;
+//            }
+//        } failure:^(NSError *error) {
+//            NSLog(@"%@",error);
+//        }];
+//    }
 }
 
 @end
