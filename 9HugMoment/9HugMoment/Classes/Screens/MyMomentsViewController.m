@@ -42,7 +42,7 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = kYouTitle;
-    _momentModel = [[MomentsModel alloc] init];
+    _myMomentModel = [[MyMomentsModel alloc] init];
     _avatarCache = [[NSCache alloc] init];
     _downloadVideoView = [DownloadVideoView fromNib];
     CGRect downloadVideoFrame = self.view.frame;
@@ -61,7 +61,7 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
     [self.view addSubview:_hud];
     
     _refreshControl = [[ODRefreshControl alloc] initInScrollView:self.myMessagesTableView];
-    [_refreshControl addTarget:self action:@selector(refreshTableView) forControlEvents:UIControlEventValueChanged];
+    [_refreshControl addTarget:self action:@selector(refreshTableVieww) forControlEvents:UIControlEventValueChanged];
 
     CGRect frameExtend2 = [_newsMomentButton frame];
     frameExtend2.origin.y = WIDTH_BUTTON_NEW_MOMENTS;
@@ -83,6 +83,7 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
                                                  name:CALL_PUSH_NOTIFICATIONS object:nil];
 //    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[sender tag] inSection:0];
 //    [self setupTableView:indexPath];
+    [self refreshTableVieww];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -110,19 +111,6 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
     } failure:^(NSError *error) {
         [_hud hide:YES];
     }];
-}
-
-#pragma mark - Segue
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"pushMomentDetailsView"]) {
-        momentDetailViewController = [segue destinationViewController];
-        momentDetailViewController.capturePath = [NSURL fileURLWithPath:message.localVideoPath];
-        momentDetailViewController.messageObject = message;
-        momentDetailViewController.hidesBottomBarWhenPushed = YES;
-        NSLog(@"message.localVideoPath %@",message.localVideoPath);
-        NSLog(@"momentDetailViewController.capture %@",momentDetailViewController.capturePath);
-    }
 }
 
 #pragma mark - TableView delegates & datasources
@@ -179,8 +167,15 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
         [_downloadVideoView downloadVideoByMessage:message];
     }else {
         //TODO: Go to detail message
-        [self performSegueWithIdentifier:@"pushMomentDetailsView" sender:nil];
-//        [self performSegueWithIdentifier:@"momentDetailsTrending" sender:nil];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Trending" bundle: nil];
+        MomentDetailViewController *lvc = [storyboard instantiateViewControllerWithIdentifier:@"momentDetailsTrending"];
+        lvc.capturePath = [NSURL fileURLWithPath:message.localVideoPath];
+        lvc.messageObject = message;
+        lvc.hidesBottomBarWhenPushed = YES;
+        NSLog(@"message.localVideoPath %@",message.localVideoPath);
+        NSLog(@"momentDetailViewController.capture %@",momentDetailViewController.capturePath);
+
+        [self.navigationController pushViewController:lvc animated:YES];
     }
 }
 
@@ -195,8 +190,15 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
     messageObject.downloaded = YES;
     [_downloadVideoView hideWithAnimation];
     //TODO: Go to detail message
-    [self performSegueWithIdentifier:@"pushMomentDetailsView" sender:nil];
-//    [self performSegueWithIdentifier:@"momentDetailsTrending" sender:nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Trending" bundle: nil];
+    MomentDetailViewController *lvc = [storyboard instantiateViewControllerWithIdentifier:@"momentDetailsTrending"];
+    lvc.capturePath = [NSURL fileURLWithPath:message.localVideoPath];
+    lvc.messageObject = message;
+    lvc.hidesBottomBarWhenPushed = YES;
+    NSLog(@"message.localVideoPath %@",message.localVideoPath);
+    NSLog(@"momentDetailViewController.capture %@",momentDetailViewController.capturePath);
+
+    [self.navigationController pushViewController:lvc animated:YES];
 }
 
 - (void)downloadVideoFailure:(MessageObject *)messageObject  {
@@ -206,7 +208,7 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
 
 #pragma mark - Refresh control management
 
-- (void)refreshTableView {
+- (void)refreshTableVieww {
     [_myMomentModel getMyMessagesSuccess:^(id result) {
         NSLog(@"Message found: %lu",(unsigned long)_myMomentModel.messages.count);
         [self refreshTableViewDone];
@@ -219,12 +221,6 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
 - (void)refreshTableViewDone {
     [_refreshControl endRefreshing];
     [_myMessagesTableView reloadData];
-}
-
-#pragma mark - FBConnectViewController Delegate
-
--(void)fbConnectViewController:(FBConnectViewController *)vc didConnectFacebookSuccess:(id)response{
-    [self getAllMessage];
 }
 
 @end
