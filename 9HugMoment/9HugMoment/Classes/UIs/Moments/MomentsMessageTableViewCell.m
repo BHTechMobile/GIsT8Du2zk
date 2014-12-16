@@ -27,10 +27,8 @@
     NSString *numberOfVote = message.totalVotes;
     _numberCountsLabel.text = numberOfVote;
     [_attachment2ImageView sd_setImageWithURL:[NSURL URLWithString:message.attachement2] placeholderImage:[UIImage imageNamed:IMAGE_NAME_ATTACHMENT_2_DEFAULT] options:SDWebImageProgressiveDownload completed:NULL];
-    if (message.latitude==0 && message.longitude==0) {
+    if ([message.location isEqualToString:@""] || !message.location) {
         _locationLabel.text = @"Private";
-    }else if ([message.location isEqualToString:@""] || !message.location) {
-        _locationLabel.text = @"...";
     }else {
         _locationLabel.text = message.location;
     }
