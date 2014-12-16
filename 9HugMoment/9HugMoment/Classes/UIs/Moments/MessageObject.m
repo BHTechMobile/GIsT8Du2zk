@@ -67,11 +67,10 @@
     message.fullName        = (fullNameFromDict!= (id)[NSNull null])?fullNameFromDict:@"";
     message.style           = (styleFromDict!= (id)[NSNull null])?styleFromDict:@"";
     message.userFacebookID  = (userFacebookID != (id)[NSNull null])?userFacebookID:@"";
-    message.userFacebookID  = (userFacebookID != (id)[NSNull null])?userFacebookID:@"";
-    message.userFacebookID  = (userFacebookID != (id)[NSNull null])?userFacebookID:@"";
 
-    message.lattitude    = [[dict valueForKey:@"lattitude"] floatValue];
-    message.longitude    = [[dict valueForKey:@"longitude"] floatValue];
+    message.latitude        = [[dict valueForKey:KEY_LATITUDE] floatValue];
+    message.longitude       = [[dict valueForKey:KEY_LONGITUDE] floatValue];
+    message.location        = [dict valueForKey:KEY_LOCATION];
 
     message.votesArray      = [[NSMutableArray alloc] init];
     message.voicesArray     = [[NSMutableArray alloc] init];

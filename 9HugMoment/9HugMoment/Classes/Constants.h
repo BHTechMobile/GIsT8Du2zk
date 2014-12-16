@@ -124,6 +124,9 @@ typedef NS_ENUM(NSInteger, MomentDetailCellType)
 #define KEY_PASSWORD @"password"
 #define KEY_CREATED_DATE @"createddate"
 #define KEY_REFRESH_REQUEST @"refresh"
+#define KEY_LATITUDE @"latitude"
+#define KEY_LONGITUDE @"longitude"
+#define KEY_LOCATION @"location"
 //User setting key
 #define KEY_USER_SETTING_LOGGED_IN_ID @"userSettingLoggedInID"
 #define KEY_USER_SETTING_LOGGED_IN_TOKEN @"userSettingLoggedInToken"
