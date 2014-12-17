@@ -165,7 +165,7 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
 #pragma mark - Button New moment
 
 -(void)callPullDownRequest:(UIButton *)btn{
-    [self getAllMessage];
+    [self refreshTableVieww];
 }
 
 #pragma mark - DownloadVideo delegate
