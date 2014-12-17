@@ -14,7 +14,6 @@
 #import "ODRefreshControl.h"
 #import "MyMomentsModel.h"
 #import "ArrayDataSource.h"
-#define kYouTitle @"My Moments"
 
 static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
 
@@ -42,7 +41,7 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = kYouTitle;
+    self.navigationItem.title = TITLES_MYMOMENTS;
     _myMomentModel = [[MyMomentsModel alloc] init];
     _avatarCache = [[NSCache alloc] init];
     _downloadVideoView = [DownloadVideoView fromNib];
@@ -84,7 +83,6 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
                                                  name:CALL_PUSH_NOTIFICATIONS object:nil];
     
     [self refreshTableVieww];
-//    NSMutableArray *personArray = [[NSMutableArray alloc]init];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -102,13 +100,12 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
 
 #pragma mark - Custom Methods
 
-//- (void)setupTable{
-//    NSLog(@"_myMomentModel.messages == %lu",(unsigned long)_myMomentModel.messages.count);
-//    for (int i=0; i<_myMomentModel.messages.count; i++) {
-//        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-//        [self setupTableView:indexPath];
-//    }
-//}
+- (void)setupTable{
+    for (int i=0; i<_myMomentModel.messages.count; i++) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+        [self setupTableView:indexPath];
+    }
+}
 
 - (void)getAllMessage {
     _newsMomentButton.hidden = YES;
@@ -124,60 +121,28 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
 
 #pragma mark - TableView delegates & datasources
 
-//- (void)setupTableView:(NSIndexPath *)indexPath{
-//    TableViewCellConfigureBlock configureCell = ^(MomentsMessageTableViewCell *momentsMessageTableViewCell, MyMomentsModel *myMomentsModel){
-//        MessageObject *mymessage = (MessageObject *)[myMomentsModel.messages objectAtIndex:indexPath.row];
-//        [momentsMessageTableViewCell setMessageWithMessage:mymessage];
-//        UIImage *userAvatar = [_avatarCache objectForKey:mymessage.userFacebookID];
-//        if (!userAvatar) {
-//            [BaseServices downloadUserImageWithFacebookID:mymessage.userFacebookID
-//                                                  success:^(AFHTTPRequestOperation *operation, id responseObject){
-//                momentsMessageTableViewCell.thumbnailImageView.image = responseObject;
-//                [_avatarCache setObject:responseObject forKey:mymessage.userFacebookID];
-//            }failure:^(AFHTTPRequestOperation *operation, NSError *error){
-//                NSLog(@"Error get user image from facebook: %@",error);
-// }];
-//        }else {
-//            momentsMessageTableViewCell.thumbnailImageView.image = userAvatar;
-//        }
-//    };
-//    [personArray addObject:[_myMomentModel.messages objectAtIndex:indexPath.row]];
-//    _arrayDataSource = [[ArrayDataSource alloc]initWithItems:personArray
-//                                              cellIdentifier:MomentViewCellIdentifier
-//                                          configureCellBlock:configureCell];
-//    
-//    self.myMessagesTableView.dataSource = self.arrayDataSource;
-//    [self.myMessagesTableView registerClass:[MomentsMessageTableViewCell class] forCellReuseIdentifier:MomentViewCellIdentifier];
-//}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return HEIGHT_ROW_TABLE_VIEW_MOMENTS_VIEW_CONTROLLER;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _myMomentModel.messages.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    MomentsMessageTableViewCell *cell = (MomentsMessageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:IDENTIFIER_MOMENTS_MESSAGE_TABLE_VIEW_CELL];
-    if (!cell) {
-        cell = [[MomentsMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:IDENTIFIER_MOMENTS_MESSAGE_TABLE_VIEW_CELL];
-    }
-    MessageObject *mymessage = (MessageObject *)[_myMomentModel.messages objectAtIndex:indexPath.row];
-    [cell setMessageWithMessage:mymessage];
-    UIImage *userAvatar = [_avatarCache objectForKey:mymessage.userFacebookID];
-    if (!userAvatar) {
-        [BaseServices downloadUserImageWithFacebookID:mymessage.userFacebookID success:^(AFHTTPRequestOperation *operation, id responseObject){
-            cell.thumbnailImageView.image = responseObject;
-            [_avatarCache setObject:responseObject forKey:mymessage.userFacebookID];
-        }failure:^(AFHTTPRequestOperation *operation, NSError *error){
-            NSLog(@"Error get user image from facebook: %@",error);
-        }];
-    }else {
-        cell.thumbnailImageView.image = userAvatar;
-    }
-    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    return cell;
+- (void)setupTableView:(NSIndexPath *)indexPath{
+    TableViewCellConfigureBlock configureCell = ^(MomentsMessageTableViewCell *momentsMessageTableViewCell, MessageObject *myMessage){
+        [momentsMessageTableViewCell setMessageWithMessage:myMessage];
+        UIImage *userAvatar = [_avatarCache objectForKey:myMessage.userFacebookID];
+        if (!userAvatar) {
+            [BaseServices downloadUserImageWithFacebookID:myMessage.userFacebookID
+                                                  success:^(AFHTTPRequestOperation *operation, id responseObject){
+                                                      momentsMessageTableViewCell.thumbnailImageView.image = responseObject;
+                                                      [_avatarCache setObject:responseObject forKey:myMessage.userFacebookID];
+                                                  }failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                                                      NSLog(@"Error get user image from facebook: %@",error);
+                                                  }];
+        }else {
+            momentsMessageTableViewCell.thumbnailImageView.image = userAvatar;
+        }
+    };
+    _arrayDataSource = [[ArrayDataSource alloc]initWithItems:_myMomentModel.messages
+                                              cellIdentifier:MomentViewCellIdentifier
+                                          configureCellBlock:configureCell];
+    
+    self.myMessagesTableView.dataSource = self.arrayDataSource;
+    [self.myMessagesTableView registerClass:[MomentsMessageTableViewCell class] forCellReuseIdentifier:MomentViewCellIdentifier];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -188,14 +153,11 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
         [_downloadVideoView downloadVideoByMessage:message];
     }else {
         //TODO: Go to detail message
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Trending" bundle: nil];
-        MomentDetailViewController *lvc = [storyboard instantiateViewControllerWithIdentifier:@"momentDetailsTrending"];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:TRENDING_STORY_BOARD bundle: nil];
+        MomentDetailViewController *lvc = [storyboard instantiateViewControllerWithIdentifier:MOMENTS_DETAILS_TRENDING_INDENTIFIER];
         lvc.capturePath = [NSURL fileURLWithPath:message.localVideoPath];
         lvc.messageObject = message;
         lvc.hidesBottomBarWhenPushed = YES;
-        NSLog(@"message.localVideoPath %@",message.localVideoPath);
-        NSLog(@"momentDetailViewController.capture %@",momentDetailViewController.capturePath);
-
         [self.navigationController pushViewController:lvc animated:YES];
     }
 }
@@ -211,14 +173,11 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
     messageObject.downloaded = YES;
     [_downloadVideoView hideWithAnimation];
     //TODO: Go to detail message
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Trending" bundle: nil];
-    MomentDetailViewController *lvc = [storyboard instantiateViewControllerWithIdentifier:@"momentDetailsTrending"];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:TRENDING_STORY_BOARD bundle: nil];
+    MomentDetailViewController *lvc = [storyboard instantiateViewControllerWithIdentifier:MOMENTS_DETAILS_TRENDING_INDENTIFIER];
     lvc.capturePath = [NSURL fileURLWithPath:message.localVideoPath];
     lvc.messageObject = message;
     lvc.hidesBottomBarWhenPushed = YES;
-    NSLog(@"message.localVideoPath %@",message.localVideoPath);
-    NSLog(@"momentDetailViewController.capture %@",momentDetailViewController.capturePath);
-
     [self.navigationController pushViewController:lvc animated:YES];
 }
 
@@ -242,7 +201,7 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
 - (void)refreshTableViewDone {
     [_refreshControl endRefreshing];
     [_myMessagesTableView reloadData];
-//    [self setupTable];
+    [self setupTable];
 }
 
 @end

@@ -222,4 +222,10 @@ typedef NS_ENUM(NSInteger, MomentDetailCellType)
 #define MARGIN_RIGHT_DEFAULT_USER_PHOTO_VIEW 5
 #define MARGIN_TOP_DEFAULT_USER_PHOTO_VIEW 5
 
+#pragma mark - MyMomentsViewController
+// My Moments
+#define TITLES_MYMOMENTS @"My Moments"
+#define TRENDING_STORY_BOARD @"Trending"
+#define MOMENTS_DETAILS_TRENDING_INDENTIFIER @"momentDetailsTrending"
+
 #endif
