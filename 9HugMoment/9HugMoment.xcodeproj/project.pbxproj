@@ -12,6 +12,8 @@
 		51A6E3071A31BC3C00BE3039 /* JTTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A6E3031A31BC3C00BE3039 /* JTTabBarController.m */; };
 		51A6E3081A31BC3C00BE3039 /* JTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A6E3051A31BC3C00BE3039 /* JTViewController.m */; };
 		9F0671E61A2716AA0077F66B /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F0671E51A2716AA0077F66B /* Utilities.m */; };
+		9F3611991A3EEDD3001700A1 /* ArrayDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F3611961A3EEDD3001700A1 /* ArrayDataSource.m */; };
+		9F36119A1A3EEDD3001700A1 /* MyMomentsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F3611981A3EEDD3001700A1 /* MyMomentsModel.m */; };
 		9F8D55EC1A3694A700735634 /* PlayerViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8D55EA1A3694A700735634 /* PlayerViewTableViewCell.m */; };
 		9F8D55ED1A3694A700735634 /* PlayerViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F8D55EB1A3694A700735634 /* PlayerViewTableViewCell.xib */; };
 		9F8D55F11A36952D00735634 /* UserInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8D55EF1A36952D00735634 /* UserInfoTableViewCell.m */; };
@@ -112,6 +114,10 @@
 		9F0671D81A26CB7F0077F66B /* 9HugMoment-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "9HugMoment-Prefix.pch"; sourceTree = "<group>"; };
 		9F0671E41A2716AA0077F66B /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		9F0671E51A2716AA0077F66B /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
+		9F3611951A3EEDD3001700A1 /* ArrayDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArrayDataSource.h; sourceTree = "<group>"; };
+		9F3611961A3EEDD3001700A1 /* ArrayDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArrayDataSource.m; sourceTree = "<group>"; };
+		9F3611971A3EEDD3001700A1 /* MyMomentsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMomentsModel.h; sourceTree = "<group>"; };
+		9F3611981A3EEDD3001700A1 /* MyMomentsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyMomentsModel.m; sourceTree = "<group>"; };
 		9F8D55E91A3694A700735634 /* PlayerViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerViewTableViewCell.h; sourceTree = "<group>"; };
 		9F8D55EA1A3694A700735634 /* PlayerViewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerViewTableViewCell.m; sourceTree = "<group>"; };
 		9F8D55EB1A3694A700735634 /* PlayerViewTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerViewTableViewCell.xib; sourceTree = "<group>"; };
@@ -510,6 +516,10 @@
 		CECCB7821A2344D300C1220C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9F3611951A3EEDD3001700A1 /* ArrayDataSource.h */,
+				9F3611961A3EEDD3001700A1 /* ArrayDataSource.m */,
+				9F3611971A3EEDD3001700A1 /* MyMomentsModel.h */,
+				9F3611981A3EEDD3001700A1 /* MyMomentsModel.m */,
 				9FD2AB151A3AFF0200275FDC /* LocationManagement.h */,
 				9FD2AB161A3AFF0200275FDC /* LocationManagement.m */,
 				D23BA4781A357FFB000EDE47 /* MomentsModel.h */,
@@ -781,6 +791,7 @@
 				9F9F98431A286D640089018B /* PlayerView.m in Sources */,
 				9FA12BFF1A35D87600CE737C /* MomentsDetailsModel.m in Sources */,
 				D23BA4751A357FA0000EDE47 /* NSDictionary+Helpers.m in Sources */,
+				9F3611991A3EEDD3001700A1 /* ArrayDataSource.m in Sources */,
 				9FFFDDC31A2CD10E0081ADC9 /* UserData.m in Sources */,
 				CECCB78E1A23470900C1220C /* MomentsViewController.m in Sources */,
 				D253AB931A36FEDC008ABE10 /* ODRefreshControl.m in Sources */,
@@ -788,6 +799,7 @@
 				51A6E3081A31BC3C00BE3039 /* JTViewController.m in Sources */,
 				D23BA4681A357F75000EDE47 /* MomentsMessageTableViewCell.m in Sources */,
 				D23BA4741A357FA0000EDE47 /* NSDate+Helpers.m in Sources */,
+				9F36119A1A3EEDD3001700A1 /* MyMomentsModel.m in Sources */,
 				CECCB7971A23472E00C1220C /* CaptureVideoViewController.m in Sources */,
 				9FD2AB171A3AFF0200275FDC /* LocationManagement.m in Sources */,
 				D23BA4771A357FA0000EDE47 /* UIColor+Helpers.m in Sources */,
