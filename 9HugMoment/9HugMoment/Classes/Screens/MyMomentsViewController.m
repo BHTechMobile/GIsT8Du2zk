@@ -34,7 +34,6 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
     MessageObject *message;
     ODRefreshControl *_refreshControl;
     MBProgressHUD *_hud;
-    NSCache *_avatarCache;
     NSMutableArray *personArray;
 }
 @synthesize _facebookManager;
@@ -43,7 +42,6 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
     [super viewDidLoad];
     self.navigationItem.title = TITLES_MYMOMENTS;
     _myMomentModel = [[MyMomentsModel alloc] init];
-    _avatarCache = [[NSCache alloc] init];
     _downloadVideoView = [DownloadVideoView fromNib];
     CGRect downloadVideoFrame = self.view.frame;
     downloadVideoFrame.origin.y = self.myMessagesTableView.frame.origin.y;
@@ -61,7 +59,7 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
     [self.view addSubview:_hud];
     
     _refreshControl = [[ODRefreshControl alloc] initInScrollView:self.myMessagesTableView];
-    [_refreshControl addTarget:self action:@selector(refreshTableVieww) forControlEvents:UIControlEventValueChanged];
+    [_refreshControl addTarget:self action:@selector(refreshTableView) forControlEvents:UIControlEventValueChanged];
     
     CGRect frameExtend2 = [_newsMomentButton frame];
     frameExtend2.origin.y = WIDTH_BUTTON_NEW_MOMENTS;
@@ -82,7 +80,7 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushNSNotifications:)
                                                  name:CALL_PUSH_NOTIFICATIONS object:nil];
     
-    [self refreshTableVieww];
+    [self refreshTableView];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -124,18 +122,21 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
 - (void)setupTableView:(NSIndexPath *)indexPath{
     TableViewCellConfigureBlock configureCell = ^(MomentsMessageTableViewCell *momentsMessageTableViewCell, MessageObject *myMessage){
         [momentsMessageTableViewCell setMessageWithMessage:myMessage];
-        UIImage *userAvatar = [_avatarCache objectForKey:myMessage.userFacebookID];
+        
+        UIImage *userAvatar = [_myMomentModel getImageFromCacheWithKey:myMessage.userFacebookID];
         if (!userAvatar) {
-            [BaseServices downloadUserImageWithFacebookID:myMessage.userFacebookID
-                                                  success:^(AFHTTPRequestOperation *operation, id responseObject){
-                                                      momentsMessageTableViewCell.thumbnailImageView.image = responseObject;
-                                                      [_avatarCache setObject:responseObject forKey:myMessage.userFacebookID];
-                                                  }failure:^(AFHTTPRequestOperation *operation, NSError *error){
-                                                      NSLog(@"Error get user image from facebook: %@",error);
-                                                  }];
+            [_myMomentModel downloadImageSuccess:myMessage.userFacebookID success:^(id result){
+                if (result) {
+                    momentsMessageTableViewCell.thumbnailImageView.image = result;
+                    [_myMomentModel setImageToCacheWithImage:result andKey:myMessage.userFacebookID];
+                }
+            }failure:^(NSError *error) {
+                NSLog(@"Error get user image from facebook: %@",error);
+            }];
         }else {
             momentsMessageTableViewCell.thumbnailImageView.image = userAvatar;
         }
+        
     };
     _arrayDataSource = [[ArrayDataSource alloc]initWithItems:_myMomentModel.messages
                                               cellIdentifier:MomentViewCellIdentifier
@@ -165,7 +166,7 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
 #pragma mark - Button New moment
 
 -(void)callPullDownRequest:(UIButton *)btn{
-    [self refreshTableVieww];
+    [self refreshTableView];
 }
 
 #pragma mark - DownloadVideo delegate
@@ -188,7 +189,7 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
 
 #pragma mark - Refresh control management
 
-- (void)refreshTableVieww {
+- (void)refreshTableView {
     [_myMomentModel getMyMessagesSuccess:^(id result) {
         NSLog(@"Message found: %lu",(unsigned long)_myMomentModel.messages.count);
         [self refreshTableViewDone];

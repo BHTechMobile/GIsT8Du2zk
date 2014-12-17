@@ -8,14 +8,18 @@
 
 #import "MyMomentsModel.h"
 #import "MessageObject.h"
+#import "MomentsMessageTableViewCell.h"
 
-@implementation MyMomentsModel
+@implementation MyMomentsModel{
+    MomentsMessageTableViewCell *momentsMessageTableViewCell;
+}
 
 - (id)init
 {
     self = [super init];
     if(self){
         _messages = [NSMutableArray array];
+        _avatarCache = [[NSCache alloc] init];
     }
     return self;
 }
@@ -58,6 +62,32 @@
             failure(error);
         }
     }];
+}
+
+- (void)downloadImageSuccess:(NSString *)facebookID success:(void (^)(id result))success
+                     failure:(void (^)(NSError *error))failure{
+        [BaseServices downloadUserImageWithFacebookID:facebookID
+                                              success:^(AFHTTPRequestOperation *operation, id responseObject){
+                                                  if (success) {
+                                                      success(responseObject);
+                                                  }
+                                              }failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                                                  if (failure) {
+                                                      failure(error);
+                                                  }
+                                              }];
+}
+
+#pragma mark - Caches Management
+- (UIImage *)getImageFromCacheWithKey:(NSString *)imageKey
+{
+    UIImage *userAvatar = [_avatarCache objectForKey:imageKey];
+    return userAvatar;
+}
+
+- (void)setImageToCacheWithImage:(UIImage *)image andKey:(NSString *)imageKey
+{
+    [_avatarCache setObject:image forKey:imageKey];
 }
 
 @end
