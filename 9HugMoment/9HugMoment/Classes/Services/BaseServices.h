@@ -37,6 +37,7 @@ typedef void (^DownloadResponseBlock)(float progress);
          notification:(BOOL)notiF thumbnail:(UIImage*)image sussess:(SuccessBlock)success failure:(MessageBlock)failure;
 
 +(void)getAllMessageSussess:(SuccessBlock)success failure:(MessageBlock)failure;
++(void)getMyMessageSussess:(SuccessBlock)success failure:(MessageBlock)failure;
 
 +(void)resetMessage:(MessageObject *)message Sussess:(SuccessBlock)success failure:(MessageBlock)failure;
 

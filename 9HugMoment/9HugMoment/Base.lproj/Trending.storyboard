@@ -756,7 +756,7 @@
         <!--Moment Detail View Controller-->
         <scene sceneID="VmF-Wu-dOt">
             <objects>
-                <viewController id="GmX-8D-knb" customClass="MomentDetailViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="momentDetailsTrending" id="GmX-8D-knb" customClass="MomentDetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hKO-Ze-n5E"/>
                         <viewControllerLayoutGuide type="bottom" id="XAz-JG-emn"/>
