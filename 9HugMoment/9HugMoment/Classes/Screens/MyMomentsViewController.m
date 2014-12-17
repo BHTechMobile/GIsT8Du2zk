@@ -36,6 +36,7 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
     ODRefreshControl *_refreshControl;
     MBProgressHUD *_hud;
     NSCache *_avatarCache;
+    NSMutableArray *personArray;
 }
 @synthesize _facebookManager;
 
@@ -81,9 +82,9 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
     self.newsMomentButton.hidden = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushNSNotifications:)
                                                  name:CALL_PUSH_NOTIFICATIONS object:nil];
-//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[sender tag] inSection:0];
-//    [self setupTableView:indexPath];
+    
     [self refreshTableVieww];
+//    NSMutableArray *personArray = [[NSMutableArray alloc]init];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -101,6 +102,14 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
 
 #pragma mark - Custom Methods
 
+//- (void)setupTable{
+//    NSLog(@"_myMomentModel.messages == %lu",(unsigned long)_myMomentModel.messages.count);
+//    for (int i=0; i<_myMomentModel.messages.count; i++) {
+//        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+//        [self setupTableView:indexPath];
+//    }
+//}
+
 - (void)getAllMessage {
     _newsMomentButton.hidden = YES;
     [_hud show:YES];
@@ -115,19 +124,31 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
 
 #pragma mark - TableView delegates & datasources
 
-- (void)setupTableView:(NSIndexPath *)indexPath{
-    TableViewCellConfigureBlock configureCell = ^(MomentsMessageTableViewCell *momentsMessageTableViewCell,MyMomentsModel *myMomentsModel){
-        MessageObject *mymessage = (MessageObject *)[_myMomentModel.messages objectAtIndex:indexPath.row];
-        [momentsMessageTableViewCell setMessageWithMessage:mymessage];
-    };
-    NSArray *myMessage = _myMomentModel.messages;
-    _arrayDataSource = [[ArrayDataSource alloc]initWithItems:myMessage cellIdentifier:MomentViewCellIdentifier configureCellBlock:configureCell];
-    self.myMessagesTableView.dataSource = self.arrayDataSource;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return NUMBER_OF_SECTION_TABLE_VIEW_MOMENTS_VIEW_CONTROLLER;
-}
+//- (void)setupTableView:(NSIndexPath *)indexPath{
+//    TableViewCellConfigureBlock configureCell = ^(MomentsMessageTableViewCell *momentsMessageTableViewCell, MyMomentsModel *myMomentsModel){
+//        MessageObject *mymessage = (MessageObject *)[myMomentsModel.messages objectAtIndex:indexPath.row];
+//        [momentsMessageTableViewCell setMessageWithMessage:mymessage];
+//        UIImage *userAvatar = [_avatarCache objectForKey:mymessage.userFacebookID];
+//        if (!userAvatar) {
+//            [BaseServices downloadUserImageWithFacebookID:mymessage.userFacebookID
+//                                                  success:^(AFHTTPRequestOperation *operation, id responseObject){
+//                momentsMessageTableViewCell.thumbnailImageView.image = responseObject;
+//                [_avatarCache setObject:responseObject forKey:mymessage.userFacebookID];
+//            }failure:^(AFHTTPRequestOperation *operation, NSError *error){
+//                NSLog(@"Error get user image from facebook: %@",error);
+// }];
+//        }else {
+//            momentsMessageTableViewCell.thumbnailImageView.image = userAvatar;
+//        }
+//    };
+//    [personArray addObject:[_myMomentModel.messages objectAtIndex:indexPath.row]];
+//    _arrayDataSource = [[ArrayDataSource alloc]initWithItems:personArray
+//                                              cellIdentifier:MomentViewCellIdentifier
+//                                          configureCellBlock:configureCell];
+//    
+//    self.myMessagesTableView.dataSource = self.arrayDataSource;
+//    [self.myMessagesTableView registerClass:[MomentsMessageTableViewCell class] forCellReuseIdentifier:MomentViewCellIdentifier];
+//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return HEIGHT_ROW_TABLE_VIEW_MOMENTS_VIEW_CONTROLLER;
@@ -221,6 +242,7 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
 - (void)refreshTableViewDone {
     [_refreshControl endRefreshing];
     [_myMessagesTableView reloadData];
+//    [self setupTable];
 }
 
 @end

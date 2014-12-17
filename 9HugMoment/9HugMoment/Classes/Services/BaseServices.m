@@ -302,6 +302,7 @@
 
 +(void)getMyMessageSussess:(SuccessBlock)success failure:(MessageBlock)failure{
     NSDictionary* parameters = @{KEY_TOKEN:[UserData currentAccount].strUserToken,
+                                 KEY_USER_ID: [UserData currentAccount].strId,
                                  @"idisplaylength":@999,
                                  @"refresh":@1};
     

@@ -29,29 +29,31 @@
         NSArray* aaData;
         if ([dict valueForKey:@"aaData"] && [[dict valueForKey:@"aaData"] isKindOfClass:[NSArray class]]) {
             aaData = [dict customObjectForKey:@"aaData"];
+            
+            NSLog(@"aaData %@",aaData);
+            [_messages removeAllObjects];
+            for (NSDictionary* mDict in aaData) {
+                MessageObject* message = [MessageObject createMessageByDictionnary:mDict];
+                [_messages addObject:message];
+            }
+            
+            for (int i =0; i<_messages.count-1; ++i) {
+                for (int j=i+1; j<_messages.count; ++j) {
+                    if (((MessageObject*)_messages[i]).createDated.integerValue < ((MessageObject*)_messages[j]).createDated.integerValue) {
+                        [_messages exchangeObjectAtIndex:i withObjectAtIndex:j];
+                    }
+                }
+            }
         }
         else{
             aaData = @[];
         }
-        NSLog(@"%@",aaData);
-        [_messages removeAllObjects];
-        for (NSDictionary* mDict in aaData) {
-            MessageObject* message = [MessageObject createMessageByDictionnary:mDict];
-            [_messages addObject:message];
-        }
         
-        for (int i =0; i<_messages.count-1; ++i) {
-            for (int j=i+1; j<_messages.count; ++j) {
-                if (((MessageObject*)_messages[i]).createDated.integerValue < ((MessageObject*)_messages[j]).createDated.integerValue) {
-                    [_messages exchangeObjectAtIndex:i withObjectAtIndex:j];
-                }
-            }
-        }
         if (success) {
             success(responseObject);
         }
     } failure:^(NSString *bodyString, NSError *error) {
-        NSLog(@"%@",bodyString);
+        NSLog(@"bodyString %@",bodyString);
         if (failure) {
             failure(error);
         }
