@@ -76,4 +76,11 @@
     }];
 }
 
++(DownloadVideoView*)downloadVideoViewWithDelegate:(id)delgate{
+    DownloadVideoView *_downloadVideoView = [DownloadVideoView fromNib];
+    [_downloadVideoView setFrameDownloadVideo:_downloadVideoView];
+    _downloadVideoView.delegate = delgate;
+    return _downloadVideoView;
+}
+
 @end

@@ -36,10 +36,8 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
     [super viewDidLoad];
     self.navigationItem.title = TITLES_MYMOMENTS;
     _myMomentModel = [[MyMomentsModel alloc] init];
-    
-    _downloadVideoView = [DownloadVideoView fromNib];
-    [_downloadVideoView setFrameDownloadVideo:_downloadVideoView];
-    _downloadVideoView.delegate = self;
+
+    _downloadVideoView = [DownloadVideoView downloadVideoViewWithDelegate:self];
     [self.view addSubview:_downloadVideoView];
     
     _hud = [[MBProgressHUD alloc] initWithView:self.view];
