@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet YLProgressBar *progressView;
 @property (weak, nonatomic) IBOutlet UILabel *progressLabel;
 @property (weak, nonatomic) IBOutlet UIView *activeView;
+@property (weak, nonatomic) IBOutlet UIView *view;
 
 @end
 
@@ -40,8 +41,17 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        
     }
     return self;
+}
+
+- (void)setFrameDownloadVideo:(UIView *)ctView{
+    CGRect downloadVideoFrame = self.view.frame;
+    downloadVideoFrame.origin.y = self.view.frame.origin.y;
+    downloadVideoFrame.size.height = downloadVideoFrame.size.height - self.view.frame.origin.y;
+    ctView.frame = downloadVideoFrame;
+    ctView.alpha = 0.0;
 }
 
 - (void)downloadVideoByMessage:(MessageObject *)message

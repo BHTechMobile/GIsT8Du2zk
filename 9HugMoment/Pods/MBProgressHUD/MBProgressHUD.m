@@ -187,6 +187,12 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 		self.removeFromSuperViewOnHide = NO;
 		self.minSize = CGSizeZero;
 		self.square = NO;
+        
+        self.userInteractionEnabled = NO;
+        self.labelText = NSLocalizedString(@"Loading...", nil);
+        self.labelFont = [UIFont fontWithName:@"HelveticaNeue" size:14.0];
+        self.mode = MBProgressHUDModeIndeterminate;
+        
 		self.contentMode = UIViewContentModeCenter;
 		self.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin
 								| UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;

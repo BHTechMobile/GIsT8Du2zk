@@ -5,6 +5,14 @@
 
 #import "MomentsMessageTableViewCell.h"
 #import "UIImageView+WebCache.h"
+#import "ImageCacheObject.h"
+#import "MyMomentsModel.h"
+
+@interface MomentsMessageTableViewCell ()
+
+@property (nonatomic,strong) MessageObject *message;
+
+@end
 
 @implementation MomentsMessageTableViewCell
 
@@ -18,11 +26,14 @@
         self = [[[NSBundle mainBundle] loadNibNamed:[[self class] description] owner:self options:nil] objectAtIndex:0];
         [_thumbnailImageView.layer setMasksToBounds:YES];
         [_thumbnailImageView.layer setCornerRadius:HALF_OF(_thumbnailImageView.frame.size.width)];
+;
     }
     return self;
 }
 
 - (void)setMessageWithMessage:(MessageObject *)message {
+    _message = message;
+    
     _userNameLabel.text = message.fullName;
     NSString *numberOfVote = message.totalVotes;
     _numberCountsLabel.text = numberOfVote;
@@ -33,18 +44,18 @@
         _locationLabel.text = message.location;
     }
     
-//    if (message.latitude==0 && message.longitude==0) {
-//        _locationLabel.text = @"Private";
-//    }
-//    else{
-//        [Utilities geocodeLocation:[[CLLocation alloc] initWithLatitude:message.latitude longitude:message.longitude] success:^(NSString *address, CLLocation *requestLocation) {
-//            if (requestLocation.coordinate.latitude == message.latitude && requestLocation.coordinate.longitude==message.longitude) {
-//                _locationLabel.text = address;
-//            }
-//        } failure:^(NSError *error) {
-//            NSLog(@"%@",error);
-//        }];
-//    }
+    UIImage *userAvatar = [[ImageCacheObject shareImageCache] getImageFromCacheWithKey:message.userFacebookID];
+    if (!userAvatar) {
+        [BaseServices downloadUserImageWithFacebookID:message.userFacebookID success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            _thumbnailImageView.image = responseObject;
+            [[ImageCacheObject shareImageCache] setImageToCacheWithImage:responseObject andKey:message.userFacebookID];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error get user image from facebook: %@",error);
+
+        }];
+    }else {
+        _thumbnailImageView.image = userAvatar;
+    }
 }
 
 @end

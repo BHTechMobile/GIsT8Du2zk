@@ -10,9 +10,7 @@
 #import "MessageObject.h"
 #import "MomentsMessageTableViewCell.h"
 
-@implementation MyMomentsModel{
-    MomentsMessageTableViewCell *momentsMessageTableViewCell;
-}
+@implementation MyMomentsModel
 
 - (id)init
 {
@@ -61,20 +59,6 @@
             failure(error);
         }
     }];
-}
-
-- (void)downloadImageSuccess:(NSString *)facebookID success:(void (^)(id result))success
-                     failure:(void (^)(NSError *error))failure{
-        [BaseServices downloadUserImageWithFacebookID:facebookID
-                                              success:^(AFHTTPRequestOperation *operation, id responseObject){
-                                                  if (success) {
-                                                      success(responseObject);
-                                                  }
-                                              }failure:^(AFHTTPRequestOperation *operation, NSError *error){
-                                                  if (failure) {
-                                                      failure(error);
-                                                  }
-                                              }];
 }
 
 @end

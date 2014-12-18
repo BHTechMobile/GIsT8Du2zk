@@ -29,27 +29,20 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
     ODRefreshControl *_refreshControl;
     MBProgressHUD *_hud;
     NSMutableArray *personArray;
+    ImageCacheObject *imageCacheObject;
 }
-@synthesize _facebookManager;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = TITLES_MYMOMENTS;
     _myMomentModel = [[MyMomentsModel alloc] init];
+    
     _downloadVideoView = [DownloadVideoView fromNib];
-    CGRect downloadVideoFrame = self.view.frame;
-    downloadVideoFrame.origin.y = self.myMessagesTableView.frame.origin.y;
-    downloadVideoFrame.size.height = downloadVideoFrame.size.height - self.myMessagesTableView.frame.origin.y;
-    _downloadVideoView.frame = downloadVideoFrame;
-    _downloadVideoView.alpha = 0.0;
+    [_downloadVideoView setFrameDownloadVideo:_downloadVideoView];
     _downloadVideoView.delegate = self;
     [self.view addSubview:_downloadVideoView];
     
     _hud = [[MBProgressHUD alloc] initWithView:self.view];
-    _hud.userInteractionEnabled = NO;
-    _hud.labelText = NSLocalizedString(@"Loading...", nil);
-    _hud.labelFont = [UIFont fontWithName:@"HelveticaNeue" size:14.0];
-    _hud.mode = MBProgressHUDModeIndeterminate;
     [self.view addSubview:_hud];
     
     _refreshControl = [[ODRefreshControl alloc] initInScrollView:self.myMessagesTableView];
@@ -75,7 +68,7 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
                                                  name:CALL_PUSH_NOTIFICATIONS object:nil];
     
     [self refreshTableView];
-    
+    imageCacheObject = [ImageCacheObject shareImageCache];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -103,7 +96,7 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
 - (void)getAllMessage {
     _newsMomentButton.hidden = YES;
     [_hud show:YES];
-    [_momentModel getAllMessagesSuccess:^(id result) {
+    [_myMomentModel getMyMessagesSuccess:^(id result) {
         NSLog(@"count : %lu",(unsigned long)_myMomentModel.messages.count);
         [_myMessagesTableView reloadData];
         [_hud hide:YES];
@@ -117,21 +110,6 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
 - (void)setupTableView:(NSIndexPath *)indexPath{
     TableViewCellConfigureBlock configureCell = ^(MomentsMessageTableViewCell *momentsMessageTableViewCell, MessageObject *myMessage){
         [momentsMessageTableViewCell setMessageWithMessage:myMessage];
-        ImageCacheObject *imageCacheObject = [ImageCacheObject shareImageCache];
-        UIImage *userAvatar = [imageCacheObject getImageFromCacheWithKey:myMessage.userFacebookID];
-        if (!userAvatar) {
-            [_myMomentModel downloadImageSuccess:myMessage.userFacebookID success:^(id result){
-                if (result) {
-                    momentsMessageTableViewCell.thumbnailImageView.image = result;
-                    [imageCacheObject setImageToCacheWithImage:result andKey:myMessage.userFacebookID];
-                }
-            }failure:^(NSError *error) {
-                NSLog(@"Error get user image from facebook: %@",error);
-            }];
-        }else {
-            momentsMessageTableViewCell.thumbnailImageView.image = userAvatar;
-        }
-        
     };
     _arrayDataSource = [[ArrayDataSource alloc]initWithItems:_myMomentModel.messages
                                               cellIdentifier:MomentViewCellIdentifier

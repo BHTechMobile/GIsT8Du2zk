@@ -82,6 +82,7 @@
                 <outlet property="activeView" destination="Dgq-zJ-2HK" id="eca-tR-v3o"/>
                 <outlet property="progressLabel" destination="j7z-lF-EgA" id="SeF-Ow-5Vz"/>
                 <outlet property="progressView" destination="OMc-rd-CY3" id="KFV-f0-Kzh"/>
+                <outlet property="view" destination="F6c-gg-NbW" id="JHF-Zd-lEA"/>
             </connections>
         </view>
     </objects>

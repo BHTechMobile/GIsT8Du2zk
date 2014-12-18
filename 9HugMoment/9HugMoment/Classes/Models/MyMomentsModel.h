@@ -14,8 +14,4 @@
 
 - (void)getMyMessagesSuccess:(void (^)(id result))success
                       failure:(void (^)(NSError *error))failure;
-
-- (void)downloadImageSuccess:(NSString *)facebookID success:(void (^)(id result))success
-                     failure:(void (^)(NSError *error))failure;
-
 @end
