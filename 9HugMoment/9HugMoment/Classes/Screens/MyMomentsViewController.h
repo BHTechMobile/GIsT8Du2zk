@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MomentsMessageTableViewCell.h"
+#import "MessageObject.h"
+#import "DownloadVideoView.h"
 
-@interface MyMomentsViewController : UIViewController
+@interface MyMomentsViewController : UIViewController<UITableViewDataSource, UITableViewDelegate,DownloadVideoDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *myMessagesTableView;
+@property (weak, nonatomic) IBOutlet UIView *contentView;
+@property (nonatomic, retain) UIButton *newsMomentButton;
 
 @end

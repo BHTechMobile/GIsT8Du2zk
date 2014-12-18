@@ -318,6 +318,24 @@
     }];
 }
 
++(void)getMyMessageSussess:(SuccessBlock)success failure:(MessageBlock)failure{
+    NSDictionary* parameters = @{KEY_TOKEN:[UserData currentAccount].strUserToken,
+                                 KEY_USER_ID: [UserData currentAccount].strId,
+                                 @"idisplaylength":@999,
+                                 @"refresh":@1};
+    
+    [BaseServices requestByMethod:@"GET" widthPath:@"message/browse" withParameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (success) {
+            success(operation,responseObject);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSString* bodyString = [operation responseString];
+        if (failure) {
+            failure(bodyString,error);
+        }
+    }];
+}
+
 +(void)resetMessage:(MessageObject *)message Sussess:(SuccessBlock)success failure:(MessageBlock)failure
 {
     NSDictionary* parameters = @{KEY_USER_ID:[NSUserDefaults getStringForKey:KEY_USER_SETTING_LOGGED_IN_ID]};

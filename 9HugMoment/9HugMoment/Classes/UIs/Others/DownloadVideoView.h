@@ -21,5 +21,7 @@
 @property(nonatomic,weak)id<DownloadVideoDelegate>delegate;
 
 - (void)downloadVideoByMessage:(MessageObject *)message;
+- (void)setFrameDownloadVideo:(UIView *)ctView;
++(DownloadVideoView*)downloadVideoViewWithDelegate:(id)delgate;
 
 @end
