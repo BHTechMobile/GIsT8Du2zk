@@ -10,9 +10,8 @@
 #import "MomentsMessageTableViewCell.h"
 #import "MessageObject.h"
 #import "DownloadVideoView.h"
-#import "FBConnectViewController.h"
 
-@interface MyMomentsViewController : UIViewController<UITableViewDataSource, UITableViewDelegate,DownloadVideoDelegate,FBConnectViewControllerDelegate>
+@interface MyMomentsViewController : UIViewController<UITableViewDataSource, UITableViewDelegate,DownloadVideoDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *myMessagesTableView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;

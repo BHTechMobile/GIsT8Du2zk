@@ -7,27 +7,21 @@
 //
 
 #import "MyMomentsViewController.h"
-#import "CaptureVideoViewController.h"
-#import "FBConnectViewController.h"
-#import "MomentsModel.h"
 #import "MomentDetailViewController.h"
 #import "ODRefreshControl.h"
 #import "MyMomentsModel.h"
 #import "ArrayDataSource.h"
+#import "ImageCacheObject.h"
 
 static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
 
 @interface MyMomentsViewController ()
 
-@property (nonatomic, strong) FacebookManager *_facebookManager;
 @property (nonatomic, strong) ArrayDataSource *arrayDataSource;
 
 @end
 
 @implementation MyMomentsViewController{
-    CaptureVideoViewController *captureVideoViewController;
-    FBConnectViewController *fbConnectViewController;
-    MomentsModel *_momentModel;
     MyMomentsModel *_myMomentModel;
     DownloadVideoView *_downloadVideoView;
     MomentDetailViewController *momentDetailViewController;
@@ -81,6 +75,7 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
                                                  name:CALL_PUSH_NOTIFICATIONS object:nil];
     
     [self refreshTableView];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -122,13 +117,13 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
 - (void)setupTableView:(NSIndexPath *)indexPath{
     TableViewCellConfigureBlock configureCell = ^(MomentsMessageTableViewCell *momentsMessageTableViewCell, MessageObject *myMessage){
         [momentsMessageTableViewCell setMessageWithMessage:myMessage];
-        
-        UIImage *userAvatar = [_myMomentModel getImageFromCacheWithKey:myMessage.userFacebookID];
+        ImageCacheObject *imageCacheObject = [ImageCacheObject shareImageCache];
+        UIImage *userAvatar = [imageCacheObject getImageFromCacheWithKey:myMessage.userFacebookID];
         if (!userAvatar) {
             [_myMomentModel downloadImageSuccess:myMessage.userFacebookID success:^(id result){
                 if (result) {
                     momentsMessageTableViewCell.thumbnailImageView.image = result;
-                    [_myMomentModel setImageToCacheWithImage:result andKey:myMessage.userFacebookID];
+                    [imageCacheObject setImageToCacheWithImage:result andKey:myMessage.userFacebookID];
                 }
             }failure:^(NSError *error) {
                 NSLog(@"Error get user image from facebook: %@",error);

@@ -19,7 +19,6 @@
     self = [super init];
     if(self){
         _messages = [NSMutableArray array];
-        _avatarCache = [[NSCache alloc] init];
     }
     return self;
 }
@@ -76,18 +75,6 @@
                                                       failure(error);
                                                   }
                                               }];
-}
-
-#pragma mark - Caches Management
-- (UIImage *)getImageFromCacheWithKey:(NSString *)imageKey
-{
-    UIImage *userAvatar = [_avatarCache objectForKey:imageKey];
-    return userAvatar;
-}
-
-- (void)setImageToCacheWithImage:(UIImage *)image andKey:(NSString *)imageKey
-{
-    [_avatarCache setObject:image forKey:imageKey];
 }
 
 @end

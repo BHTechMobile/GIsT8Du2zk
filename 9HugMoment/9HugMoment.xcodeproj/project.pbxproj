@@ -52,6 +52,7 @@
 		9FB03B2B1A27909400370885 /* NavigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FB03B2A1A27909400370885 /* NavigationView.xib */; };
 		9FD2AB171A3AFF0200275FDC /* LocationManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FD2AB161A3AFF0200275FDC /* LocationManagement.m */; };
 		9FD2AB191A3B00FB00275FDC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FD2AB181A3B00FB00275FDC /* CoreLocation.framework */; };
+		9FEA53D71A42883900CC6B89 /* ImageCacheObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FEA53D61A42883900CC6B89 /* ImageCacheObject.m */; };
 		9FF86FAB1A4181F500EA94EA /* ArrayDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FF86FA81A4181F500EA94EA /* ArrayDataSource.m */; };
 		9FF86FAC1A4181F500EA94EA /* MyMomentsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FF86FAA1A4181F500EA94EA /* MyMomentsModel.m */; };
 		9FFFDDC21A2CD10E0081ADC9 /* FacebookManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFFDDBF1A2CD10E0081ADC9 /* FacebookManager.m */; };
@@ -173,6 +174,8 @@
 		9FD2AB151A3AFF0200275FDC /* LocationManagement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManagement.h; sourceTree = "<group>"; };
 		9FD2AB161A3AFF0200275FDC /* LocationManagement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManagement.m; sourceTree = "<group>"; };
 		9FD2AB181A3B00FB00275FDC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		9FEA53D51A42883900CC6B89 /* ImageCacheObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCacheObject.h; sourceTree = "<group>"; };
+		9FEA53D61A42883900CC6B89 /* ImageCacheObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCacheObject.m; sourceTree = "<group>"; };
 		9FF86FA71A4181F500EA94EA /* ArrayDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArrayDataSource.h; sourceTree = "<group>"; };
 		9FF86FA81A4181F500EA94EA /* ArrayDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArrayDataSource.m; sourceTree = "<group>"; };
 		9FF86FA91A4181F500EA94EA /* MyMomentsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMomentsModel.h; sourceTree = "<group>"; };
@@ -516,6 +519,8 @@
 		CECCB7821A2344D300C1220C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9FEA53D51A42883900CC6B89 /* ImageCacheObject.h */,
+				9FEA53D61A42883900CC6B89 /* ImageCacheObject.m */,
 				9FF86FA71A4181F500EA94EA /* ArrayDataSource.h */,
 				9FF86FA81A4181F500EA94EA /* ArrayDataSource.m */,
 				9FF86FA91A4181F500EA94EA /* MyMomentsModel.h */,
@@ -818,6 +823,7 @@
 				9FA12BF51A35D66300CE737C /* CommentHeaderTableViewCell.m in Sources */,
 				CE3E23431A233CDF00008D27 /* main.m in Sources */,
 				9FB03B291A27905C00370885 /* NavigationView.m in Sources */,
+				9FEA53D71A42883900CC6B89 /* ImageCacheObject.m in Sources */,
 				D23BA46A1A357F75000EDE47 /* DownloadVideoView.m in Sources */,
 				9FA12BFB1A35D66300CE737C /* UpvoteMessageTableViewCell.m in Sources */,
 				D23BA47A1A357FFB000EDE47 /* MomentsModel.m in Sources */,
