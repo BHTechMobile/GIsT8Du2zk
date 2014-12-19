@@ -40,6 +40,7 @@ static NSDateFormatter *_dateFormatter;
     [super viewDidAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [self requestMessage];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -52,7 +53,7 @@ static NSDateFormatter *_dateFormatter;
     [[NSNotificationCenter defaultCenter]removeObserver:self];
     [_videoPlayer pause];
     _videoPlayer = nil;
-    
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
 }
 
 #pragma mark - Custom Methods
