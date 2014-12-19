@@ -40,6 +40,7 @@ static NSDateFormatter *_dateFormatter;
     [super viewDidAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [self requestMessage];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -52,7 +53,7 @@ static NSDateFormatter *_dateFormatter;
     [[NSNotificationCenter defaultCenter]removeObserver:self];
     [_videoPlayer pause];
     _videoPlayer = nil;
-    
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
 }
 
 #pragma mark - Custom Methods
@@ -220,6 +221,13 @@ static NSDateFormatter *_dateFormatter;
     cell.voteNumberLabel.text = [_momentsDetailsModel getNumberOfVoteWithMessage:_messageObject];
     cell.voteButton.titleLabel.text = [_momentsDetailsModel getNumberOfVoteWithMessage:_messageObject];
     cell.isUserVoted = [_momentsDetailsModel isUserVotedWithUserID:_messageObject.userID];
+    
+    if ([_messageObject.location isEqualToString:@""] || !_messageObject.location) {
+        cell.locationLabel.text = @"Private";
+    }else {
+        cell.locationLabel.text = _messageObject.location;
+    }
+    
     UIImage *userAvatar = [_avatarCache objectForKey:_messageObject.userFacebookID];
     if (!userAvatar) {
         [BaseServices downloadUserImageWithFacebookID:_messageObject.userFacebookID success:^(AFHTTPRequestOperation *operation, id responseObject){
