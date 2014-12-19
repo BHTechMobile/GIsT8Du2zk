@@ -140,6 +140,10 @@ typedef NS_ENUM(NSInteger, MomentDetailCellType)
 #define IMAGE_NAME_THUMB_PLACE_HOLDER @"icon_circle_gray"
 #define IMAGE_NAME_ATTACHMENT_2_DEFAULT @"attachment_2_default"
 
+#pragma mark - Segue
+// Segue
+#define SEGUE_PUSH_MIX_VIDEO_VIEW_CONTROLLER @"pushMixVideoViewController"
+
 #pragma mark - Identifier TableViewCell
 // Identifier TableViewCell
 #define IDENTIFIER_MOMENTS_MESSAGE_TABLE_VIEW_CELL @"identifierMomentsMessageTableViewCell"

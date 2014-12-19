@@ -28,6 +28,7 @@
 }
 
 - (void)processAsset;
+- (void)processAsset:(void (^)())completion;
 
 @end
 
@@ -186,6 +187,49 @@
     }];
 }
 
+- (void)startProcessing:(void (^)())completion
+{
+    
+    if(self.url == nil)
+    {
+        [self processAsset];
+        completion();
+        return;
+    }
+    if(self.playerItem != nil) {
+        [self processPlayerItem:^{
+            completion();
+        }];
+        return;
+    }
+    
+    if (_shouldRepeat)
+    {
+        keepLooping = YES;
+    }
+    
+    previousFrameTime = kCMTimeZero;
+    previousActualFrameTime = CFAbsoluteTimeGetCurrent();
+    
+    NSDictionary *inputOptions = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:AVURLAssetPreferPreciseDurationAndTimingKey];
+    AVURLAsset *inputAsset = [[AVURLAsset alloc] initWithURL:self.url options:inputOptions];
+    
+    GPUImageMovie __block *blockSelf = self;
+    
+    [inputAsset loadValuesAsynchronouslyForKeys:[NSArray arrayWithObject:@"tracks"] completionHandler: ^{
+        NSError *error = nil;
+        AVKeyValueStatus tracksStatus = [inputAsset statusOfValueForKey:@"tracks" error:&error];
+        if (tracksStatus != AVKeyValueStatusLoaded)
+        {
+            return;
+        }
+        blockSelf.asset = inputAsset;
+        [blockSelf processAsset];
+        blockSelf = nil;
+        completion();
+    }];
+}
+
 - (AVAssetReader*)createAssetReader
 {
     NSError *error = nil;
@@ -292,6 +336,76 @@
     }
 }
 
+- (void)processAsset:(void (^)())completion
+{
+    reader = [self createAssetReader];
+    
+    AVAssetReaderOutput *readerVideoTrackOutput = nil;
+    AVAssetReaderOutput *readerAudioTrackOutput = nil;
+    
+    audioEncodingIsFinished = YES;
+    for( AVAssetReaderOutput *output in reader.outputs ) {
+        if( [output.mediaType isEqualToString:AVMediaTypeAudio] ) {
+            audioEncodingIsFinished = NO;
+            readerAudioTrackOutput = output;
+        }
+        else if( [output.mediaType isEqualToString:AVMediaTypeVideo] ) {
+            readerVideoTrackOutput = output;
+        }
+    }
+    
+    if ([reader startReading] == NO)
+    {
+        NSLog(@"Error reading from file at URL: %@", self.url);
+        completion();
+        return;
+    }
+    
+    __unsafe_unretained GPUImageMovie *weakSelf = self;
+    
+    if (synchronizedMovieWriter != nil)
+    {
+        [synchronizedMovieWriter setVideoInputReadyCallback:^{
+            return [weakSelf readNextVideoFrameFromOutput:readerVideoTrackOutput];
+        }];
+        
+        [synchronizedMovieWriter setAudioInputReadyCallback:^{
+            return [weakSelf readNextAudioSampleFromOutput:readerAudioTrackOutput];
+        }];
+        
+        [synchronizedMovieWriter enableSynchronizationCallbacks];
+        completion();
+    }
+    else
+    {
+        while (reader.status == AVAssetReaderStatusReading && (!_shouldRepeat || keepLooping))
+        {
+            [weakSelf readNextVideoFrameFromOutput:readerVideoTrackOutput];
+            
+            if ( (readerAudioTrackOutput) && (!audioEncodingIsFinished) )
+            {
+                [weakSelf readNextAudioSampleFromOutput:readerAudioTrackOutput];
+            }
+            
+        }
+        
+        if (reader.status == AVAssetReaderStatusCompleted) {
+            
+            [reader cancelReading];
+            
+            if (keepLooping) {
+                reader = nil;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self startProcessing];
+                });
+            } else {
+                [weakSelf endProcessing];
+            }
+            
+        }
+    }
+}
+
 - (void)processPlayerItem
 {
     runSynchronouslyOnVideoProcessingQueue(^{
@@ -312,6 +426,30 @@
 
         [_playerItem addOutput:playerItemOutput];
         [playerItemOutput requestNotificationOfMediaDataChangeWithAdvanceInterval:0.1];
+    });
+}
+
+- (void)processPlayerItem:(void (^)())completion
+{
+    runSynchronouslyOnVideoProcessingQueue(^{
+        displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(displayLinkCallback:)];
+        [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+        [displayLink setPaused:YES];
+        
+        dispatch_queue_t videoProcessingQueue = [GPUImageContext sharedContextQueue];
+        NSMutableDictionary *pixBuffAttributes = [NSMutableDictionary dictionary];
+        if ([GPUImageContext supportsFastTextureUpload]) {
+            [pixBuffAttributes setObject:@(kCVPixelFormatType_420YpCbCr8BiPlanarFullRange) forKey:(id)kCVPixelBufferPixelFormatTypeKey];
+        }
+        else {
+            [pixBuffAttributes setObject:@(kCVPixelFormatType_32BGRA) forKey:(id)kCVPixelBufferPixelFormatTypeKey];
+        }
+        playerItemOutput = [[AVPlayerItemVideoOutput alloc] initWithPixelBufferAttributes:pixBuffAttributes];
+        [playerItemOutput setDelegate:self queue:videoProcessingQueue];
+        
+        [_playerItem addOutput:playerItemOutput];
+        [playerItemOutput requestNotificationOfMediaDataChangeWithAdvanceInterval:0.1];
+        completion();
     });
 }
 

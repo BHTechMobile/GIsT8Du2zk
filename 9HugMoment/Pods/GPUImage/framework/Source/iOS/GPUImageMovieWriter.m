@@ -265,6 +265,20 @@ NSString *const kGPUImageColorSwizzlingFragmentShaderString = SHADER_STRING
 	//    [assetWriter startSessionAtSourceTime:kCMTimeZero];
 }
 
+- (void)startRecording:(RequestCompletion)completion
+{
+    alreadyFinishedRecording = NO;
+    startTime = kCMTimeInvalid;
+    runSynchronouslyOnContextQueue(_movieWriterContext, ^{
+        if (audioInputReadyCallback == NULL)
+        {
+            [assetWriter startWriting];
+        }
+        completion();
+    });
+    isRecording = YES;
+}
+
 - (void)startRecordingInOrientation:(CGAffineTransform)orientationTransform;
 {
 	assetWriterVideoInput.transform = orientationTransform;
@@ -513,6 +527,75 @@ NSString *const kGPUImageColorSwizzlingFragmentShaderString = SHADER_STRING
         }];
     }        
     
+}
+
+- (void)enableSynchronizationCallbacks:(void (^)())completion
+{
+    if (videoInputReadyCallback != NULL)
+    {
+        if( assetWriter.status != AVAssetWriterStatusWriting )
+        {
+            [assetWriter startWriting];
+        }
+        videoQueue = dispatch_queue_create("com.sunsetlakesoftware.GPUImage.videoReadingQueue", NULL);
+        [assetWriterVideoInput requestMediaDataWhenReadyOnQueue:videoQueue usingBlock:^{
+            if( _paused )
+            {
+                //NSLog(@"video requestMediaDataWhenReadyOnQueue paused");
+                // if we don't sleep, we'll get called back almost immediately, chewing up CPU
+                usleep(10000);
+                completion();
+                return;
+            }
+            //NSLog(@"video requestMediaDataWhenReadyOnQueue begin");
+            while( assetWriterVideoInput.readyForMoreMediaData && ! _paused )
+            {
+                if( videoInputReadyCallback && ! videoInputReadyCallback() && ! videoEncodingIsFinished )
+                {
+                    runAsynchronouslyOnContextQueue(_movieWriterContext, ^{
+                        if( assetWriter.status == AVAssetWriterStatusWriting && ! videoEncodingIsFinished )
+                        {
+                            videoEncodingIsFinished = YES;
+                            [assetWriterVideoInput markAsFinished];
+                        }
+                    });
+                }
+            }
+            //NSLog(@"video requestMediaDataWhenReadyOnQueue end");
+            completion();
+        }];
+    }
+    
+    if (audioInputReadyCallback != NULL)
+    {
+        audioQueue = dispatch_queue_create("com.sunsetlakesoftware.GPUImage.audioReadingQueue", NULL);
+        [assetWriterAudioInput requestMediaDataWhenReadyOnQueue:audioQueue usingBlock:^{
+            if( _paused )
+            {
+                //NSLog(@"audio requestMediaDataWhenReadyOnQueue paused");
+                // if we don't sleep, we'll get called back almost immediately, chewing up CPU
+                usleep(10000);
+                completion();
+                return;
+            }
+            //NSLog(@"audio requestMediaDataWhenReadyOnQueue begin");
+            while( assetWriterAudioInput.readyForMoreMediaData && ! _paused )
+            {
+                if( audioInputReadyCallback && ! audioInputReadyCallback() && ! audioEncodingIsFinished )
+                {
+                    runAsynchronouslyOnContextQueue(_movieWriterContext, ^{
+                        if( assetWriter.status == AVAssetWriterStatusWriting && ! audioEncodingIsFinished )
+                        {
+                            audioEncodingIsFinished = YES;
+                            [assetWriterAudioInput markAsFinished];
+                        }
+                    });
+                }
+            }
+            completion();
+            //NSLog(@"audio requestMediaDataWhenReadyOnQueue end");
+        }];
+    }
 }
 
 #pragma mark -

@@ -37,7 +37,6 @@
 @end
 
 @implementation CaptureVideoViewController{
-    MixVideoViewController *mixVideoViewController;
     NSArray *_qrcode;
 }
 
@@ -433,21 +432,19 @@
 #pragma mark - Navigation
 
 -(void)showMixScreen{
-    [self performSegueWithIdentifier:@"pushMixVideoViewController" sender:nil];
+    [self performSegueWithIdentifier:SEGUE_PUSH_MIX_VIDEO_VIEW_CONTROLLER sender:nil];
     [[PBJVision sharedInstance] stopPreview];
-    mixVideoViewController.capturePath = [NSURL fileURLWithPath:_capturePath];
-    mixVideoViewController.imgFrame = _imvFrame.image;
-    mixVideoViewController.indexFrame = _imgIndex;
-    mixVideoViewController.duration = (_startCount*1.0)/100.0f;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"pushMixVideoViewController"]) {
-        mixVideoViewController = [segue destinationViewController];
+    if ([[segue identifier] isEqualToString:SEGUE_PUSH_MIX_VIDEO_VIEW_CONTROLLER]) {
+        MixVideoViewController *mixVideoViewController = [segue destinationViewController];
         mixVideoViewController.capturePath = [NSURL fileURLWithPath:_capturePath];
         mixVideoViewController.imgFrame = _imvFrame.image;
         mixVideoViewController.indexFrame = _imgIndex;
-        mixVideoViewController.duration = (_startCount*1.0)/100.0f;
+//        mixVideoViewController.duration = (_startCount*1.0)/100.0f;
+        mixVideoViewController.duration = capturedVideoSeconds;
+        mixVideoViewController.realDuration = realDutationVideo;
     }
 }
 
@@ -677,6 +674,13 @@
 
 - (void)visionDidCaptureVideoSample:(PBJVision *)vision{
     NSLog(@"%s captured video (%f) seconds",__PRETTY_FUNCTION__,vision.capturedVideoSeconds);
+}
+
+- (void)visionWillEndCaptureVideo:(PBJVision *)vision withCapturedVideoSeconds:(Float64 )seconds
+{
+    capturedVideoSeconds = seconds;
+    realDutationVideo = CMTimeMake(seconds *1000000, 1000000);
+    NSLog(@"Captured Video Seconds: %f",capturedVideoSeconds);
 }
 
 #pragma mark - Navigation Bar Button
