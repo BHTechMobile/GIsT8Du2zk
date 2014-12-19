@@ -221,6 +221,13 @@ static NSDateFormatter *_dateFormatter;
     cell.voteNumberLabel.text = [_momentsDetailsModel getNumberOfVoteWithMessage:_messageObject];
     cell.voteButton.titleLabel.text = [_momentsDetailsModel getNumberOfVoteWithMessage:_messageObject];
     cell.isUserVoted = [_momentsDetailsModel isUserVotedWithUserID:_messageObject.userID];
+    
+    if ([_messageObject.location isEqualToString:@""] || !_messageObject.location) {
+        cell.locationLabel.text = @"Private";
+    }else {
+        cell.locationLabel.text = _messageObject.location;
+    }
+    
     UIImage *userAvatar = [_avatarCache objectForKey:_messageObject.userFacebookID];
     if (!userAvatar) {
         [BaseServices downloadUserImageWithFacebookID:_messageObject.userFacebookID success:^(AFHTTPRequestOperation *operation, id responseObject){
