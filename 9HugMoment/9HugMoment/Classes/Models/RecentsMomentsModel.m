@@ -37,7 +37,7 @@
             
             for (NSDictionary* mDict in aaData) {
                 NSString *curTime = [NSString stringWithFormat:@"%ld",currentTime];
-                if ([[mDict valueForKey:KEY_CREATED_DATE]intValue]+3600 < [curTime intValue]) {
+                if ([[mDict valueForKey:KEY_CREATE_DATED]intValue]+3600 < [curTime intValue]) {
                     NSLog(@"your userid");
                 }else{
                     MessageObject* message = [MessageObject createMessageByDictionnary:mDict];
