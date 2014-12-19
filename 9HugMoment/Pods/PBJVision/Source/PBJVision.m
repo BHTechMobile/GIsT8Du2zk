@@ -1787,7 +1787,7 @@ typedef void (^PBJVisionBlock)();
             if ([_delegate respondsToSelector:@selector(visionDidPauseVideoCapture:)])
                 [_delegate visionDidPauseVideoCapture:self];
         }];
-    }];    
+    }];
 }
 
 - (void)resumeVideoCapture
@@ -1862,6 +1862,9 @@ typedef void (^PBJVisionBlock)();
             }];
         };
         [_mediaWriter finishWritingWithCompletionHandler:finishWritingCompletionHandler];
+        if (_delegate && [_delegate respondsToSelector:@selector(visionWillEndCaptureVideo:withDuration:andRealDurationVideo:)]) {
+            [_delegate visionWillEndCaptureVideo:self withDuration:(self.capturedVideoSeconds) andRealDurationVideo:_mediaWriter.audioTimestamp];
+        }
     }];
 }
 

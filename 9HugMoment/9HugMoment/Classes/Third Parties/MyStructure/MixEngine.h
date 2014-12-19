@@ -28,5 +28,6 @@ completionHandler:(MixResponse)response;
          volume:(CGFloat)videoVolume
 completionHandler:(MixResponse)response;
 +(void)mixImage:(UIImage*)image videoUrl:(NSURL*)videoUrl completionHandler:(MixResponse)response;
++(void)mixImage:(UIImage*)image videoUrl:(NSURL*)videoUrl withRealDutation:(CMTime)realDutation completionHandler:(MixResponse)response;
 
 @end

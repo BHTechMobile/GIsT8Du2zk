@@ -635,6 +635,8 @@
             [self upload];
             break;
         }
+        default:
+            break;
     }
 }
 - (IBAction)clickedPlayButton:(id)sender {
@@ -660,7 +662,7 @@
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     });
     if ([[[filter class] description] isEqualToString:@"GPUImageFilter"]) {
-        [MixEngine mixImage:_imgFrame videoUrl:_exportUrl?_exportUrl:_capturePath completionHandler:^(NSString *output, AVAssetExportSessionStatus status) {
+        [MixEngine mixImage:_imgFrame videoUrl:(_exportUrl?_exportUrl:_capturePath) withRealDutation:_realDuration completionHandler:^(NSString *output, AVAssetExportSessionStatus status) {
             [self processMixingWithStatus:status outputURLString:output];
         }];
     }
@@ -722,10 +724,11 @@
             [filter removeTarget:movieWriter];
             movieFile.audioEncodingTarget = nil;
             [movieWriter finishRecording];
-            [MixEngine mixImage:_imgFrame videoUrl:movieURL completionHandler:^(NSString *output, AVAssetExportSessionStatus status) {
+            [MixEngine mixImage:_imgFrame videoUrl:movieURL withRealDutation:_realDuration completionHandler:^(NSString *output, AVAssetExportSessionStatus status) {
                 [self processMixingWithStatus:status outputURLString:output];
             }];
         });
+        
     }
     else{
         _videoFilterScrollView.userInteractionEnabled = NO;
@@ -765,10 +768,20 @@
             [filter removeTarget:movieWriter];
             movieFile.audioEncodingTarget = nil;
             [movieWriter finishRecording];
-            [MixEngine mixImage:_imgFrame videoUrl:movieURL completionHandler:^(NSString *output, AVAssetExportSessionStatus status) {
+//            [MixEngine mixImage:_imgFrame videoUrl:movieURL completionHandler:^(NSString *output, AVAssetExportSessionStatus status) {
+//                [self processMixingWithStatus:status outputURLString:output];
+//            }];
+            [MixEngine mixImage:_imgFrame videoUrl:movieURL withRealDutation:_realDuration completionHandler:^(NSString *output, AVAssetExportSessionStatus status) {
                 [self processMixingWithStatus:status outputURLString:output];
             }];
         });
+        
+//        [filter removeTarget:movieWriter];
+//        movieFile.audioEncodingTarget = nil;
+//        [movieWriter finishRecording];
+//        [MixEngine mixImage:_imgFrame videoUrl:movieURL withRealDutation:_realDuration completionHandler:^(NSString *output, AVAssetExportSessionStatus status) {
+//            [self processMixingWithStatus:status outputURLString:output];
+//        }];
     }
 }
 

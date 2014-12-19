@@ -280,24 +280,143 @@ completionHandler:(MixResponse)response
         exporter.outputFileType = AVFileTypeMPEG4;
         exporter.shouldOptimizeForNetworkUse = YES;
         [exporter exportAsynchronouslyWithCompletionHandler:^(void) {
-            switch (exporter.status)
-            {
-                NSLog(@"Export Status %ld-- %@", (long)exporter.status, exporter.outputURL);
-
-                case AVAssetExportSessionStatusFailed:
-                case AVAssetExportSessionStatusCompleted:
-                {
-                    response(_pathOutput,exporter.status);
-                    break;
-                }
-                case AVAssetExportSessionStatusCancelled:
-                {
-                    NSLog (@"CANCELED");
-                    break;
-                }
-            }
+            NSLog(@"Export Status %ld-- %@", (long)exporter.status, exporter.outputURL);
+//            switch (exporter.status)
+//            {
+//                case AVAssetExportSessionStatusFailed:
+//                    break;
+//                case AVAssetExportSessionStatusCompleted:
+//                {
+//                    response(_pathOutput,exporter.status);
+//                    break;
+//                }
+//                case AVAssetExportSessionStatusCancelled:
+//                {
+//                    NSLog (@"CANCELED");
+//                    break;
+//                }
+//                default:
+//                    break;
+//            }
             //Delete original video
 //            [[NSFileManager defaultManager] removeItemAtPath:_pathVideoTmp error:nil];
+            response(_pathOutput,exporter.status);
+        }];
+    }
+    
+}
+
++(void)mixImage:(UIImage*)image videoUrl:(NSURL*)videoUrl withRealDutation:(CMTime)realDutation completionHandler:(MixResponse)response
+{
+    
+    NSString * _pathVideoTmp = videoUrl.path;
+    NSString * _pathOutput = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.mp4",[NSString generateRandomString:8]]];
+    NSLog(@"%s",__PRETTY_FUNCTION__);
+    NSLog(@"%@",_pathOutput);
+    NSError * error = nil;
+    
+    
+    AVMutableComposition *mixComposition = [AVMutableComposition composition];
+    CMTime clipStartTime = kCMTimeZero;
+    //Record Video
+    NSURL *videoURL = videoUrl;
+    AVURLAsset *videoAsset = [[AVURLAsset alloc] initWithURL:videoURL options:nil];
+    CMTimeRange videoTimeRange = CMTimeRangeMake(kCMTimeZero, videoAsset.duration);
+    
+    //Video channel
+    AVMutableCompositionTrack *videoCompositionTrack = nil;
+    NSArray *tracks = [videoAsset tracksWithMediaType:AVMediaTypeVideo];
+    if (tracks.count > 0) {
+        videoCompositionTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
+        [videoCompositionTrack insertTimeRange:videoTimeRange ofTrack:tracks[0] atTime:clipStartTime error:&error];
+    }
+    else {
+        error = [NSError errorWithDomain:nil code:-1 userInfo:@{NSLocalizedDescriptionKey:@"No video channel for merging."}];
+        NSLog(@"error = %@",error);
+        //Delete temp video
+        [[NSFileManager defaultManager] removeItemAtPath:_pathVideoTmp error:nil];
+        
+    }
+    
+    AVMutableVideoCompositionLayerInstruction *videoInstruction = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:videoCompositionTrack];
+    
+    tracks = [videoAsset tracksWithMediaType:AVMediaTypeAudio];
+    if (tracks.count > 0) {
+        AVMutableCompositionTrack *audioCompositionTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
+        [audioCompositionTrack insertTimeRange:videoTimeRange ofTrack:tracks[0] atTime:clipStartTime error:&error];
+    }
+    NSLog(@"%f",CMTimeGetSeconds(videoAsset.duration));
+    NSLog(@"%f",CMTimeGetSeconds(realDutation));
+    if ((CMTimeGetSeconds(videoAsset.duration) - CMTimeGetSeconds(realDutation)) > 0) {
+        videoTimeRange = CMTimeRangeMake(kCMTimeZero, realDutation);
+        [mixComposition removeTimeRange:CMTimeRangeMake(realDutation, videoAsset.duration)];
+    }
+    
+    
+    if (error) {
+        //Delete temp video
+        [[NSFileManager defaultManager] removeItemAtPath:_pathVideoTmp error:nil];
+    }
+    
+    else {
+        //Frame
+        
+        CGRect rect = CGRectMake(0, 0, videoCompositionTrack.naturalSize.width, videoCompositionTrack.naturalSize.height);
+        
+        CALayer *imageLayer = [CALayer layer];
+        imageLayer.frame = rect;
+        imageLayer.contents = (__bridge id)(image.CGImage);
+        imageLayer.bounds = rect;
+        imageLayer.opacity = 1.0f;
+        imageLayer.backgroundColor = [UIColor clearColor].CGColor;
+        
+        CALayer *parentLayer = [CALayer layer];
+        CALayer *videoLayer = [CALayer layer];
+        parentLayer.frame = rect;
+        videoLayer.frame = rect;
+        videoLayer.opacity = 1.0;
+        
+        [parentLayer addSublayer:videoLayer];
+        [parentLayer addSublayer:imageLayer];
+        
+        AVMutableVideoComposition *imageComposition = [AVMutableVideoComposition videoComposition];
+        imageComposition.renderSize = rect.size;
+        imageComposition.frameDuration = CMTimeMake(1, 30);
+        imageComposition.animationTool = [AVVideoCompositionCoreAnimationTool videoCompositionCoreAnimationToolWithPostProcessingAsVideoLayer:videoLayer inLayer:parentLayer];
+        
+        AVMutableVideoCompositionInstruction *instruction = [AVMutableVideoCompositionInstruction videoCompositionInstruction];
+        instruction.timeRange = videoTimeRange;
+        
+        instruction.layerInstructions = [NSArray arrayWithObject:videoInstruction];
+        imageComposition.instructions = [NSArray arrayWithObject:instruction];
+        //Export
+        AVAssetExportSession *exporter = [[AVAssetExportSession alloc] initWithAsset:mixComposition presetName: AVAssetExportPresetHighestQuality /*AVAssetExportPresetHighestQuality*/];
+        exporter.outputURL = [NSURL fileURLWithPath:_pathOutput];
+        exporter.videoComposition = imageComposition;
+        exporter.outputFileType = AVFileTypeMPEG4;
+        exporter.shouldOptimizeForNetworkUse = YES;
+        [exporter exportAsynchronouslyWithCompletionHandler:^(void) {
+            NSLog(@"Export Status %ld-- %@", (long)exporter.status, exporter.outputURL);
+//            switch (exporter.status)
+//            {
+//                case AVAssetExportSessionStatusFailed:
+//                    break;
+//                case AVAssetExportSessionStatusCompleted:
+//                {
+//                    response(_pathOutput,exporter.status);
+//                    break;
+//                }
+//                case AVAssetExportSessionStatusCancelled:
+//                {
+//                    NSLog (@"CANCELED");
+//                    break;
+//                }
+//                default:
+//                    break;
+//            }
+//            //Delete original video
+//            //            [[NSFileManager defaultManager] removeItemAtPath:_pathVideoTmp error:nil];
+            response(_pathOutput,exporter.status);
         }];
     }
     

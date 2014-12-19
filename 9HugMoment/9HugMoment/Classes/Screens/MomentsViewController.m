@@ -50,20 +50,20 @@ static NSString * const MomentViewCellIdentifier = @"MomentViewCellIdentifier";
     _refreshControl = [[ODRefreshControl alloc] initInScrollView:self.messagesTableView];
     [_refreshControl addTarget:self action:@selector(refreshTableView) forControlEvents:UIControlEventValueChanged];
     
-    if (!APP_DELEGATE.session.isOpen) {
-        APP_DELEGATE.session = [[FBSession alloc] initWithPermissions:@[@"publish_actions",@"public_profile", @"user_friends",@"read_friendlists"]];
-        if (APP_DELEGATE.session.state == FBSessionStateCreatedTokenLoaded) {
-            [APP_DELEGATE.session openWithCompletionHandler:^(FBSession *session,
-                                                              FBSessionState status,
-                                                              NSError *error) {
-                [FBSession setActiveSession:session];
-                APP_DELEGATE.session = session;
-                [self getAllMessage];
-            }];
-        }else{
-            [self showLoginFB];
-        }
-    }
+//    if (!APP_DELEGATE.session.isOpen) {
+//        APP_DELEGATE.session = [[FBSession alloc] initWithPermissions:@[@"publish_actions",@"public_profile", @"user_friends",@"read_friendlists"]];
+//        if (APP_DELEGATE.session.state == FBSessionStateCreatedTokenLoaded) {
+//            [APP_DELEGATE.session openWithCompletionHandler:^(FBSession *session,
+//                                                              FBSessionState status,
+//                                                              NSError *error) {
+//                [FBSession setActiveSession:session];
+//                APP_DELEGATE.session = session;
+//                [self getAllMessage];
+//            }];
+//        }else{
+//            [self showLoginFB];
+//        }
+//    }
     
     CGRect frameExtend2 = [_newsMomentButton frame];
     frameExtend2.origin.y = WIDTH_BUTTON_NEW_MOMENTS;
