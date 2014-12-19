@@ -33,5 +33,6 @@
 @property (nonatomic, strong) UIImage* imgFrame;
 @property (nonatomic, assign) NSInteger indexFrame;
 @property (nonatomic) CGFloat duration;
+@property (nonatomic) CMTime realDuration;
 
 @end

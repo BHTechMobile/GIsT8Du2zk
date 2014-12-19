@@ -11,6 +11,7 @@
 #import "MessageObject.h"
 #import "DownloadVideoView.h"
 #import "FBConnectViewController.h"
+#import "ImageCacheObject.h"
 
 @interface MomentsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate,DownloadVideoDelegate,FBConnectViewControllerDelegate>
 
