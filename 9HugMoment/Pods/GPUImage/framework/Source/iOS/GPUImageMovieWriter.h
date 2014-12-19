@@ -12,6 +12,9 @@ extern NSString *const kGPUImageColorSwizzlingFragmentShaderString;
 
 @end
 
+//typedef void (^RequestCompletion)(NSError *error);
+typedef void (^RequestCompletion)();
+
 @interface GPUImageMovieWriter : NSObject <GPUImageInput>
 {
     BOOL alreadyFinishedRecording;
@@ -57,11 +60,13 @@ extern NSString *const kGPUImageColorSwizzlingFragmentShaderString;
 
 // Movie recording
 - (void)startRecording;
+- (void)startRecording:(void (^)())completion;
 - (void)startRecordingInOrientation:(CGAffineTransform)orientationTransform;
 - (void)finishRecording;
 - (void)finishRecordingWithCompletionHandler:(void (^)(void))handler;
 - (void)cancelRecording;
 - (void)processAudioBuffer:(CMSampleBufferRef)audioBuffer;
 - (void)enableSynchronizationCallbacks;
+- (void)enableSynchronizationCallbacks:(void (^)())completionVideo andAudioCompletion:(void (^)())completionVideo;
 
 @end

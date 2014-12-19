@@ -1862,6 +1862,10 @@ typedef void (^PBJVisionBlock)();
             }];
         };
         [_mediaWriter finishWritingWithCompletionHandler:finishWritingCompletionHandler];
+        
+        if (_delegate && [_delegate respondsToSelector:@selector(visionWillEndCaptureVideo:withCapturedVideoSeconds:)]) {
+            [_delegate visionWillEndCaptureVideo:self withCapturedVideoSeconds:self.capturedVideoSeconds];
+        }
     }];
 }
 

@@ -660,7 +660,11 @@
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     });
     if ([[[filter class] description] isEqualToString:@"GPUImageFilter"]) {
-        [MixEngine mixImage:_imgFrame videoUrl:_exportUrl?_exportUrl:_capturePath completionHandler:^(NSString *output, AVAssetExportSessionStatus status) {
+//        [MixEngine mixImage:_imgFrame videoUrl:_exportUrl?_exportUrl:_capturePath completionHandler:^(NSString *output, AVAssetExportSessionStatus status) {
+//            [self processMixingWithStatus:status outputURLString:output];
+//        }];
+        
+        [MixEngine mixImage:_imgFrame videoUrl:_exportUrl?_exportUrl:_capturePath withRealDutation:_realDuration completionHandler:^(NSString *output, AVAssetExportSessionStatus status) {
             [self processMixingWithStatus:status outputURLString:output];
         }];
     }
@@ -712,20 +716,38 @@
         movieFile.audioEncodingTarget = movieWriter;
         [movieFile enableSynchronizedEncodingUsingMovieWriter:movieWriter];
         
-        [movieFile startProcessing];
-        [filterMovie startProcessing];
-        [movieWriter startRecording];
+//        [movieFile startProcessing];
+//        [filterMovie startProcessing];
+//        [movieWriter startRecording];
+//        
+//        double delayInSeconds = _duration*2;
+//        dispatch_time_t stopTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+//        dispatch_after(stopTime, dispatch_get_main_queue(), ^(void){
+//            [filter removeTarget:movieWriter];
+//            movieFile.audioEncodingTarget = nil;
+//            [movieWriter finishRecording];
+////            [MixEngine mixImage:_imgFrame videoUrl:movieURL completionHandler:^(NSString *output, AVAssetExportSessionStatus status) {
+////                [self processMixingWithStatus:status outputURLString:output];
+////            }];
+//            
+//            [MixEngine mixImage:_imgFrame videoUrl:_exportUrl?_exportUrl:_capturePath withRealDutation:_realDuration completionHandler:^(NSString *output, AVAssetExportSessionStatus status) {
+//                [self processMixingWithStatus:status outputURLString:output];
+//            }];
+//        });
         
-        double delayInSeconds = _duration;
-        dispatch_time_t stopTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-        dispatch_after(stopTime, dispatch_get_main_queue(), ^(void){
-            [filter removeTarget:movieWriter];
-            movieFile.audioEncodingTarget = nil;
-            [movieWriter finishRecording];
-            [MixEngine mixImage:_imgFrame videoUrl:movieURL completionHandler:^(NSString *output, AVAssetExportSessionStatus status) {
-                [self processMixingWithStatus:status outputURLString:output];
+        
+        [movieFile startProcessing:^{
+            [filterMovie startProcessing:^{
+                [movieWriter startRecording:^{
+                    [filter removeTarget:movieWriter];
+                    movieFile.audioEncodingTarget = nil;
+                    [movieWriter finishRecording];
+                    [MixEngine mixImage:_imgFrame videoUrl:_exportUrl?_exportUrl:_capturePath withRealDutation:_realDuration completionHandler:^(NSString *output, AVAssetExportSessionStatus status) {
+                        [self processMixingWithStatus:status outputURLString:output];
+                    }];
+                }];
             }];
-        });
+        }];
     }
     else{
         _videoFilterScrollView.userInteractionEnabled = NO;
@@ -756,19 +778,35 @@
         movieFile.audioEncodingTarget = movieWriter;
         [movieFile enableSynchronizedEncodingUsingMovieWriter:movieWriter];
         
-        [movieFile startProcessing];
-        [movieWriter startRecording];
         
-        double delayInSeconds = _duration;
-        dispatch_time_t stopTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-        dispatch_after(stopTime, dispatch_get_main_queue(), ^(void){
-            [filter removeTarget:movieWriter];
-            movieFile.audioEncodingTarget = nil;
-            [movieWriter finishRecording];
-            [MixEngine mixImage:_imgFrame videoUrl:movieURL completionHandler:^(NSString *output, AVAssetExportSessionStatus status) {
-                [self processMixingWithStatus:status outputURLString:output];
+//        [movieFile startProcessing];
+//        [movieWriter startRecording];
+//        
+//        double delayInSeconds = _duration*2;
+//        dispatch_time_t stopTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+//        dispatch_after(stopTime, dispatch_get_main_queue(), ^(void){
+//            [filter removeTarget:movieWriter];
+//            movieFile.audioEncodingTarget = nil;
+//            [movieWriter finishRecording];
+////            [MixEngine mixImage:_imgFrame videoUrl:movieURL completionHandler:^(NSString *output, AVAssetExportSessionStatus status) {
+////                [self processMixingWithStatus:status outputURLString:output];
+////            }];
+//            
+//            [MixEngine mixImage:_imgFrame videoUrl:_exportUrl?_exportUrl:_capturePath withRealDutation:_realDuration completionHandler:^(NSString *output, AVAssetExportSessionStatus status) {
+//                [self processMixingWithStatus:status outputURLString:output];
+//            }];
+//        });
+        
+        [movieFile startProcessing:^{
+            [movieWriter startRecording:^{
+                [filter removeTarget:movieWriter];
+                movieFile.audioEncodingTarget = nil;
+                [movieWriter finishRecording];
+                [MixEngine mixImage:_imgFrame videoUrl:_exportUrl?_exportUrl:_capturePath withRealDutation:_realDuration completionHandler:^(NSString *output, AVAssetExportSessionStatus status) {
+                    [self processMixingWithStatus:status outputURLString:output];
+                }];
             }];
-        });
+        }];
     }
 }
 

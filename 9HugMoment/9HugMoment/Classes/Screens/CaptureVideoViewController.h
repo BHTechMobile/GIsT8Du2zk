@@ -27,6 +27,8 @@
     UIView *_viewCurrentProgress;
     NSMutableArray *_arrayViewSpeacators;
     NavigationView *navigationView;
+    Float64 capturedVideoSeconds;
+    CMTime realDutationVideo;
 }
 
 @property (retain, nonatomic) IBOutlet NSLayoutConstraint *hightViewOffsetConstraint;
