@@ -16,6 +16,7 @@
 		9F8D55ED1A3694A700735634 /* PlayerViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F8D55EB1A3694A700735634 /* PlayerViewTableViewCell.xib */; };
 		9F8D55F11A36952D00735634 /* UserInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8D55EF1A36952D00735634 /* UserInfoTableViewCell.m */; };
 		9F8D55F21A36952D00735634 /* UserInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F8D55F01A36952D00735634 /* UserInfoTableViewCell.xib */; };
+		9F9F63D21A42CFC9006D7113 /* RecentsMomentsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F63D11A42CFC9006D7113 /* RecentsMomentsModel.m */; };
 		9F9F63CF1A42CDC3006D7113 /* FriendMomentsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F63CE1A42CDC3006D7113 /* FriendMomentsModel.m */; };
 		9F9F98211A2820200089018B /* VideoFilterActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F981F1A2820200089018B /* VideoFilterActionView.m */; };
 		9F9F98221A2820200089018B /* VideoFilterActionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F9F98201A2820200089018B /* VideoFilterActionView.xib */; };
@@ -122,6 +123,8 @@
 		9F8D55EE1A36952D00735634 /* UserInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoTableViewCell.h; sourceTree = "<group>"; };
 		9F8D55EF1A36952D00735634 /* UserInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoTableViewCell.m; sourceTree = "<group>"; };
 		9F8D55F01A36952D00735634 /* UserInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserInfoTableViewCell.xib; sourceTree = "<group>"; };
+		9F9F63D01A42CFC9006D7113 /* RecentsMomentsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentsMomentsModel.h; sourceTree = "<group>"; };
+		9F9F63D11A42CFC9006D7113 /* RecentsMomentsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentsMomentsModel.m; sourceTree = "<group>"; };
 		9F9F63CD1A42CDC3006D7113 /* FriendMomentsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendMomentsModel.h; sourceTree = "<group>"; };
 		9F9F63CE1A42CDC3006D7113 /* FriendMomentsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendMomentsModel.m; sourceTree = "<group>"; };
 		9F9F981E1A2820200089018B /* VideoFilterActionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoFilterActionView.h; sourceTree = "<group>"; };
@@ -522,6 +525,8 @@
 		CECCB7821A2344D300C1220C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9F9F63D01A42CFC9006D7113 /* RecentsMomentsModel.h */,
+				9F9F63D11A42CFC9006D7113 /* RecentsMomentsModel.m */,
 				9F9F63CD1A42CDC3006D7113 /* FriendMomentsModel.h */,
 				9F9F63CE1A42CDC3006D7113 /* FriendMomentsModel.m */,
 				9FEA53D51A42883900CC6B89 /* ImageCacheObject.h */,
@@ -839,6 +844,7 @@
 				CECCB7941A23472600C1220C /* MixVideoViewController.m in Sources */,
 				D23BA4761A357FA0000EDE47 /* NSUserDefaults+Helpers.m in Sources */,
 				CECCB78B1A23460800C1220C /* FBConnectViewController.m in Sources */,
+				9F9F63D21A42CFC9006D7113 /* RecentsMomentsModel.m in Sources */,
 				CECCB7A31A23478C00C1220C /* MyMomentsViewController.m in Sources */,
 				CECCB79A1A23474A00C1220C /* MomentDetailViewController.m in Sources */,
 				9FA12BF91A35D66300CE737C /* EnterMessageView.m in Sources */,
