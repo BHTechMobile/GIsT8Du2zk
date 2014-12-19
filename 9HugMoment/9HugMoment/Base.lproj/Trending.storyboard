@@ -94,11 +94,10 @@
                                             <constraint firstItem="ffl-47-H3e" firstAttribute="leading" secondItem="V3w-zv-1Xt" secondAttribute="leading" constant="9" id="vSg-lu-DBn"/>
                                         </constraints>
                                     </view>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Iw5-Sx-IO9" userLabel="Message - Table View">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="272" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Iw5-Sx-IO9" userLabel="Message - Table View">
                                         <rect key="frame" x="0.0" y="45" width="320" height="386"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <outlet property="dataSource" destination="9Z4-rF-abU" id="7gg-U2-3BR"/>
                                             <outlet property="delegate" destination="9Z4-rF-abU" id="d0e-GO-LDW"/>
                                         </connections>
                                     </tableView>
