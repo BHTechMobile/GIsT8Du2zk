@@ -56,6 +56,12 @@
     imageChoose = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 60, 60)];
     imageChoose.image = [UIImage imageNamed:@"play-icon"];
     [self hightConstraint];
+    
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:CHECK_FIRST_TIME]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CHECK_FIRST_TIME];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [UIAlertView showMessage:ALERT_DESCRIPTION_UPLOAD_VIDEO];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated{
