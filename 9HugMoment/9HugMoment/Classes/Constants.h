@@ -174,6 +174,9 @@ typedef NS_ENUM(NSInteger, MomentDetailCellType)
 #pragma mark - MixVideoViewController
 /*MixVideoViewController*/
 #define BG_COLOR_PROCESS_MIX_VIDEO [UIColor colorWithRed:224.0/255.0 green:100.0/255.0 blue:176.0/255.0 alpha:1.0]
+#define ALERT_DESCRIPTION_UPLOAD_VIDEO @"You can mix Video with \"Frame\", \"Filter\" or \"Audio\", \n Upload video and share to Facebook press \"Public Your Video\""
+
+#define CHECK_FIRST_TIME @"checkFirst"
 
 #pragma mark - CaptureVideoViewController
 /*CaptureVideoViewController*/
