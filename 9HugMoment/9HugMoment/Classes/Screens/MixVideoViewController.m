@@ -832,7 +832,6 @@
     [uploadRequest startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         if (!error) {
             NSLog(@"result: %@", result);
-            [UIAlertView showMessage:@"Video is shared on Facebook!"];
         } else {
             NSLog(@"%@", error.description);
         }
@@ -869,7 +868,6 @@
                                 dispatch_async(dispatch_get_main_queue(), ^{
                                     [MBProgressHUD hideHUDForView:self.view animated:YES];
                                     [self makeRequestToShareLink:[NSString stringWithFormat:@"http://www.9hug.com/message/%@",key]];
-                                    [UIAlertView showMessage:@"Video is uploaded!"];
                                     [[NSNotificationCenter defaultCenter] postNotificationName:CALL_PUSH_NOTIFICATIONS object:nil];
                                     [self.navigationController popToRootViewControllerAnimated:YES];
                                 });
