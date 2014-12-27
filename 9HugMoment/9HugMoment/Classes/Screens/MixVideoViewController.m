@@ -822,10 +822,13 @@
 
 #pragma mark - Share video to Facebook
 
-- (void)makeRequestToShareLink:(NSString*)link {
+- (void)makeRequestToShareLink:(NSString*)link withLinkImage:(NSURL*)imageURL withDescription:(NSString *)description withCaption:(NSString *)caption{
     
     NSDictionary *params = @{@"message": @"I've just take this video with Moment app",
-                             @"link": link};
+                             @"link": link,
+//                             @"picture": imageURL,
+                             @"description": description,
+                             @"caption": caption};
     
     FBRequest *uploadRequest = [FBRequest requestWithGraphPath:@"/me/feed" parameters:params HTTPMethod:@"POST"];
     uploadRequest.session = APP_DELEGATE.session;
@@ -866,9 +869,15 @@
                        notification:_notificationButton.selected
                           thumbnail:image
                             sussess:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                NSString *attachement1 = [responseObject valueForKey:@"attachement1"];
+                                NSString *attachement2 = [responseObject valueForKey:@"attachement2"];
+                                NSLog(@"attachement2 %@",attachement2);
                                 dispatch_async(dispatch_get_main_queue(), ^{
                                     [MBProgressHUD hideHUDForView:self.view animated:YES];
-                                    [self makeRequestToShareLink:[NSString stringWithFormat:@"http://www.9hug.com/message/%@",key]];
+                                    [self makeRequestToShareLink:attachement1//[NSString stringWithFormat:@"http://www.9hug.com/message/%@",key]
+                                                   withLinkImage:[NSURL URLWithString:attachement2]
+                                                 withDescription:@"This description 9hug moments"
+                                                     withCaption:@"This caption 9hug moments"];
                                     [UIAlertView showMessage:@"Video is uploaded!"];
                                     [[NSNotificationCenter defaultCenter] postNotificationName:CALL_PUSH_NOTIFICATIONS object:nil];
                                     [self.navigationController popToRootViewControllerAnimated:YES];
